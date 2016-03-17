@@ -3,12 +3,18 @@ defmodule GCloudex.CloudStorage.Request do
   alias GCloudex.Auth, as: Auth
 
   @moduledoc """
-  
+  Builds and sends HTTP requests for the Google Cloud Storage client module.
   """
+
+	### MUST ADD THE PARAMETER FOR DESIRED SCOPE ###
 
   @endpoint "storage.googleapis.com"
   @project  Application.get_env(:gcloudex, :storage_proj)
 
+	@doc"""
+	Sends an HTTP request according to the Service resource in the Google Cloud
+	Storage documentation.
+	"""
   def request_service do 
     HTTP.request(
       :get,
@@ -22,6 +28,9 @@ defmodule GCloudex.CloudStorage.Request do
     )
   end
 
+	@doc"""
+	Sends an HTTP request without any query parameters.
+	"""
   def request(verb, bucket, headers \\ [], body \\ "") do 
     HTTP.request(
       verb,
@@ -32,6 +41,9 @@ defmodule GCloudex.CloudStorage.Request do
     )
   end
 
+	@doc"""
+	Sends an HTTP request with the specified query parameters.
+	"""
   def request_query(verb, bucket, headers \\ [], body \\ "", parameters) do 
     HTTP.request(
       verb, 

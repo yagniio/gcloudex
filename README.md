@@ -1,6 +1,6 @@
-# Gcloudex
+# GCloudex
 
-**TODO: Add description**
+** Collection of client/wrappers for several Google Cloud Platform service's API's **
 
 ## Installation
 
