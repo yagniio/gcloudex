@@ -1,20 +1,20 @@
 defmodule GCloudex.Auth do
   alias Goth,      as: GoogleAuth
 
-	@moduledoc """
-	Provides retrieval of authentication tokens for several Google Cloud Platform
-	services.
-	"""
+  @moduledoc """
+  Provides retrieval of authentication tokens for several Google Cloud Platform
+  services.
+  """
 
-	@storage_scope_read_only    "https://www.googleapis.com/auth/devstorage.read_only"
-	@storage_scope_read_write   "https://www.googleapis.com/auth/devstorage.read_write"
+  @storage_scope_read_only    "https://www.googleapis.com/auth/devstorage.read_only"
+  @storage_scope_read_write   "https://www.googleapis.com/auth/devstorage.read_write"
   @storage_scope_full_control "https://www.googleapis.com/auth/devstorage.full_control"
-	@storage_scope_cs_read_only "https://www.googleapis.com/auth/cloud-platform.read-only"
-	@storage_scope_cs           "https://www.googleapis.com/auth/cloud-platform"
+  @storage_scope_cs_read_only "https://www.googleapis.com/auth/cloud-platform.read-only"
+  @storage_scope_cs           "https://www.googleapis.com/auth/cloud-platform"
 
-	@doc """
-	Retrieves an authentication token for the Google Cloud Storage service.
-	"""
+  @doc """
+  Retrieves an authentication token for the Google Cloud Storage service.
+  """
   def get_token_storage(type) do 
     case type do 
       :read_only ->
