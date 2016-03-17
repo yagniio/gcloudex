@@ -252,14 +252,25 @@ defmodule GCloudex.CloudStorage.Client do
   ### PUT Object ###
   ##################
 
-  ### MUST ALLOW PROVIDING THE PATH IN THE BUCKET ###
   @doc"""
   Uploads the file in the given 'filepath' to the specified 'bucket'.
+  If a 'bucket_path' is specified then the filename must be included at
+  the end:
+    
+    put_object "somebucket", 
+               "/home/user/Documents/this_file", 
+               "new_folder/some_other_folder/this_file"
+
+    => # This will upload the file to the directory in 'bucket_path' and 
+         will create the directories if they do not exist.
   """
-  def put_object(bucket, filepath) do 
+  def put_object(bucket, filepath, bucket_path \\ :empty) do 
     body = {:file, filepath}
 
-    Request.request_query :put, bucket, [], body, filepath
+    case bucket_path do 
+      :empty -> Request.request_query :put, bucket, [], body, filepath
+      _      -> Request.request_query :put, bucket, [], body, bucket_path
+    end
   end
 
   @doc"""
