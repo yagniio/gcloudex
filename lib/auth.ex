@@ -6,16 +6,11 @@ defmodule GCloudex.Auth do
   services.
   """
 
-  @storage_scope_read_only
-    "https://www.googleapis.com/auth/devstorage.read_only"
-  @storage_scope_read_write
-    "https://www.googleapis.com/auth/devstorage.read_write"
-  @storage_scope_full_control
-    "https://www.googleapis.com/auth/devstorage.full_control"
-  @storage_scope_cs_read_only
-    "https://www.googleapis.com/auth/cloud-platform.read-only"
-  @storage_scope_cs
-    "https://www.googleapis.com/auth/cloud-platform"
+  @storage_scope_read_only    "https://www.googleapis.com/auth/devstorage.read_only"
+  @storage_scope_read_write   "https://www.googleapis.com/auth/devstorage.read_write"
+  @storage_scope_full_control "https://www.googleapis.com/auth/devstorage.full_control"
+  @storage_scope_cs_read_only "https://www.googleapis.com/auth/cloud-platform.read-only"
+  @storage_scope_cs           "https://www.googleapis.com/auth/cloud-platform"
 
   @doc """
   Retrieves an authentication token for the Google Cloud Storage service.
