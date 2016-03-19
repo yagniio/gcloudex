@@ -42,6 +42,15 @@ defmodule GCloudex.CloudStorage.Client do
   end
 
   @doc"""
+  Lists all the objects in the specified 'bucket' using the 
+  given 'query_params'. The query parameters must be passed as a list of tuples
+  [{param_1, value_1}, {param_2, value_2}].
+  """
+  def list_objects(bucket, query_params) do 
+    Request.request_query :get, bucket, [], "", "?" <> parse_query_params(query_params, "")
+  end
+
+  @doc"""
   Lists the specified 'bucket' ACL.
   """
   def get_bucket_acl(bucket) do 
@@ -215,6 +224,15 @@ defmodule GCloudex.CloudStorage.Client do
   """
   def delete_object(bucket, object) do 
     Request.request_query :delete, bucket, [], "", object
+  end
+
+  @doc"""
+  Deletes the 'object' in the specified 'bucket' using the 
+  given 'query_params'. The query parameters must be passed as a list of tuples
+  [{param_1, value_1}, {param_2, value_2}].
+  """
+  def delete_object(bucket, object, query_params) do
+    Request.request_query :delete, bucket, [], "", object <> "?" <> parse_query_params(query_params, "")
   end  
 
   ##################
@@ -227,6 +245,16 @@ defmodule GCloudex.CloudStorage.Client do
   """
   def get_object(bucket, object) do 
     Request.request_query :get, bucket, [], "", object
+  end
+
+  @doc"""
+  Downloads the 'object' from the specified 'bucket' using the given 
+  'query_params'. The query parameters must be passed as a list of tuples
+  [{param_1, value_1}, {param_2, value_2}]. The requester must have READ 
+  permission.
+  """
+  def get_object(bucket, object, query_params) do 
+    Request.request_query :get, bucket, [], "", object <> "?" <> parse_query_params(query_params, "")
   end
 
   @doc"""
@@ -246,6 +274,15 @@ defmodule GCloudex.CloudStorage.Client do
   """
   def get_object_metadata(bucket, object) do 
     Request.request_query :head, bucket, [], "", object
+  end
+
+  @doc"""
+  Lists metadata for the given 'object' from the specified 'bucket' using the
+  given 'query_params'. The query parameters must be passed as a list of tuples
+  [{param_1, value_1}, {param_2, value_2}].
+  """
+  def get_object_metadata(bucket, object, query_params) do 
+    Request.request_query :head, bucket, [], "", object <> "?" <> query_params
   end
 
   ##################
@@ -287,5 +324,24 @@ defmodule GCloudex.CloudStorage.Client do
   """
   def set_object_acl(bucket, object, acl_config) do 
     Request.request_query :put, bucket, [], acl_config, object <> "?acl"
+  end
+
+  @doc"""
+  Sets or modifies the 'object' from the specified 'bucket' with the provided
+  'acl_config' in XML format and using the given 'query_params'. The query
+  parameters must be passed as a list of tuples 
+  [{param_1, value_1}, {param_2, value_2}]. 
+  """
+  def set_object_acl(bucket, object, acl_config, query_params) do 
+    Request.request_query :put, bucket, [], acl_config, object <> "?acl" <> "&" <> parse_query_params(query_params, "")
+  end
+
+  ########################
+  ### HELPER FUNCTIONS ###
+  ########################
+
+  defp parse_query_params([{param, val} = _head | []], query), do: query <> param <> "=" <> val
+  defp parse_query_params([{param, val} = _head | tail], query) do
+    parse_query_params tail, query <> param <> "=" <> val <> "&"
   end
 end
