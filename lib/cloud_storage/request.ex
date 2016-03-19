@@ -15,7 +15,7 @@ defmodule GCloudex.CloudStorage.Request do
   Sends an HTTP request according to the Service resource in the Google Cloud
   Storage documentation.
   """
-  def request_service do 
+  def request_service do
     HTTP.request(
       :get,
       @endpoint,
@@ -31,12 +31,13 @@ defmodule GCloudex.CloudStorage.Request do
   @doc"""
   Sends an HTTP request without any query parameters.
   """
-  def request(verb, bucket, headers \\ [], body \\ "") do 
+  def request(verb, bucket, headers \\ [], body \\ "") do
     HTTP.request(
       verb,
       bucket <> "." <> @endpoint,
       body,
-      headers ++ [{"Authorization", "Bearer #{Auth.get_token_storage(:full_control)}"}],
+      headers ++ [{"Authorization",
+                   "Bearer #{Auth.get_token_storage(:full_control)}"}],
       []
     )
   end
@@ -44,12 +45,13 @@ defmodule GCloudex.CloudStorage.Request do
   @doc"""
   Sends an HTTP request with the specified query parameters.
   """
-  def request_query(verb, bucket, headers \\ [], body \\ "", parameters) do 
+  def request_query(verb, bucket, headers \\ [], body \\ "", parameters) do
     HTTP.request(
-      verb, 
+      verb,
       bucket <> "." <> @endpoint <> "/" <> parameters,
       body,
-      headers ++ [{"Authorization", "Bearer #{Auth.get_token_storage(:full_control)}"}],
+      headers ++ [{"Authorization",
+                   "Bearer #{Auth.get_token_storage(:full_control)}"}],
       []
     )
   end
