@@ -6,7 +6,7 @@ defmodule GCloudex.CloudStorage.Client do
   """
 
   @endpoint "storage.googleapis.com"
-  @project  Application.get_env(:gcloudex, :storage_proj)
+  @project  Application.get_env(:gcloudex, :project)
 
   ###################
   ### GET Service ###
