@@ -9,7 +9,7 @@ defmodule GCloudex.CloudStorage.Request do
   ### MUST ADD THE PARAMETER FOR DESIRED SCOPE ###
 
   @endpoint "storage.googleapis.com"
-  @project  Application.get_env(:gcloudex, :storage_proj)
+  @project  Application.get_env(:gcloudex, :project)
 
   @doc"""
   Sends an HTTP request according to the Service resource in the Google Cloud
