@@ -2,12 +2,17 @@ defmodule Gcloudex.Mixfile do
   use Mix.Project
 
   def project do
-    [app: :gcloudex,
+    [
+     app: :gcloudex,
      version: "0.3.0",
      elixir: "~> 1.2",
+     description: "Google Cloud for Elixir. Friendly set of wrappers for "
+                   <> "Google Cloud Platform services' API's.",
      build_embedded: Mix.env == :prod,
      start_permanent: Mix.env == :prod,
-     deps: deps]
+     deps: deps,
+     package: package
+    ]
   end
 
   # Configuration for the OTP application
@@ -33,5 +38,13 @@ defmodule Gcloudex.Mixfile do
       {:poison,    "~> 1.5.2"},
       {:credo,     "~> 0.3", only: [:dev, :test]}
     ]
+  end
+
+  defp package do 
+    [
+     maintainers: ["Sasha Fonseca"],
+     licenses: ["Apache 2.0"],
+     links: %{"GitHub" => "https://github.com/sashaafm/gcloudex"}
+    ]    
   end
 end
