@@ -2,7 +2,7 @@ defmodule GCloudex.CloudSQL.Client do
   alias GCloudex.CloudSQL.Request, as: Request
 
   @moduledoc """
-  
+  Wrapper for the Google Cloud SQL API.
   """
 
   @typedoc """
@@ -437,12 +437,12 @@ defmodule GCloudex.CloudSQL.Client do
   Deletes the backup taken by a backup run with ID 'run_id' and belonging to 
   the given 'instance'. 
   """
-  @spec delete_backup_run(binary binary | number) :: response
+  @spec delete_backup_run(binary, binary | number) :: response
   def delete_backup_run(instance, run_id) do 
     dbr instance, run_id
   end
 
-  def dbr(instance, run_id) when is_integer(run_id) do 
+  defp dbr(instance, run_id) when is_integer(run_id) do 
     Request.request_query :delete,
                           @instance_ep,
                           [],

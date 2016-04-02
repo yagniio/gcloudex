@@ -3,7 +3,7 @@ defmodule GCloudex.CloudStorage.Request do
   alias GCloudex.Auth, as: Auth
 
   @moduledoc """
-  Builds and sends HTTP requests for the Google Cloud Storage client module.
+  Offers HTTP requests to be used in by the Google Cloud Storage wrapper.
   """
 
   ### MUST ADD THE PARAMETER FOR DESIRED SCOPE ###

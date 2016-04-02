@@ -3,7 +3,7 @@ defmodule GCloudex.Auth do
 
   @moduledoc """
   Provides retrieval of authentication tokens for several Google Cloud Platform
-  services.
+  services' scopes.
   """
 
   @cloud_scope_cs_read_only   "https://www.googleapis.com/auth/cloud-platform.read-only"
@@ -18,6 +18,7 @@ defmodule GCloudex.Auth do
   @doc """
   Retrieves an authentication token for the Google Cloud Storage service.
   """
+  @spec get_token_storage(atom) :: binary
   def get_token_storage(type) do
     case type do
       :read_only ->

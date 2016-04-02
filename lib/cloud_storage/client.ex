@@ -2,7 +2,7 @@ defmodule GCloudex.CloudStorage.Client do
   alias GCloudex.CloudStorage.Request, as: Request
 
   @moduledoc """
-  Client/Wrapper for Google Cloud Storage.
+  Wrapper for Google Cloud Storage API.
   """
 
   @endpoint "storage.googleapis.com"
