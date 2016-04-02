@@ -6,13 +6,12 @@ defmodule GCloudex.CloudSQL.Request do
   
   """
 
-  @project_id Application.get_env(:goth, :json) |> Poison.decode! |> Map.get("project_id")
-  @endpoint   "https://www.googleapis.com/sql/v1beta4/projects/#{@project_id}/instances"
+  @project_id GCloudex.get_project_id
 
-  def request(verb, headers \\ [], body \\ "") do 
+  def request(verb, endpoint, headers \\ [], body \\ "") do 
     HTTP.request(
       verb,
-      @endpoint,
+      endpoint,
       body,
       headers ++ [{"x-goog-project-id", @project_id},
                   {"Authorization", "Bearer #{Auth.get_token_storage(:sql_admin)}"}],
@@ -20,15 +19,14 @@ defmodule GCloudex.CloudSQL.Request do
       )
   end
 
-  def request_query(verb, headers \\ [], body \\ "", parameters) do 
+  def request_query(verb, endpoint, headers \\ [], body \\ "", parameters) do 
     HTTP.request(
       verb,
-      @endpoint <> "/" <> parameters,
+      endpoint <> "/" <> parameters,
       body,
       headers ++ [{"x-goog-project-id", @project_id},
                   {"Authorization", "Bearer #{Auth.get_token_storage(:sql_admin)}"}],
       []
       )
   end
-
 end
