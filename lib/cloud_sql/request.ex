@@ -1,5 +1,6 @@
 defmodule GCloudex.CloudSQL.Request do
   alias HTTPoison, as: HTTP
+  alias HTTPoison.HTTPResponse
   alias GCloudex.Auth, as: Auth
 
   @moduledoc """
@@ -13,7 +14,7 @@ defmodule GCloudex.CloudSQL.Request do
   specified 'endpoint'. The authorization and google project headers are 
   added automatically.
   """
-  @spec request(atom, binary, list, binary) :: {:ok, HTTPoison.Response.t | HTTPoison.AsyncResponse.t} | {:error, HTTPoison.Error.t}
+  @spec request(atom, binary, list(tuple), binary) :: HTTPResponse.t
   def request(verb, endpoint, headers \\ [], body \\ "") do 
     HTTP.request(
       verb,
@@ -30,7 +31,7 @@ defmodule GCloudex.CloudSQL.Request do
   'parameters' to the specified 'endpoint'. The authorization and google 
   project headers are added automatically.
   """
-  @spec request_query(atom, binary, list, binary, binary) :: {:ok, HTTPoison.Response.t | HTTPoison.AsyncResponse.t} | {:error, HTTPoison.Error.t}
+  @spec request_query(atom, binary, list(tuple), binary, binary) :: HTTPResponse.t
   def request_query(verb, endpoint, headers \\ [], body \\ "", parameters) do 
     HTTP.request(
       verb,
