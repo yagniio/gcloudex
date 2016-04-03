@@ -21,7 +21,7 @@ defmodule GCloudex.CloudSQL.Client do
   """
   @spec list_instances() :: HTTPResponse.t
   def list_instances do
-    Request.request :get
+    Request.request :get, @instance_ep, [], ""
   end
 
   @doc """
