@@ -1,15 +1,10 @@
 defmodule GCloudex.CloudSQL.Client do
   alias GCloudex.CloudSQL.Request, as: Request
+  alias HTTPoison.HTTPResponse
 
   @moduledoc """
   Wrapper for the Google Cloud SQL API.
   """
-
-  @typedoc """
-  Possible returns by HTTPoison.request.
-  """
-
-  @type response :: {:ok, HTTPoison.Response.t | HTTPoison.AsyncResponse.t} | {:error, HTTPoison.Error.t}
 
   @project_id   GCloudex.get_project_id
   @instance_ep  "https://www.googleapis.com/sql/v1beta4/projects/#{@project_id}/instances"
@@ -24,7 +19,7 @@ defmodule GCloudex.CloudSQL.Client do
   @doc """
   List instances from the project.
   """
-  @spec list_instances() :: response
+  @spec list_instances() :: HTTPResponse.t
   def list_instances do
     Request.request :get
   end
@@ -33,7 +28,7 @@ defmodule GCloudex.CloudSQL.Client do
   Retrieves a resource containing information about the given 
   Cloud SQL 'instance'.
   """
-  @spec get_instance(binary) :: response
+  @spec get_instance(binary) :: HTTPResponse.t
   def get_instance(instance) do
     Request.request_query :get, @instance_ep, [], "", instance
   end
@@ -42,7 +37,7 @@ defmodule GCloudex.CloudSQL.Client do
   Creates a new Cloud SQL instance with the specified 'name', 'settings' and 
   with the given 'tier'. The settings must be passed as a Map.
   """
-  @spec insert_instance(binary, map, binary) :: response
+  @spec insert_instance(binary, map, binary) :: HTTPResponse.t
   def insert_instance(name, settings, tier) do
     settings = settings
                |> Map.put_new(:tier, tier)
@@ -58,7 +53,7 @@ defmodule GCloudex.CloudSQL.Client do
   @doc """
   Deletes the given 'instance' from the project.
   """
-  @spec delete_instance(binary) :: response
+  @spec delete_instance(binary) :: HTTPResponse.t
   def delete_instance(instance) do 
     Request.request_query :delete, @instance_ep, [], "", instance
   end
@@ -67,7 +62,7 @@ defmodule GCloudex.CloudSQL.Client do
   Clones the given 'instance' and gives the new instance the chosen 'dest_name'
   and the given 'bin_log_file' and 'bin_log_pos'.
   """
-  @spec clone_instance(binary, binary, binary, binary) :: response
+  @spec clone_instance(binary, binary, binary, binary) :: HTTPResponse.t
   def clone_instance(instance, dest_name, bin_log_file, bin_log_pos) do 
 
     bin_log_coords = Map.new
@@ -94,7 +89,7 @@ defmodule GCloudex.CloudSQL.Client do
   @doc """
   Restarts the given 'instance'.
   """
-  @spec restart_instance(binary) :: response
+  @spec restart_instance(binary) :: HTTPResponse.t
   def restart_instance(instance) do 
     Request.request_query :post, 
                           @instance_ep, 
@@ -106,7 +101,7 @@ defmodule GCloudex.CloudSQL.Client do
   @doc """
   Starts the replication in the read replica 'instance'.
   """
-  @spec start_replica(binary) :: response
+  @spec start_replica(binary) :: HTTPResponse.t
   def start_replica(instance) do 
     Request.request_query :post,
                           @instance_ep,
@@ -118,7 +113,7 @@ defmodule GCloudex.CloudSQL.Client do
   @doc """
   Stops the replication in the read replica 'instance'.
   """
-  @spec stop_replica(binary) :: response  
+  @spec stop_replica(binary) :: HTTPResponse.t  
   def stop_replica(instance) do 
     Request.request_query :post,
                           @instance_ep,
@@ -130,7 +125,7 @@ defmodule GCloudex.CloudSQL.Client do
   @doc """
   Promotes the read replica 'instance' to be a stand-alone Cloud SQL instance.
   """
-  @spec promote_replica(binary) :: response
+  @spec promote_replica(binary) :: HTTPResponse.t
   def promote_replica(instance) do 
     Request.request_query :post,
                           @instance_ep,
@@ -143,7 +138,7 @@ defmodule GCloudex.CloudSQL.Client do
   Failover the 'instance' to its failover replica instance with the 
   specified 'settings_version'.
   """
-  @spec failover_instance(binary, number) :: response
+  @spec failover_instance(binary, number) :: HTTPResponse.t
   def failover_instance(instance, settings_version) do 
     failover = Map.new
               |> Map.put_new("kind", "sql#failoverContext")
@@ -168,7 +163,7 @@ defmodule GCloudex.CloudSQL.Client do
   instance is restarted. For Second Generation instances, the changes are
   immediate; all existing connections to the instance are broken.
   """
-  @spec reset_ssl_config(binary) :: response
+  @spec reset_ssl_config(binary) :: HTTPResponse.t
   def reset_ssl_config(instance) do 
     Request.request_query :post,
                           @instance_ep,
@@ -184,7 +179,7 @@ defmodule GCloudex.CloudSQL.Client do
   @doc """
   Lists databases in the specified Cloud SQL 'instance'.
   """
-  @spec list_databases(binary) :: response
+  @spec list_databases(binary) :: HTTPResponse.t
   def list_databases(instance) do 
     Request.request_query :get, @instance_ep, [], "", instance <> "/databases"
   end
@@ -193,7 +188,7 @@ defmodule GCloudex.CloudSQL.Client do
   Creates a new database inside the specified Cloud SQL 'instance' with the 
   given 'name'.
   """
-  @spec insert_database(binary, binary) :: response
+  @spec insert_database(binary, binary) :: HTTPResponse.t
   def insert_database(instance, name) do
 
     body = Map.new
@@ -214,7 +209,7 @@ defmodule GCloudex.CloudSQL.Client do
   Retrieves a resource containing information about the 'database' inside a
   Cloud SQL 'instance'.
   """
-  @spec get_database(binary, binary) :: response
+  @spec get_database(binary, binary) :: HTTPResponse.t
   def get_database(instance, database) do 
     Request.request_query :get, @instance_ep, [], "", 
                           instance <> "/databases" <> "/" <> database
@@ -223,7 +218,7 @@ defmodule GCloudex.CloudSQL.Client do
   @doc """
   Deletes the 'database' from the Cloud SQL 'instance'.
   """
-  @spec delete_database(binary, binary) :: response
+  @spec delete_database(binary, binary) :: HTTPResponse.t
   def delete_database(instance, database) do 
     Request.request_query :delete, @instance_ep, [], "", 
                           instance <> "/databases" <> "/" <> database
@@ -233,7 +228,7 @@ defmodule GCloudex.CloudSQL.Client do
   Updates a resource containing information about a 'database' inside a 
   Cloud SQL 'instance' using patch semantics. The 'patch_map' must be a Map.
   """
-  @spec patch_database(binary, binary, map) :: response
+  @spec patch_database(binary, binary, map) :: HTTPResponse.t
   def patch_database(instance, database, patch_map) do
     {:ok, res}  = get_database instance, database
     db_resource = res.body
@@ -252,7 +247,7 @@ defmodule GCloudex.CloudSQL.Client do
   Updates a resource containing information about a 'database' inside a 
   Cloud SQL 'instance'. The 'update_map' must be a Map.
   """
-  @spec update_database(binary, binary, map) :: response
+  @spec update_database(binary, binary, map) :: HTTPResponse.t
   def update_database(instance, database, update_map) do 
     {:ok, res}  = get_database instance, database
     db_resource = res.body 
@@ -274,7 +269,7 @@ defmodule GCloudex.CloudSQL.Client do
   @doc """
   List all available database flags for Google the Cloud SQL 'instance'.
   """
-  @spec list_flags :: response
+  @spec list_flags :: HTTPResponse.t
   def list_flags do 
     Request.request :get, @flag_ep, [], "" 
   end
@@ -287,7 +282,7 @@ defmodule GCloudex.CloudSQL.Client do
   Lists all instance operations that have been performed on the given 
   Cloud SQL 'instance' in the reverse chronological order of the start time.
   """
-  @spec list_operations(binary) :: response
+  @spec list_operations(binary) :: HTTPResponse.t
   def list_operations(instance) do 
     Request.request :get,
                     @operation_ep <> "?" <> "instance=#{instance}",
@@ -299,7 +294,7 @@ defmodule GCloudex.CloudSQL.Client do
   Retrieves the instance operation with 'operation_id' that has been 
   performed on an instance.
   """
-  @spec get_operation(binary) :: response
+  @spec get_operation(binary) :: HTTPResponse.t
   def get_operation(operation_id) do 
     Request.request_query :get,
                           @operation_ep, 
@@ -316,7 +311,7 @@ defmodule GCloudex.CloudSQL.Client do
   @doc """
   Lists all available service tiers for Google Cloud SQL, for example D1, D2. 
   """
-  @spec list_tiers :: response
+  @spec list_tiers :: HTTPResponse.t
   def list_tiers do 
     Request.request :get, @tiers_ep, [], ""
   end 
@@ -328,7 +323,7 @@ defmodule GCloudex.CloudSQL.Client do
   @doc """
   Lists users in the specified Cloud SQL 'instance'.
   """
-  @spec list_users(binary) :: response
+  @spec list_users(binary) :: HTTPResponse.t
   def list_users(instance) do 
     Request.request_query :get, 
                           @instance_ep,
@@ -341,7 +336,7 @@ defmodule GCloudex.CloudSQL.Client do
   Creates a new user in a Cloud SQL 'instance' with the given 'name and
   'password'.
   """
-  @spec insert_user(binary, binary, binary) :: response
+  @spec insert_user(binary, binary, binary) :: HTTPResponse.t
   def insert_user(instance, name, password) do 
 
     body = Map.new
@@ -361,7 +356,7 @@ defmodule GCloudex.CloudSQL.Client do
   Updates an existing user in a Cloud SQL 'instance' with the given 'host',
   'name' and 'password'.
   """
-  @spec update_user(binary, binary, binary, binary) :: response
+  @spec update_user(binary, binary, binary, binary) :: HTTPResponse.t
   def update_user(instance, host, name, password) do 
     body = Map.new |> Map.put_new(:password, password) |> Poison.encode!
 
@@ -378,7 +373,7 @@ defmodule GCloudex.CloudSQL.Client do
   @doc """
   Deletes a user with the given 'host' and 'name' from the Cloud SQL 'instance'.
   """
-  @spec delete_user(binary, binary, binary) :: response
+  @spec delete_user(binary, binary, binary) :: HTTPResponse.t
   def delete_user(instance, host, name) do 
     Request.request_query :delete,
                           @instance_ep,
@@ -397,7 +392,7 @@ defmodule GCloudex.CloudSQL.Client do
   Lists all backup runs associated with a given 'instance' and configuration 
   in the reverse chronological order of the backup initiation time.
   """
-  @spec list_backup_runs(binary) :: response
+  @spec list_backup_runs(binary) :: HTTPResponse.t
   def list_backup_runs(instance) do 
     Request.request_query :get,
                           @instance_ep,
@@ -410,7 +405,7 @@ defmodule GCloudex.CloudSQL.Client do
   Retrieves a resource containing information about a backup run with the ID
   of 'run_id' and belonging to the given 'instance'.
   """
-  @spec get_backup_run(binary, binary | number) :: response
+  @spec get_backup_run(binary, binary | number) :: HTTPResponse.t
   def get_backup_run(instance, run_id) do 
     gbr instance, run_id
   end
@@ -437,7 +432,7 @@ defmodule GCloudex.CloudSQL.Client do
   Deletes the backup taken by a backup run with ID 'run_id' and belonging to 
   the given 'instance'. 
   """
-  @spec delete_backup_run(binary, binary | number) :: response
+  @spec delete_backup_run(binary, binary | number) :: HTTPResponse.t
   def delete_backup_run(instance, run_id) do 
     dbr instance, run_id
   end
@@ -467,7 +462,7 @@ defmodule GCloudex.CloudSQL.Client do
   @doc """
   Lists all of the current SSL certificates for the 'instance'.
   """
-  @spec list_ssl_certs(binary) :: response
+  @spec list_ssl_certs(binary) :: HTTPResponse.t
   def list_ssl_certs(instance) do 
     Request.request_query :get,
                           @instance_ep,
@@ -483,7 +478,7 @@ defmodule GCloudex.CloudSQL.Client do
   (required for usage). The private key must be saved from the response 
   to initial creation.
   """
-  @spec get_ssl_cert(binary, binary) :: response
+  @spec get_ssl_cert(binary, binary) :: HTTPResponse.t
   def get_ssl_cert(instance, sha1_fingerprint) do 
     Request.request_query :get,
                           @instance_ep,
@@ -500,7 +495,7 @@ defmodule GCloudex.CloudSQL.Client do
   For First Generation instances, the new certificate does not take effect 
   until the instance is restarted.
   """
-  @spec insert_ssl_cert(binary, binary) :: response
+  @spec insert_ssl_cert(binary, binary) :: HTTPResponse.t
   def insert_ssl_cert(instance, common_name) do 
     body = Map.new |> Map.put_new("commonName", common_name) |> Poison.encode!
 
@@ -515,7 +510,7 @@ defmodule GCloudex.CloudSQL.Client do
   Deletes the SSL certificate with the given 'sha1_fingerprint' from the 
   specified 'instance'.
   """
-  @spec delete_ssl_cert(binary, binary) :: response
+  @spec delete_ssl_cert(binary, binary) :: HTTPResponse.t
   def delete_ssl_cert(instance, sha1_fingerprint) do 
     Request.request_query :delete,
                           @instance_ep,
@@ -529,7 +524,7 @@ defmodule GCloudex.CloudSQL.Client do
   and signed by a private key specific to the target 'instance'. Users may use 
   the certificate to authenticate as themselves when connecting to the database.
   """
-  @spec create_ephemeral_ssl_cert(binary, binary) :: response
+  @spec create_ephemeral_ssl_cert(binary, binary) :: HTTPResponse.t
   def create_ephemeral_ssl_cert(instance, public_key) do 
     body = Map.new |> Map.put_new("public_key", public_key) |> Poison.encode!
 

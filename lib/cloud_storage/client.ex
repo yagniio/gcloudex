@@ -1,5 +1,6 @@
 defmodule GCloudex.CloudStorage.Client do
   alias GCloudex.CloudStorage.Request, as: Request
+  alias HTTPoison.HTTPResponse
 
   @moduledoc """
   Wrapper for Google Cloud Storage API.
@@ -15,6 +16,7 @@ defmodule GCloudex.CloudStorage.Client do
   @doc"""
   Lists all the buckets in the specified project.
   """
+  @spec list_buckets :: HTTPResponse.t
   def list_buckets do
     Request.request_service
   end
@@ -26,6 +28,7 @@ defmodule GCloudex.CloudStorage.Client do
   @doc"""
   Deletes and empty bucket.
   """
+  @spec delete_bucket(binary) :: HTTPResponse.t
   def delete_bucket(bucket) do
     Request.request :delete, bucket, [], ""
   end
@@ -37,6 +40,7 @@ defmodule GCloudex.CloudStorage.Client do
   @doc"""
   Lists all the objects in the specified 'bucket'.
   """
+  @spec list_objects(binary) :: HTTPResponse.t
   def list_objects(bucket) do
     Request.request :get, bucket, [], ""
   end
@@ -46,6 +50,7 @@ defmodule GCloudex.CloudStorage.Client do
   given 'query_params'. The query parameters must be passed as a list of tuples
   [{param_1, value_1}, {param_2, value_2}].
   """
+  @spec list_objects(binary, nonempty_list(tuple())) :: HTTPResponse.t
   def list_objects(bucket, query_params) do
     Request.request_query :get, bucket, [], "",
       "?" <> parse_query_params(query_params, "")
@@ -54,6 +59,7 @@ defmodule GCloudex.CloudStorage.Client do
   @doc"""
   Lists the specified 'bucket' ACL.
   """
+  @spec get_bucket_acl(binary) :: HTTPResponse.t
   def get_bucket_acl(bucket) do
     Request.request_query :get, bucket, [], "", "?acl"
   end
@@ -61,6 +67,7 @@ defmodule GCloudex.CloudStorage.Client do
   @doc"""
   Lists the specified 'bucket' CORS configuration.
   """
+  @spec get_bucket_cors(binary) :: HTTPResponse.t
   def get_bucket_cors(bucket) do
     Request.request_query :get, bucket, [], "", "?cors"
   end
@@ -68,6 +75,7 @@ defmodule GCloudex.CloudStorage.Client do
   @doc"""
   Lists the specified 'bucket' lifecycle configuration.
   """
+  @spec get_bucket_lifecycle(binary) :: HTTPResponse.t
   def get_bucket_lifecycle(bucket) do
     Request.request_query :get, bucket, [], "", "?lifecycle"
   end
@@ -75,6 +83,7 @@ defmodule GCloudex.CloudStorage.Client do
   @doc"""
   Lists the specified 'bucket' location.
   """
+  @spec get_bucket_region(binary) :: HTTPResponse.t
   def get_bucket_region(bucket) do
     Request.request_query :get, bucket, [], "", "?location"
   end
@@ -82,6 +91,7 @@ defmodule GCloudex.CloudStorage.Client do
   @doc"""
   Lists the specified 'bucket' logging configuration.
   """
+  @spec get_bucket_logging(binary) :: HTTPResponse.t
   def get_bucket_logging(bucket) do
     Request.request_query :get, bucket, [], "", "?logging"
   end
@@ -89,6 +99,7 @@ defmodule GCloudex.CloudStorage.Client do
   @doc"""
   Lists the specified 'bucket' class.
   """
+  @spec get_bucket_class(binary) :: HTTPResponse.t
   def get_bucket_class(bucket) do
     Request.request_query :get, bucket, [], "", "?storageClass"
   end
@@ -96,6 +107,7 @@ defmodule GCloudex.CloudStorage.Client do
   @doc"""
   Lists the specified 'bucket' versioning configuration.
   """
+  @spec get_bucket_versioning(binary) :: HTTPResponse.t
   def get_bucket_versioning(bucket) do
     Request.request_query :get, bucket, [], "", "?versioning"
   end
@@ -103,6 +115,7 @@ defmodule GCloudex.CloudStorage.Client do
   @doc"""
   Lists the specified 'bucket' website configuration.
   """
+  @spec get_bucket_website(binary) :: HTTPResponse.t
   def get_bucket_website(bucket) do
     Request.request_query :get, bucket, [], "", "?website"
   end
@@ -115,6 +128,7 @@ defmodule GCloudex.CloudStorage.Client do
   Indicates if the specified 'bucket' exists or whether the request has READ
   access to it.
   """
+  @spec exists_bucket(binary) :: HTTPResponse.t
   def exists_bucket(bucket) do
     Request.request :head, bucket, [], ""
   end
@@ -128,6 +142,7 @@ defmodule GCloudex.CloudStorage.Client do
   function will create the bucket in the default region 'US' and with
   the default class 'STANDARD'.
   """
+  @spec create_bucket(binary) :: HTTPResponse.t
   def create_bucket(bucket) do
     headers = [{"x-goog-project-id", @project}]
 
@@ -139,6 +154,7 @@ defmodule GCloudex.CloudStorage.Client do
   the specified 'region'. This function will create the bucket with the
   default class 'STANDARD'.
   """
+  @spec create_bucket(binary, binary) :: HTTPResponse.t
   def create_bucket(bucket, region) do
     headers = [{"x-goog-project-id", @project}]
     body    =
@@ -155,6 +171,7 @@ defmodule GCloudex.CloudStorage.Client do
   Creates a bucket with the specified 'bucket' name if available and in
   the specified 'region' and with the specified 'class'.
   """
+  @spec create_bucket(binary, binary, binary) :: HTTPResponse.t
   def create_bucket(bucket, region, class) do
     headers = [{"x-goog-project-id", @project}]
 
@@ -172,6 +189,7 @@ defmodule GCloudex.CloudStorage.Client do
   Sets or modifies the existing ACL in the specified 'bucket'
   with the given 'acl_config' in XML format.
   """
+  @spec set_bucket_acl(binary, binary) :: HTTPResponse.t
   def set_bucket_acl(bucket, acl_config) do
     Request.request_query :put, bucket, [], acl_config, "?acl"
   end
@@ -180,6 +198,7 @@ defmodule GCloudex.CloudStorage.Client do
   Sets or modifies the existing CORS configuration in the specified 'bucket'
   with the given 'cors_config' in XML format.
   """
+  @spec set_bucket_cors(binary, binary) :: HTTPResponse.t
   def set_bucket_cors(bucket, cors_config) do
     Request.request_query :put, bucket, [], cors_config, "?cors"
   end
@@ -188,6 +207,7 @@ defmodule GCloudex.CloudStorage.Client do
   Sets or modifies the existing lifecyle configuration in the specified
   'bucket' with the given 'lifecycle_config' in XML format.
   """
+  @spec set_bucket_lifecycle(binary, binary) :: HTTPResponse.t
   def set_bucket_lifecycle(bucket, lifecycle_config) do
     Request.request_query :put, bucket, [], lifecycle_config,
       "#{bucket}?lifecycle"
@@ -197,6 +217,7 @@ defmodule GCloudex.CloudStorage.Client do
   Sets or modifies the existing logging configuration in the specified
   'bucket' with the given 'logging_config' in XML format.
   """
+  @spec set_bucket_logging(binary, binary) :: HTTPResponse.t
   def set_bucket_logging(bucket, logging_config) do
     Request.request_query :put, bucket, [], logging_config, "?logging"
   end
@@ -205,6 +226,7 @@ defmodule GCloudex.CloudStorage.Client do
   Sets or modifies the existing versioning configuration in the specified
   'bucket' with the given 'versioning_config' in XML format.
   """
+  @spec set_bucket_versioning(binary, binary) :: HTTPResponse.t
   def set_bucket_versioning(bucket, versioning_config) do
     Request.request_query :put, bucket, [], versioning_config, "?versioning"
   end
@@ -213,6 +235,7 @@ defmodule GCloudex.CloudStorage.Client do
   Sets or modifies the existing website configuration in the specified
   'bucket' with the given 'website_config' in XML format.
   """
+  @spec set_bucket_website(binary, binary) :: HTTPResponse.t
   def set_bucket_website(bucket, website_config) do
     Request.request_query :put, bucket, [], website_config, "?websiteConfig"
   end
@@ -224,6 +247,7 @@ defmodule GCloudex.CloudStorage.Client do
   @doc"""
   Deletes the 'object' in the specified 'bucket'.
   """
+  @spec delete_object(binary, binary) :: HTTPResponse.t
   def delete_object(bucket, object) do
     Request.request_query :delete, bucket, [], "", object
   end
@@ -233,6 +257,7 @@ defmodule GCloudex.CloudStorage.Client do
   given 'query_params'. The query parameters must be passed as a list of tuples
   [{param_1, value_1}, {param_2, value_2}].
   """
+  @spec delete_object(binary, binary, nonempty_list(tuple)) :: HTTPResponse.t
   def delete_object(bucket, object, query_params) do
     Request.request_query :delete, bucket, [], "",
       object <> "?" <> parse_query_params(query_params, "")
@@ -246,6 +271,7 @@ defmodule GCloudex.CloudStorage.Client do
   Downloads the 'object' from the specified 'bucket'. The requester must have
   READ permission.
   """
+  @spec get_object(binary, binary) :: HTTPResponse.t
   def get_object(bucket, object) do
     Request.request_query :get, bucket, [], "", object
   end
@@ -256,6 +282,7 @@ defmodule GCloudex.CloudStorage.Client do
   [{param_1, value_1}, {param_2, value_2}]. The requester must have READ
   permission.
   """
+  @spec get_object(binary, binary, nonempty_list(tuple)) :: HTTPResponse.t
   def get_object(bucket, object, query_params) do
     Request.request_query :get, bucket, [], "",
       object <> "?" <> parse_query_params(query_params, "")
@@ -265,6 +292,7 @@ defmodule GCloudex.CloudStorage.Client do
   Lists the 'object' ACL from the specified 'bucket'. The requester must have
   FULL_CONTROL permission.
   """
+  @spec get_object_acl(binary, binary) :: HTTPResponse.t
   def get_object_acl(bucket, object) do
     Request.request_query :get, bucket, [], "", object <> "?acl"
   end
@@ -276,6 +304,7 @@ defmodule GCloudex.CloudStorage.Client do
   @doc"""
   Lists metadata for the given 'object' from the specified 'bucket'.
   """
+  @spec get_object_metadata(binary, binary) :: HTTPResponse.t
   def get_object_metadata(bucket, object) do
     Request.request_query :head, bucket, [], "", object
   end
@@ -285,6 +314,7 @@ defmodule GCloudex.CloudStorage.Client do
   given 'query_params'. The query parameters must be passed as a list of tuples
   [{param_1, value_1}, {param_2, value_2}].
   """
+  @spec get_object_metadata(binary, binary, nonempty_list(tuple)) :: HTTPResponse.t
   def get_object_metadata(bucket, object, query_params) do
     Request.request_query :head, bucket, [], "", object <> "?" <> query_params
   end
@@ -305,6 +335,7 @@ defmodule GCloudex.CloudStorage.Client do
     => # This will upload the file to the directory in 'bucket_path' and
          will create the directories if they do not exist.
   """
+  @spec put_object(binary, binary, binary) :: HTTPResponse.t
   def put_object(bucket, filepath, bucket_path \\ :empty) do
     body = {:file, filepath}
 
@@ -318,6 +349,7 @@ defmodule GCloudex.CloudStorage.Client do
   Copies the specified 'source_object' into the given 'new_bucket' as
   'new_object'.
   """
+  @spec copy_object(binary, binary, binary) :: HTTPResponse.t
   def copy_object(new_bucket, new_object, source_object) do
     headers = [{"x-goog-copy-source", source_object}]
     Request.request_query :put, new_bucket, headers, new_object
@@ -327,6 +359,7 @@ defmodule GCloudex.CloudStorage.Client do
   Sets or modifies the 'object' from the specified 'bucket' with the provided
   'acl_config' in XML format.
   """
+  @spec set_object_acl(binary, binary, binary) :: HTTPResponse.t
   def set_object_acl(bucket, object, acl_config) do
     Request.request_query :put, bucket, [], acl_config, object <> "?acl"
   end
@@ -337,6 +370,7 @@ defmodule GCloudex.CloudStorage.Client do
   parameters must be passed as a list of tuples
   [{param_1, value_1}, {param_2, value_2}].
   """
+  @spec set_object_acl(binary, binary, binary, nonempty_list(tuple)) :: HTTPResponse.t
   def set_object_acl(bucket, object, acl_config, query_params) do
     Request.request_query :put, bucket, [], acl_config,
       object <> "?acl" <> "&" <> parse_query_params(query_params, "")
