@@ -335,7 +335,7 @@ defmodule GCloudex.CloudSQL.Client do
   @doc """
   Creates a new user in a Cloud SQL 'instance' with the given 'name and
   'password'. The authorized host to connect can be set through 'host'
-  (defautls to '% (any host)').
+  (defaults to '% (any host)').
   """
   @spec insert_user(binary, binary, binary, binary) :: HTTPResponse.t
   def insert_user(instance, name, password, host \\ "%") do 
@@ -343,7 +343,7 @@ defmodule GCloudex.CloudSQL.Client do
     body = Map.new
            |> Map.put_new(:name, name)
            |> Map.put_new(:password, password)
-           |> Map.put_new(:host, "%")
+           |> Map.put_new(:host, host)
            |> Poison.encode!
 
     Request.request_query :post,
