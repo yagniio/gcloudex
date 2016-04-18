@@ -40,7 +40,22 @@ defmodule GCloudex.CloudSQL.Client do
 
   The 'settings' parameter is meant to have the settings JSON nested object
   while 'optional_properties' is meant to have other non-required request
-  fields like the 'replicaConfiguration' JSON nested object field.
+  fields like the 'replicaConfiguration' JSON nested object field. The 
+  'settings' map will be nested into 'optional_properties' to match the 
+  API's request structure like in the following example:
+
+    optional_properties = 
+    %{
+      name: 'name',
+      region: someRegion,
+      settings: %{
+        tier: 'tier',
+        other_key_1: someValue,
+        other_key_2: someValue
+      },
+      optional_prop_1: someValue,
+      optional_prop_2: someValue
+    }
 
   TODO: Re-evaluate how the optional fields should be passed.
   """
