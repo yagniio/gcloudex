@@ -34,16 +34,24 @@ defmodule GCloudex.CloudSQL.Client do
   end
   
   @doc """
-  Creates a new Cloud SQL instance with the specified 'name', 'settings' and 
-  with the given 'tier'. The settings must be passed as a Map.
+  Creates a new Cloud SQL instance with the specified 'name', 'settings',
+  'optional_properties' and with the given 'tier' unless already passed through
+  'settings'.
+
+  The 'settings' parameter is meant to have the settings JSON nested object
+  while 'optional_properties' is meant to have other non-required request
+  fields like the 'replicaConfiguration' JSON nested object field.
+
+  TODO: Re-evaluate how the optional fields should be passed.
   """
-  @spec insert_instance(binary, map, binary) :: HTTPResponse.t
-  def insert_instance(name, settings, tier) do
+  @spec insert_instance(binary, map, map, binary) :: HTTPResponse.t
+  def insert_instance(name, optional_properties, settings, tier) do
     settings = settings
                |> Map.put_new(:tier, tier)
 
     body     = Map.new
                |> Map.put_new(:name, name)
+               |> Map.merge(optional_properties)
                |> Map.put_new(:settings, settings)
                |> Poison.encode!
 
