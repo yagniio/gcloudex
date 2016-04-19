@@ -4,7 +4,7 @@ defmodule Gcloudex.Mixfile do
   def project do
     [
      app: :gcloudex,
-     version: "0.3.1",
+     version: "0.3.2",
      elixir: "~> 1.2",
      description: "Google Cloud for Elixir. Friendly set of wrappers for "
                    <> "Google Cloud Platform services' API's.",
