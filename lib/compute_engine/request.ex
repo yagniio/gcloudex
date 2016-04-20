@@ -7,24 +7,27 @@ defmodule GCloudex.ComputeEngine.Request do
   
   """
 
+  @project_id   GCloudex.get_project_id
+
   def request(verb, endpoint, headers \\ [], body \\ "") do 
     HTTP.request(
       verb,
       endpoint,
       body,
       headers ++ [{"x-goog-project-id", @project_id},
-                  {"Authorization", "Bearer #{Auth.get_token_storage(:compute_read_only)}"}],
+                  {"Authorization", "Bearer #{Auth.get_token_storage(:compute)}"}],
       []
       )
   end
 
   def request_query(verb, endpoint, headers \\ [], body \\ "", parameters) do 
+    IO.inspect     endpoint <> "/" <> parameters
     HTTP.request(
       verb,
       endpoint <> "/" <> parameters,
       body,
       headers ++ [{"x-goog-project-id", @project_id},
-                  {"Authorization", "Bearer #{Auth.get_token_storage(:compute_read_only)}"}],
+                  {"Authorization", "Bearer #{Auth.get_token_storage(:compute)}"}],
       []
       )
   end
