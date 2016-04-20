@@ -441,21 +441,32 @@ defmodule GCloudex.ComputeEngine.Client do
     Request.request_query :get, @no_zone_ep <> "/aggregated/machineTypes", [], "", "?" <> query
   end
 
-  ########################
-  ### HELPER FUNCTIONS ###
-  ########################
+  ###############
+  ### REGIONS ###
+  ###############
 
-  defp parse_query_params([{param, val} = _head | []], query), do: query <> param <> "=" <> val
-  defp parse_query_params([{param, val} = _head | tail], query) do
-    parse_query_params tail, query <> param <> "=" <> val <> "&"
-  end  
+  @doc """
+  Retrieves a list of region resources.
+  """
+  @spec list_regions() :: HTTPResponse.t
+  def list_regions do
+    Request.request :get, @no_zone_ep <> "/regions", [], ""
+  end
 
+  @doc """
+  Retrieves a list of region resources according to the given 'query_params'.
+  """
+  @spec list_regions(map) :: HTTPResponse.t
+  def list_regions(query_params) do
+    query = query_params |> URI.encode_query
+    Request.request_query :get, @no_zone_ep <> "/regions", [], "", "?" <> query
+  end    
 
-  # %{"disks" => [%{"autoDelete" => true, "boot" => true,
-  #    "initializeParams" => %{"sourceImage" => "projects/debian-cloud/global/images/debian-8-jessie-v20160119"},
-  #    "type" => "PERSISTENT"}],
-  # "machineType" => "zones/europe-west1-d/machineTypes/f1-micro",
-  # "name" => "example-instance",
-  # "networkInterfaces" => [%{"accessConfigs" => [%{"name" => "External NAT",
-  #       "type" => "ONE_TO_ONE_NAT"}], "network" => "global/networks/default"}]}
+  @doc """
+  Returns the specified 'region' resource.
+  """
+  @spec get_region(binary) :: HTTPResponse.t
+  def get_region(region) do 
+    Request.request :get, @no_zone_ep <> "/regions/#{region}", [], ""
+  end
 end
