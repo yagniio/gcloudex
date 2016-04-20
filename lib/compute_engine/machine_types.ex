@@ -1,6 +1,4 @@
 defmodule GCloudex.ComputeEngine.MachineTypes do
-  alias GCloudex.ComputeEngine.Request, as: Request
-  alias HTTPoison.HTTPResponse
   use GCloudex.ComputeEngine, :client
 
   @moduledoc """

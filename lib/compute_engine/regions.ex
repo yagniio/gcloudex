@@ -1,6 +1,4 @@
 defmodule GCloudex.ComputeEngine.Regions do
-  alias GCloudex.ComputeEngine.Request, as: Request
-  alias HTTPoison.HTTPResponse
   use GCloudex.ComputeEngine, :client
 
   @moduledoc """
