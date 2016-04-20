@@ -1,26 +1,12 @@
-defmodule GCloudex.ComputeEngine.Client do
+defmodule GCloudex.ComputeEngine.Instances do
   alias GCloudex.ComputeEngine.Request, as: Request
   alias HTTPoison.HTTPResponse
+  use GCloudex.ComputeEngine, :client
 
   @moduledoc """
-  Wrapper for Google Compute Engine API.
+  Wrapper for the Compute Engine's Instances endpoint.
   """
-
-  @resource_disks ["autoDelete", "boot", "deviceName", "index", 
-                   "initializeParams", "interface", "kind", "licenses", "mode",
-                   "source", "type"]
-
-  @resource_init_params ["diskName", "diskSizeGb", "diskType", "sourceImage"]
-  @resource_metadata ["fingerprint"]
-
-  @project_id   GCloudex.get_project_id
-  @instance_ep "https://www.googleapis.com/compute/v1/projects/#{@project_id}/zones"
-  @no_zone_ep  "https://www.googleapis.com/compute/v1/projects/#{@project_id}"
-
-  #################
-  ### Instances ###
-  #################
-
+  
   @doc """
   Lists all instances in the given 'zone'.
   """
@@ -390,83 +376,5 @@ defmodule GCloudex.ComputeEngine.Client do
       [{"Content-Type", "application/json"}],
       body
       )
-  end
-
-  #####################
-  ### MACHINE TYPES ###
-  #####################
-
-  @doc """
-  Retrieves a list of machine types available in the specified 'zone'.
-  """
-  @spec list_machine_types(binary) :: HTTPResponse.t
-  def list_machine_types(zone) do 
-    Request.request(:get, @instance_ep <> "/#{zone}/machineTypes", [], "")
-  end
-
-  @doc """
-  Retrieves a list of machine types available in the specified 'zone' and 
-  that fit in the given 'query_params'.
-  """
-  @spec list_machine_types(binary, map) :: HTTPResponse.t
-  def list_machine_types(zone, query_params) do 
-    query = query_params |> URI.encode_query
-    Request.request_query(:get, @instance_ep <> "/#{zone}/machineTypes", [], "", "?" <> query)
-  end
-
-  @doc """
-  Returns the specified 'machine_type' in the given 'zone'.
-  """
-  @spec get_machine_type(binary, binary) :: HTTPResponse.t
-  def get_machine_type(zone, machine_type) do 
-    Request.request :get, @instance_ep <> "/#{zone}/machineTypes/#{machine_type}", [], ""
-  end
-
-  @doc """
-  Returns an aggregated list of machine types.
-  """
-  @spec get_aggregated_list_of_machine_types() :: HTTPResponse.t
-  def get_aggregated_list_of_machine_types do 
-    Request.request :get, @no_zone_ep <> "/aggregated/machineTypes", [], ""
-  end
-
-  @doc """
-  Returns an aggragated list of machine types following the specified 
-  'query_params'.
-  """
-  @spec get_aggregated_list_of_machine_types(map) :: HTTPResponse.t
-  def get_aggregated_list_of_machine_types(query_params) do 
-    query = query_params |> URI.encode_query
-
-    Request.request_query :get, @no_zone_ep <> "/aggregated/machineTypes", [], "", "?" <> query
-  end
-
-  ###############
-  ### REGIONS ###
-  ###############
-
-  @doc """
-  Retrieves a list of region resources.
-  """
-  @spec list_regions() :: HTTPResponse.t
-  def list_regions do
-    Request.request :get, @no_zone_ep <> "/regions", [], ""
-  end
-
-  @doc """
-  Retrieves a list of region resources according to the given 'query_params'.
-  """
-  @spec list_regions(map) :: HTTPResponse.t
-  def list_regions(query_params) do
-    query = query_params |> URI.encode_query
-    Request.request_query :get, @no_zone_ep <> "/regions", [], "", "?" <> query
-  end    
-
-  @doc """
-  Returns the specified 'region' resource.
-  """
-  @spec get_region(binary) :: HTTPResponse.t
-  def get_region(region) do 
-    Request.request :get, @no_zone_ep <> "/regions/#{region}", [], ""
-  end
+  end  
 end
