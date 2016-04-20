@@ -21,14 +21,15 @@ defmodule GCloudex.ComputeEngine.Zones do
   def list_zones(query_params) do 
     query = query_params |> URI.encode_query
 
-    Request.request_query :get, @no_zone_ep <> "/zones", [], "", "?" <> query
+    Request.request :get, @no_zone_ep <> "/zones", [], "", query
   end  
 
   @doc """
-  Returns the specified 'zone' resource.
+  Returns the specified 'zone' resource. 
   """
-  @spec get_zone(binary) :: HTTPResponse.t
-  def get_zone(zone) do 
-    Request.request :get, @no_zone_ep <> "/zones/#{zone}", [], ""
+  @spec get_zone(binary, binary) :: HTTPResponse.t
+  def get_zone(zone, fields \\ "") do 
+    query = %{"fields" => fields} |> URI.encode_query
+    Request.request :get, @no_zone_ep <> "/zones/#{zone}", [], "", query
   end
 end

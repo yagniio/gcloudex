@@ -2,6 +2,7 @@ defmodule GCloudex.ComputeEngine.Request do
   alias HTTPoison, as: HTTP
   alias HTTPoison.HTTPResponse
   alias GCloudex.Auth, as: Auth
+  require Logger
 
   @moduledoc """
   
@@ -9,7 +10,11 @@ defmodule GCloudex.ComputeEngine.Request do
 
   @project_id   GCloudex.get_project_id
 
-  def request(verb, endpoint, headers \\ [], body \\ "") do 
+  def request(verb, endpoint, headers \\ [], body \\ "", parameters \\ :empty) do 
+    endpoint = endpoint <> "/" <> "?" <> parameters
+    Logger.info endpoint
+    Logger.info body
+
     HTTP.request(
       verb,
       endpoint,
@@ -21,7 +26,9 @@ defmodule GCloudex.ComputeEngine.Request do
   end
 
   def request_query(verb, endpoint, headers \\ [], body \\ "", parameters) do 
-    IO.inspect     endpoint <> "/" <> parameters
+    Logger.info endpoint <> "/" <> parameters
+    Logger.info body
+
     HTTP.request(
       verb,
       endpoint <> "/" <> parameters,
