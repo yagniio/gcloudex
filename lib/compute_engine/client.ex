@@ -35,9 +35,11 @@ defmodule GCloudex.ComputeEngine.Client do
     [{key :: binary, val :: binary}]
   """
   @spec list_instances(binary, list) :: HTTPResponse.t
-  def list_instances(zone, query_params) do 
+  def list_instances(zone, query_params) do
+    query = query_params |> URI.encode_query
+
     Request.request_query :get, @instance_ep <> "/#{zone}/instances", 
-      [], "", "?" <> parse_query_params(query_params, "")
+      [], "", "?" <> query
   end
 
   @doc """
@@ -160,12 +162,14 @@ defmodule GCloudex.ComputeEngine.Client do
         body
       end
 
-    Request.request(
+    query = %{"networkInterface" => network_interface} |> URI.encode_query
+
+    Request.request_query(
       :post,
-      @instance_ep <> "/#{zone}/instances/#{instance}/addAccessConfig?networkInterface=#{network_interface}",
+      @instance_ep <> "/#{zone}/instances/#{instance}/addAccessConfig",
       [{"Content-Type", "application/json"}],
-      body |> Poison.encode!
-      )
+      body |> Poison.encode!,
+      "?" <> query)
   end
 
   @doc """
@@ -178,12 +182,12 @@ defmodule GCloudex.ComputeEngine.Client do
       %{"accessConfig" => access_config, "networkInterface" => network_interface}
       |> URI.encode_query
 
-    Request.request(
+    Request.request_query(
       :post, 
-      @instance_ep <> "/#{zone}/instances/#{instance}/deleteAccessConfig"
-        <> "?#{query}",
+      @instance_ep <> "/#{zone}/instances/#{instance}/deleteAccessConfig",
       [{"Content-Type", "application/json"}],
-      "")
+      "",
+      "?" <> query)
   end
 
   @doc """
