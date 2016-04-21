@@ -20,8 +20,14 @@ defmodule GCloudex.ComputeEngine.Zones do
   Returns the specified 'zone' resource. 
   """
   @spec get_zone(binary, binary) :: HTTPResponse.t
-  def get_zone(zone, fields \\ "") do 
-    query = %{"fields" => fields} |> URI.encode_query
+  def get_zone(zone, fields \\ "") do
+    query = 
+      if fields == "" do 
+        fields
+      else
+        %{"fields" => fields} |> URI.encode_query
+      end   
+      
     HTTP.request :get, @no_zone_ep <> "/zones/#{zone}", [], "", query
   end
 end

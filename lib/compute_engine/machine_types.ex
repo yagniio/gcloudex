@@ -21,7 +21,12 @@ defmodule GCloudex.ComputeEngine.MachineTypes do
   """
   @spec get_machine_type(binary, binary, binary) :: HTTPResponse.t
   def get_machine_type(zone, machine_type, fields \\ "") do 
-    query = %{"fields" => fields} |> URI.encode_query
+    query = 
+      if fields == "" do 
+        fields
+      else
+        %{"fields" => fields} |> URI.encode_query
+      end
 
     HTTP.request(
       :get, 

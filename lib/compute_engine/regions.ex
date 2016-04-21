@@ -20,7 +20,12 @@ defmodule GCloudex.ComputeEngine.Regions do
   """
   @spec get_region(binary, binary) :: HTTPResponse.t
   def get_region(region, fields \\ "") do 
-    query = %{"fields" => fields} |> URI.encode_query
+    query = 
+      if fields == "" do 
+        fields
+      else
+        %{"fields" => fields} |> URI.encode_query
+      end
 
     HTTP.request :get, @no_zone_ep <> "/regions/#{region}", [], "", query
   end  
