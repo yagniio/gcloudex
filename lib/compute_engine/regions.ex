@@ -19,14 +19,17 @@ defmodule GCloudex.ComputeEngine.Regions do
   @spec list_regions(map) :: HTTPResponse.t
   def list_regions(query_params) do
     query = query_params |> URI.encode_query
-    Request.request_query :get, @no_zone_ep <> "/regions", [], "", "?" <> query
+
+    Request.request :get, @no_zone_ep <> "/regions", [], "", query
   end    
 
   @doc """
   Returns the specified 'region' resource.
   """
   @spec get_region(binary) :: HTTPResponse.t
-  def get_region(region) do 
-    Request.request :get, @no_zone_ep <> "/regions/#{region}", [], ""
+  def get_region(region, fields \\ "") do 
+    query = %{"fields" => fields} |> URI.encode_query
+
+    Request.request :get, @no_zone_ep <> "/regions/#{region}", [], "", query
   end  
 end
