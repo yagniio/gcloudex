@@ -15,7 +15,7 @@ defmodule GCloudex.ComputeEngine do
       @instance_ep "https://www.googleapis.com/compute/v1/projects/#{@project_id}/zones"
       @no_zone_ep  "https://www.googleapis.com/compute/v1/projects/#{@project_id}"
 
-      alias GCloudex.ComputeEngine.Request, as: Request
+      alias GCloudex.ComputeEngine.Request, as: HTTP
       alias HTTPoison.HTTPResponse
     end
   end

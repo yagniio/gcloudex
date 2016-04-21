@@ -10,7 +10,7 @@ defmodule GCloudex.ComputeEngine.MachineTypes do
   """
   @spec list_machine_types(binary) :: HTTPResponse.t
   def list_machine_types(zone) do 
-    Request.request(:get, @instance_ep <> "/#{zone}/machineTypes", [], "")
+    HTTP.request(:get, @instance_ep <> "/#{zone}/machineTypes", [], "")
   end
 
   @doc """
@@ -20,15 +20,23 @@ defmodule GCloudex.ComputeEngine.MachineTypes do
   @spec list_machine_types(binary, map) :: HTTPResponse.t
   def list_machine_types(zone, query_params) do 
     query = query_params |> URI.encode_query
-    Request.request_query(:get, @instance_ep <> "/#{zone}/machineTypes", [], "", "?" <> query)
+
+    HTTP.request(:get, @instance_ep <> "/#{zone}/machineTypes", [], "", query)
   end
 
   @doc """
   Returns the specified 'machine_type' in the given 'zone'.
   """
   @spec get_machine_type(binary, binary) :: HTTPResponse.t
-  def get_machine_type(zone, machine_type) do 
-    Request.request :get, @instance_ep <> "/#{zone}/machineTypes/#{machine_type}", [], ""
+  def get_machine_type(zone, machine_type, fields \\ "") do 
+    query = %{"fields" => fields} |> URI.encode_query
+
+    HTTP.request(
+      :get, 
+      @instance_ep <> "/#{zone}/machineTypes/#{machine_type}", 
+      [], 
+      "", 
+      query)
   end
 
   @doc """
@@ -36,7 +44,7 @@ defmodule GCloudex.ComputeEngine.MachineTypes do
   """
   @spec get_aggregated_list_of_machine_types() :: HTTPResponse.t
   def get_aggregated_list_of_machine_types do 
-    Request.request :get, @no_zone_ep <> "/aggregated/machineTypes", [], ""
+    HTTP.request :get, @no_zone_ep <> "/aggregated/machineTypes", [], ""
   end
 
   @doc """
@@ -47,6 +55,6 @@ defmodule GCloudex.ComputeEngine.MachineTypes do
   def get_aggregated_list_of_machine_types(query_params) do 
     query = query_params |> URI.encode_query
 
-    Request.request_query :get, @no_zone_ep <> "/aggregated/machineTypes", [], "", "?" <> query
+    HTTP.request :get, @no_zone_ep <> "/aggregated/machineTypes", [], "", query
   end  
 end
