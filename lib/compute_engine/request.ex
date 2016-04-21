@@ -8,10 +8,15 @@ defmodule GCloudex.ComputeEngine.Request do
   
   """
 
-  @project_id   GCloudex.get_project_id
+  @spec request(atom, binary, [{binary, binary}], binary, binary) :: HTTPResponse.t
+  def request(verb, endpoint, headers \\ [], body \\ "", parameters \\ "") do
+    endpoint = 
+      if parameters == "" do 
+        endpoint
+      else
+        endpoint <> "/" <> "?" <> parameters
+      end 
 
-  def request(verb, endpoint, headers \\ [], body \\ "", parameters \\ :empty) do 
-    endpoint = endpoint <> "/" <> "?" <> parameters
     Logger.info endpoint
     Logger.info body
 
