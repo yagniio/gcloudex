@@ -379,7 +379,7 @@ defmodule GCloudex.ComputeEngine.Instances do
   Changes the Machine Type for a stopped 'instance' to the specified 
   'machine_type' if the 'instance' exists in the given 'zone'.
   """
-  @spec set_machine_type(binary, binary, binary, binary)
+  @spec set_machine_type(binary, binary, binary, binary) :: HTTPResponse.t
   def set_machine_type(zone, instance, machine_type, fields \\ "") do 
     body = %{"machineType" => machine_type} |> Poison.encode!
     query = 
