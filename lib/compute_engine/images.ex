@@ -108,7 +108,7 @@ defmodule GCloudex.ComputeEngine.Images do
       :post,
       @no_zone_ep <> "/global/images/#{image}/deprecate", 
       [{"Content-Type", "application/json"}], 
-      "", 
+      body, 
       query)
   end
 end

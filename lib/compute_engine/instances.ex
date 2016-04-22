@@ -459,8 +459,8 @@ defmodule GCloudex.ComputeEngine.Instances do
       :post,
       @instance_ep <> "/#{zone}/instances/#{instance}/setScheduling",
       [{"Content-Type", "application/json"}],
-      body
-      )
+      body,
+      query)
   end
 
   @doc """
