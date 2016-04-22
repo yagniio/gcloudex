@@ -1,7 +1,6 @@
 defmodule GCloudex.ComputeEngine.Request do
-  alias HTTPoison, as: HTTP
-  alias HTTPoison.HTTPResponse
   alias GCloudex.Auth, as: Auth
+  use GCloudex.ComputeEngine, :client
   require Logger
 
   @moduledoc """
