@@ -22,7 +22,7 @@ defmodule GCloudex.ComputeEngine.Request do
     Logger.info endpoint
     Logger.info body
 
-    HTTP.request(
+    HTTPoison.request(
       verb,
       endpoint,
       body,
