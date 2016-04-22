@@ -1,6 +1,10 @@
 defmodule GCloudex.ComputeEngine.Images do
   use GCloudex.ComputeEngine, :client
 
+  @moduledoc """
+  Wrapper for the Compute Engine's Images endpoint.
+  """
+
   @doc """
   Retrieves the list of private images available (project scoped only).
   """

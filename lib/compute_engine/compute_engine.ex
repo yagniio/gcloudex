@@ -16,8 +16,17 @@ defmodule GCloudex.ComputeEngine do
       @no_zone_ep  "https://www.googleapis.com/compute/v1/projects/#{@project_id}"
 
       alias GCloudex.ComputeEngine.Request, as: HTTP
+      alias GCloudex.ComputeEngine
       alias HTTPoison.HTTPResponse
     end
+  end
+
+  def fields_binary_to_map(fields) do 
+    if fields == "" do 
+      fields
+    else
+      %{"fields" => fields} |> URI.encode_query
+    end  
   end
 
   @doc """
