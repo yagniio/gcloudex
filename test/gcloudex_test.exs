@@ -1,4 +1,4 @@
-defmodule GcloudexTest do
+defmodule GCloudexTest do
   use ExUnit.Case
   doctest Gcloudex
 

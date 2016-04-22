@@ -1,4 +1,4 @@
-defmodule Gcloudex.Mixfile do
+defmodule GCloudex.Mixfile do
   use Mix.Project
 
   def project do
