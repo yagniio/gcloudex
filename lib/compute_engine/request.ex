@@ -19,8 +19,8 @@ defmodule GCloudex.ComputeEngine.Request do
         endpoint <> "/" <> "?" <> parameters
       end 
 
-    Logger.info endpoint
-    Logger.info body
+    Logger.info "Host:" <> endpoint
+    Logger.info "Body:" <> body
 
     HTTPoison.request(
       verb,
