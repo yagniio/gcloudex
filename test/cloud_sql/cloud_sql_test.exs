@@ -251,6 +251,18 @@ defmodule CloudSQLTest do
     assert expected == API.update_database instance, database, update_map
   end
 
+  ###################
+  ### Flags Tests ###
+  ###################
+
+  test "list_flags" do 
+    headers  = []
+    body     = ""
+    expected = build_expected(:get, @flag_ep, headers, body)
+
+    assert expected == API.list_flags
+  end
+
   ########################
   ### Helper Functions ###
   ########################
