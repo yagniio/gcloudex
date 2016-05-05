@@ -376,13 +376,15 @@ defmodule GCloudex.CloudSQL.Impl do
       @doc """
       Lists users in the specified Cloud SQL 'instance'.
       """
-      @spec list_users(binary) :: HTTPResponse.t
+      @spec list_users(instance :: binary) :: HTTPResponse.t
       def list_users(instance) do 
-        request_query :get, 
-                              @instance_ep,
-                              [],
-                              "",
-                              instance <> "/" <> "users"
+        request_query(
+          :get, 
+          @instance_ep,
+          [],
+          "",
+          instance <> "/" <> "users"
+        )
       end
 
       @doc """
@@ -390,52 +392,57 @@ defmodule GCloudex.CloudSQL.Impl do
       'password'. The authorized host to connect can be set through 'host'
       (defaults to '% (any host)').
       """
-      @spec insert_user(binary, binary, binary, binary) :: HTTPResponse.t
+      @spec insert_user(instance :: binary, name :: binary, password :: binary, host :: binary) :: HTTPResponse.t
       def insert_user(instance, name, password, host \\ "%") do 
+        body = %{
+          "name"     => name,
+          "password" => password,
+          "host"     => host,
+          "project"  => @project_id,
+          "instance" => instance
+        } |> Poison.encode!
 
-        body = Map.new
-               |> Map.put_new(:name, name)
-               |> Map.put_new(:password, password)
-               |> Map.put_new(:host, host)
-               |> Poison.encode!
-
-        request_query :post,
-                              @instance_ep,
-                              [{"Content-Type", "application/json"}],
-                              body,
-                              instance <> "/" <> "users"
+        request_query(
+          :post,
+          @instance_ep,
+          [{"Content-Type", "application/json"}],
+          body,
+          instance <> "/" <> "users"
+        )
       end
 
       @doc """
       Updates an existing user in a Cloud SQL 'instance' with the given 'host',
       'name' and 'password'.
       """
-      @spec update_user(binary, binary, binary, binary) :: HTTPResponse.t
+      @spec update_user(instance :: binary, host :: binary, name :: binary, password :: binary) :: HTTPResponse.t
       def update_user(instance, host, name, password) do 
-        body = Map.new |> Map.put_new(:password, password) |> Poison.encode!
+        body  = %{"password" => password} |> Poison.encode!
+        query = "#{instance}/users?host=#{host}&name=#{name}"
 
-        request_query :put,
-                              @instance_ep,
-                              [{"Content-Type", "application/json"}],
-                              body,
-                              instance <> "/" <> "users"
-                                <> "?" <> "host=#{host}" <> "&"
-                                       <> "name=#{name}"
-
+        request_query(
+          :put,
+          @instance_ep,
+          [{"Content-Type", "application/json"}],
+          body,
+          query
+        )
       end
 
       @doc """
       Deletes a user with the given 'host' and 'name' from the Cloud SQL 'instance'.
       """
-      @spec delete_user(binary, binary, binary) :: HTTPResponse.t
+      @spec delete_user(instance :: binary, host :: binary, name :: binary) :: HTTPResponse.t
       def delete_user(instance, host, name) do 
-        request_query :delete,
-                              @instance_ep,
-                              [],
-                              "",
-                              instance <> "/" <> "users"
-                                <> "?" <> "host=#{host}" <> "&"
-                                       <> "name=#{name}"
+        query = "#{instance}/users?host=#{host}&name=#{name}"
+
+        request_query(
+          :delete,
+          @instance_ep,
+          [],
+          "",
+          query
+        )
       end
 
       ###################

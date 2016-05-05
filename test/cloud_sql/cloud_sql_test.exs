@@ -286,9 +286,9 @@ defmodule CloudSQLTest do
     assert expected == API.get_operation operation_id
   end
 
-  #############
-  ### Tiers ###
-  #############
+  ###################
+  ### Tiers Tests ###
+  ###################
 
   test "list_tiers" do 
     headers  = []
@@ -296,6 +296,79 @@ defmodule CloudSQLTest do
     expected = build_expected(:get, @tiers_ep, headers, body)
 
     assert expected == API.list_tiers
+  end
+
+  ###################
+  ### Users Tests ###
+  ###################
+
+  test "list_users" do 
+    instance = "instance"
+    headers  = []
+    body     = ""
+    expected = build_expected(:get, @instance_ep, headers, body, "#{instance}/users")
+
+    assert expected == API.list_users instance
+  end
+
+  test "insert_user without host" do 
+    instance = "instance"
+    name     = "name"
+    password = "password"
+    headers  = [{"Content-Type", "application/json"}]
+    body     = %{
+      "name"     => name,
+      "password" => password,
+      "instance" => instance,
+      "host"     => "%",
+      "project"  => @project_id
+    } |> Poison.encode!
+    expected  = build_expected(:post, @instance_ep, headers, body, "#{instance}/users")
+
+    assert expected == API.insert_user instance, name, password
+  end
+
+  test "insert_user with host" do 
+    instance = "instance"
+    name     = "name"
+    password = "password"
+    host     = "host"
+    headers  = [{"Content-Type", "application/json"}]
+    body     = %{
+      "name"     => name,
+      "password" => password,
+      "instance" => instance,
+      "host"     => host,
+      "project"  => @project_id
+    } |> Poison.encode!
+    expected  = build_expected(:post, @instance_ep, headers, body, "#{instance}/users")
+
+    assert expected == API.insert_user instance, name, password, host
+  end  
+
+  test "update_user" do
+    instance = "instance"
+    host     = "host"
+    name     = "name"
+    password = "password"
+    query    = "?host=#{host}&name=#{name}"
+    headers  = [{"Content-Type", "application/json"}]
+    body     = %{"password" => password} |> Poison.encode!
+    expected = build_expected(:put, @instance_ep, headers, body, "#{instance}/users#{query}")
+
+    assert expected == API.update_user instance, host, name, password
+  end
+
+  test "delete_user" do 
+    instance = "instance"
+    host     = "host"
+    name     = "name"
+    headers  = []
+    query    = "?host=#{host}&name=#{name}"
+    body     = ""
+    expected = build_expected(:delete, @instance_ep, headers, body, "#{instance}/users#{query}")
+
+    assert expected == API.delete_user instance, host, name
   end
 
   ########################
