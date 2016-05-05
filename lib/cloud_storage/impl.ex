@@ -18,7 +18,7 @@ defmodule GCloudex.CloudStorage.Impl do
       @doc"""
       Lists all the buckets in the specified project.
       """
-      @spec list_buckets :: HTTPResponse.t
+      @spec list_buckets() :: HTTPResponse.t
       def list_buckets do
         request_service
       end
@@ -30,7 +30,7 @@ defmodule GCloudex.CloudStorage.Impl do
       @doc"""
       Deletes and empty bucket.
       """
-      @spec delete_bucket(binary) :: HTTPResponse.t
+      @spec delete_bucket(bucket :: binary) :: HTTPResponse.t
       def delete_bucket(bucket) do
         request :delete, bucket, [], ""
       end
@@ -42,7 +42,7 @@ defmodule GCloudex.CloudStorage.Impl do
       @doc"""
       Lists all the objects in the specified 'bucket'.
       """
-      @spec list_objects(binary) :: HTTPResponse.t
+      @spec list_objects(bucket :: binary) :: HTTPResponse.t
       def list_objects(bucket) do
         request :get, bucket, [], ""
       end
@@ -52,7 +52,7 @@ defmodule GCloudex.CloudStorage.Impl do
       given 'query_params'. The query parameters must be passed as a list of tuples
       [{param_1, value_1}, {param_2, value_2}].
       """
-      @spec list_objects(binary, nonempty_list(tuple())) :: HTTPResponse.t
+      @spec list_objects(bucket :: binary, query_params :: list(tuple)) :: HTTPResponse.t
       def list_objects(bucket, query_params) do
         request_query :get, bucket, [], "",
           "?" <> parse_query_params(query_params, "")
@@ -61,7 +61,7 @@ defmodule GCloudex.CloudStorage.Impl do
       @doc"""
       Lists the specified 'bucket' ACL.
       """
-      @spec get_bucket_acl(binary) :: HTTPResponse.t
+      @spec get_bucket_acl(bucket :: binary) :: HTTPResponse.t
       def get_bucket_acl(bucket) do
         request_query :get, bucket, [], "", "?acl"
       end
@@ -69,7 +69,7 @@ defmodule GCloudex.CloudStorage.Impl do
       @doc"""
       Lists the specified 'bucket' CORS configuration.
       """
-      @spec get_bucket_cors(binary) :: HTTPResponse.t
+      @spec get_bucket_cors(bucket :: binary) :: HTTPResponse.t
       def get_bucket_cors(bucket) do
         request_query :get, bucket, [], "", "?cors"
       end
@@ -77,7 +77,7 @@ defmodule GCloudex.CloudStorage.Impl do
       @doc"""
       Lists the specified 'bucket' lifecycle configuration.
       """
-      @spec get_bucket_lifecycle(binary) :: HTTPResponse.t
+      @spec get_bucket_lifecycle(bucket :: binary) :: HTTPResponse.t
       def get_bucket_lifecycle(bucket) do
         request_query :get, bucket, [], "", "?lifecycle"
       end
@@ -85,7 +85,7 @@ defmodule GCloudex.CloudStorage.Impl do
       @doc"""
       Lists the specified 'bucket' location.
       """
-      @spec get_bucket_region(binary) :: HTTPResponse.t
+      @spec get_bucket_region(bucket :: binary) :: HTTPResponse.t
       def get_bucket_region(bucket) do
         request_query :get, bucket, [], "", "?location"
       end
@@ -93,7 +93,7 @@ defmodule GCloudex.CloudStorage.Impl do
       @doc"""
       Lists the specified 'bucket' logging configuration.
       """
-      @spec get_bucket_logging(binary) :: HTTPResponse.t
+      @spec get_bucket_logging(bucket :: binary) :: HTTPResponse.t
       def get_bucket_logging(bucket) do
         request_query :get, bucket, [], "", "?logging"
       end
@@ -101,7 +101,7 @@ defmodule GCloudex.CloudStorage.Impl do
       @doc"""
       Lists the specified 'bucket' class.
       """
-      @spec get_bucket_class(binary) :: HTTPResponse.t
+      @spec get_bucket_class(bucket :: binary) :: HTTPResponse.t
       def get_bucket_class(bucket) do
         request_query :get, bucket, [], "", "?storageClass"
       end
@@ -109,7 +109,7 @@ defmodule GCloudex.CloudStorage.Impl do
       @doc"""
       Lists the specified 'bucket' versioning configuration.
       """
-      @spec get_bucket_versioning(binary) :: HTTPResponse.t
+      @spec get_bucket_versioning(bucket :: binary) :: HTTPResponse.t
       def get_bucket_versioning(bucket) do
         request_query :get, bucket, [], "", "?versioning"
       end
@@ -117,7 +117,7 @@ defmodule GCloudex.CloudStorage.Impl do
       @doc"""
       Lists the specified 'bucket' website configuration.
       """
-      @spec get_bucket_website(binary) :: HTTPResponse.t
+      @spec get_bucket_website(bucket :: binary) :: HTTPResponse.t
       def get_bucket_website(bucket) do
         request_query :get, bucket, [], "", "?website"
       end
