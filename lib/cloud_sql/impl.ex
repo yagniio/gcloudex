@@ -30,7 +30,7 @@ defmodule GCloudex.CloudSQL.Impl do
       Retrieves a resource containing information about the given 
       Cloud SQL 'instance'.
       """
-      @spec get_instance(binary) :: HTTPResponse.t
+      @spec get_instance(instance :: binary) :: HTTPResponse.t
       def get_instance(instance) do
         request_query :get, @instance_ep, [], "", instance
       end
@@ -61,16 +61,15 @@ defmodule GCloudex.CloudSQL.Impl do
 
       TODO: Re-evaluate how the optional fields should be passed.
       """
-      @spec insert_instance(binary, map, map, binary) :: HTTPResponse.t
+      @spec insert_instance(name :: binary, optional_properties :: map, settings :: map, tier :: binary) :: HTTPResponse.t
       def insert_instance(name, optional_properties, settings, tier) do
-        settings = settings
-                   |> Map.put_new(:tier, tier)
-
-        body     = Map.new
-                   |> Map.put_new(:name, name)
-                   |> Map.merge(optional_properties)
-                   |> Map.put_new(:settings, settings)
-                   |> Poison.encode!
+        settings = settings |> Map.put_new(:tier, tier)
+        body     = %{
+          name:     name,
+          settings: settings
+        }
+        |> Map.merge(optional_properties)
+        |> Poison.encode!
 
         request :post, @instance_ep, [{"Content-Type", "application/json"}], body
       end
@@ -78,7 +77,7 @@ defmodule GCloudex.CloudSQL.Impl do
       @doc """
       Deletes the given 'instance' from the project.
       """
-      @spec delete_instance(binary) :: HTTPResponse.t
+      @spec delete_instance(instance :: binary) :: HTTPResponse.t
       def delete_instance(instance) do 
         request_query :delete, @instance_ep, [], "", instance
       end
@@ -87,97 +86,113 @@ defmodule GCloudex.CloudSQL.Impl do
       Clones the given 'instance' and gives the new instance the chosen 'dest_name'
       and the given 'bin_log_file' and 'bin_log_pos'.
       """
-      @spec clone_instance(binary, binary, binary, binary) :: HTTPResponse.t
+      @spec clone_instance(instance :: binary, dest_name :: binary, bin_log_file :: binary, bin_log_pos :: binary) :: HTTPResponse.t
       def clone_instance(instance, dest_name, bin_log_file, bin_log_pos) do 
 
-        bin_log_coords = Map.new
-                         |> Map.put_new("kind", "sql#binLogCoordinates")
-                         |> Map.put_new("binLogFileName", bin_log_file)
-                         |> Map.put_new("binLogPosition", bin_log_pos)
+        bin_log_coords = %{
+          "kind"           => "sql#binLogCoordinates",
+          "binLogFileName" => bin_log_file,
+          "binLogPosition" => bin_log_pos
+        }
+        
+        clone_context = %{
+          "kind" => "sql#cloneContext",
+          "destinationInstanceName" => dest_name,
+          "binLogCoordinates" => bin_log_coords
+        }
 
-        clone_context  = Map.new
-                         |> Map.put_new("kind", "sql#cloneContext")
-                         |> Map.put_new("destinationInstanceName", dest_name)
-                         |> Map.put_new("binLogCoordinates", bin_log_coords)
-
-        body = Map.new
-               |> Map.put_new("cloneContext", clone_context)
-               |> Poison.encode!
-
-        request_query :post,
-                              @instance_ep, 
-                              [{"Content-Type", "application/json"}], 
-                              body, 
-                              instance <> "/clone"
+        body = %{
+          "cloneContext" => clone_context
+        }
+        |> Poison.encode!
+        
+        request_query(
+          :post,
+           @instance_ep, 
+           [{"Content-Type", "application/json"}], 
+           body, 
+           instance <> "/clone"
+        )
       end
 
       @doc """
       Restarts the given 'instance'.
       """
-      @spec restart_instance(binary) :: HTTPResponse.t
+      @spec restart_instance(instance :: binary) :: HTTPResponse.t
       def restart_instance(instance) do 
-        request_query :post, 
-                              @instance_ep, 
-                              [{"Content-Type", "application/json"}], 
-                              "", 
-                              instance <> "/" <> "restart"
+        request_query(
+          :post, 
+          @instance_ep, 
+          [{"Content-Type", "application/json"}], 
+          "", 
+          instance <> "/" <> "restart"
+        )
       end
 
       @doc """
       Starts the replication in the read replica 'instance'.
       """
-      @spec start_replica(binary) :: HTTPResponse.t
+      @spec start_replica(instance :: binary) :: HTTPResponse.t
       def start_replica(instance) do 
-        request_query :post,
-                              @instance_ep,
-                              [{"Content-Type", "application/json"}],
-                              "",
-                              instance <> "/" <> "startReplica"
+        request_query(
+          :post,
+          @instance_ep,
+          [{"Content-Type", "application/json"}],
+          "",
+          instance <> "/" <> "startReplica"
+        )
       end
 
       @doc """
       Stops the replication in the read replica 'instance'.
       """
-      @spec stop_replica(binary) :: HTTPResponse.t  
+      @spec stop_replica(instance :: binary) :: HTTPResponse.t  
       def stop_replica(instance) do 
-        request_query :post,
-                              @instance_ep,
-                              [{"Content-Type", "application/json"}],
-                              "",
-                              instance <> "/" <> "stopReplica"
+        request_query(
+          :post,
+          @instance_ep,
+          [{"Content-Type", "application/json"}],
+          "",
+          instance <> "/" <> "stopReplica"
+        )
       end
 
       @doc """
       Promotes the read replica 'instance' to be a stand-alone Cloud SQL instance.
       """
-      @spec promote_replica(binary) :: HTTPResponse.t
+      @spec promote_replica(instance :: binary) :: HTTPResponse.t
       def promote_replica(instance) do 
-        request_query :post,
-                              @instance_ep,
-                              [{"Content-Type", "application/json"}],
-                              "",
-                              instance <> "/" <> "promoteReplica"
+        request_query(
+          :post,
+          @instance_ep,
+          [{"Content-Type", "application/json"}],
+          "",
+          instance <> "/" <> "promoteReplica"
+        )
       end
 
       @doc """
       Failover the 'instance' to its failover replica instance with the 
       specified 'settings_version'.
       """
-      @spec failover_instance(binary, number) :: HTTPResponse.t
+      @spec failover_instance(instance :: binary, settings_version :: number) :: HTTPResponse.t
       def failover_instance(instance, settings_version) do 
-        failover = Map.new
-                  |> Map.put_new("kind", "sql#failoverContext")
-                  |> Map.put_new("settingsVersion", settings_version)
+        failover = %{
+          "kind"            => "sql#failoverContext",
+          "settingsVersion" => settings_version
+        }
 
-        body     = Map.new
-                   |> Map.put_new("failoverContext", failover)
-                   |> Poison.encode!
+        body     = %{
+          "failoverContext" => failover
+        } |> Poison.encode!
 
-        request_query :post,
-                              @instance_ep,
-                              [{"Content-Type", "application/json"}],
-                              body,
-                              instance <> "/" <> "failover"
+        request_query(
+          :post,
+          @instance_ep,
+          [{"Content-Type", "application/json"}],
+          body,
+          instance <> "/" <> "failover"
+        )
       end
 
       @doc """
@@ -188,13 +203,15 @@ defmodule GCloudex.CloudSQL.Impl do
       instance is restarted. For Second Generation instances, the changes are
       immediate; all existing connections to the instance are broken.
       """
-      @spec reset_ssl_config(binary) :: HTTPResponse.t
+      @spec reset_ssl_config(instance :: binary) :: HTTPResponse.t
       def reset_ssl_config(instance) do 
-        request_query :post,
-                              @instance_ep,
-                              [{"Content-Type", "application/json"}],
-                              "",
-                              instance <> "/" <> "resetSslConfig"
+        request_query(
+          :post,
+          @instance_ep,
+          [{"Content-Type", "application/json"}],
+          "",
+          instance <> "/" <> "resetSslConfig"
+        )
       end
 
       #################
