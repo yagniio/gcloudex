@@ -264,6 +264,29 @@ defmodule CloudSQLTest do
   end
 
   ########################
+  ### Operations Tests ###
+  ########################
+
+  test "list_operations" do 
+    instance = "instance"
+    headers  = []
+    body     = ""
+    query    = "?instance=#{instance}"
+    expected = build_expected(:get, @operation_ep <> query, headers, body)
+
+    assert expected == API.list_operations instance
+  end
+
+  test "get_operation" do
+    operation_id = "operation_id" 
+    headers      = []
+    body         = ""
+    expected     = build_expected(:get, @operation_ep, headers, body, operation_id)
+
+    assert expected == API.get_operation operation_id
+  end
+
+  ########################
   ### Helper Functions ###
   ########################
 

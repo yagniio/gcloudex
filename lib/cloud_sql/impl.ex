@@ -332,12 +332,14 @@ defmodule GCloudex.CloudSQL.Impl do
       Lists all instance operations that have been performed on the given 
       Cloud SQL 'instance' in the reverse chronological order of the start time.
       """
-      @spec list_operations(binary) :: HTTPResponse.t
+      @spec list_operations(instance :: binary) :: HTTPResponse.t
       def list_operations(instance) do 
-        request :get,
-                        @operation_ep <> "?" <> "instance=#{instance}",
-                        [],
-                        ""
+        request(
+          :get,
+          @operation_ep <> "?" <> "instance=#{instance}",
+          [],
+          ""
+        )
       end
 
       @doc """
@@ -346,12 +348,13 @@ defmodule GCloudex.CloudSQL.Impl do
       """
       @spec get_operation(binary) :: HTTPResponse.t
       def get_operation(operation_id) do 
-        request_query :get,
-                              @operation_ep, 
-                              [],
-                              "",
-                              "/" <> operation_id
-
+        request_query(
+          :get,
+          @operation_ep, 
+          [],
+          "",
+          operation_id
+        )
       end
 
       #############
