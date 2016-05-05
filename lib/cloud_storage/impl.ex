@@ -305,7 +305,7 @@ defmodule GCloudex.CloudStorage.Impl do
       @doc"""
       Lists metadata for the given 'object' from the specified 'bucket'.
       """
-      @spec get_object_metadata(binary, binary) :: HTTPResponse.t
+      @spec get_object_metadata(bucket :: binary, object :: binary) :: HTTPResponse.t
       def get_object_metadata(bucket, object) do
         request_query :head, bucket, [], "", object
       end
@@ -315,9 +315,9 @@ defmodule GCloudex.CloudStorage.Impl do
       given 'query_params'. The query parameters must be passed as a list of tuples
       [{param_1, value_1}, {param_2, value_2}].
       """
-      @spec get_object_metadata(binary, binary, nonempty_list(tuple)) :: HTTPResponse.t
+      @spec get_object_metadata(bucket :: binary, object :: binary, [{binary, binary}]) :: HTTPResponse.t
       def get_object_metadata(bucket, object, query_params) do
-        request_query :head, bucket, [], "", object <> "?" <> query_params
+        request_query :head, bucket, [], "", object <> "?" <> parse_query_params(query_params, "")
       end
 
       ##################

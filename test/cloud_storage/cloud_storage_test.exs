@@ -287,6 +287,28 @@ defmodule CloudStorageTest do
     assert expected == API.get_object_acl bucket, object
   end
 
+  ###################
+  ### HEAD Object ###
+  ###################
+
+  test "get_object_metadata/2 (no query)" do 
+    bucket   = "bucket"
+    object   = "object"
+    expected = build_expected(:head, "#{bucket}.#{@endpoint}/#{object}", [], "")
+
+    assert expected == API.get_object_metadata bucket, object
+  end
+
+  test "get_object_metadata/3 (with query)" do 
+    bucket   = "bucket"
+    object   = "object"
+    query    = "key1=abc&key2=def"
+    expected = build_expected(:head, "#{bucket}.#{@endpoint}/#{object}?#{query}", [], "")
+
+    assert expected == API.get_object_metadata bucket, object, [{"key1", "abc"}, {"key2", "def"}]
+  end  
+
+
   ###############
   ### Helpers ###
   ###############
