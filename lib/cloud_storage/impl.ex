@@ -52,7 +52,7 @@ defmodule GCloudex.CloudStorage.Impl do
       given 'query_params'. The query parameters must be passed as a list of tuples
       [{param_1, value_1}, {param_2, value_2}].
       """
-      @spec list_objects(bucket :: binary, query_params :: list(tuple)) :: HTTPResponse.t
+      @spec list_objects(bucket :: binary, query_params :: [{binary, binary}]) :: HTTPResponse.t
       def list_objects(bucket, query_params) do
         request_query :get, bucket, [], "",
           "?" <> parse_query_params(query_params, "")
@@ -258,7 +258,7 @@ defmodule GCloudex.CloudStorage.Impl do
       given 'query_params'. The query parameters must be passed as a list of tuples
       [{param_1, value_1}, {param_2, value_2}].
       """
-      @spec delete_object(bucket :: binary, object :: binary, query_params :: list(tuple)) :: HTTPResponse.t
+      @spec delete_object(bucket :: binary, object :: binary, query_params :: [{binary, binary}]) :: HTTPResponse.t
       def delete_object(bucket, object, query_params) do
         request_query :delete, bucket, [], "",
           object <> "?" <> parse_query_params(query_params, "")
@@ -272,7 +272,7 @@ defmodule GCloudex.CloudStorage.Impl do
       Downloads the 'object' from the specified 'bucket'. The requester must have
       READ permission.
       """
-      @spec get_object(binary, binary) :: HTTPResponse.t
+      @spec get_object(bucket :: binary, object :: binary) :: HTTPResponse.t
       def get_object(bucket, object) do
         request_query :get, bucket, [], "", object
       end
@@ -283,7 +283,7 @@ defmodule GCloudex.CloudStorage.Impl do
       [{param_1, value_1}, {param_2, value_2}]. The requester must have READ
       permission.
       """
-      @spec get_object(binary, binary, nonempty_list(tuple)) :: HTTPResponse.t
+      @spec get_object(bucket :: binary, object :: binary, query_params :: [{binary, binary}]) :: HTTPResponse.t
       def get_object(bucket, object, query_params) do
         request_query :get, bucket, [], "",
           object <> "?" <> parse_query_params(query_params, "")
@@ -293,7 +293,7 @@ defmodule GCloudex.CloudStorage.Impl do
       Lists the 'object' ACL from the specified 'bucket'. The requester must have
       FULL_CONTROL permission.
       """
-      @spec get_object_acl(binary, binary) :: HTTPResponse.t
+      @spec get_object_acl(bucket :: binary, object :: binary) :: HTTPResponse.t
       def get_object_acl(bucket, object) do
         request_query :get, bucket, [], "", object <> "?acl"
       end

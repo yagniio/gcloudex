@@ -258,6 +258,34 @@ defmodule CloudStorageTest do
     assert expected == API.delete_object "bucket", object, [{"key1", "abc"}, {"key2", "def"}]
   end  
 
+  ##################
+  ### GET Object ###
+  ##################
+
+  test "get_object/2 (no query)" do 
+    object   = "object"
+    bucket   = "bucket"
+    expected = build_expected(:get, "#{bucket}.#{@endpoint}/#{object}", [], "")
+
+    assert expected == API.get_object bucket, object
+  end
+
+  test "get_object/3 (with query)" do 
+    object   = "object"
+    bucket   = "bucket"
+    query    = "key1=abc&key2=def"
+    expected = build_expected(:get, "#{bucket}.#{@endpoint}/#{object}?#{query}", [], "")
+
+    assert expected == API.get_object bucket, object, [{"key1", "abc"}, {"key2", "def"}]
+  end  
+
+  test "get_object_acl" do 
+    bucket   = "bucket"
+    object   = "object"
+    expected = build_expected(:get, "#{bucket}.#{@endpoint}/#{object}?acl", [], "")
+
+    assert expected == API.get_object_acl bucket, object
+  end
 
   ###############
   ### Helpers ###
