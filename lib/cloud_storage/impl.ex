@@ -1,6 +1,4 @@
 defmodule GCloudex.CloudStorage.Impl do
-  #alias GCloudex.CloudStorage.Request, as: Request
-  #alias HTTPoison.HTTPResponse
 
   @moduledoc """
   Wrapper for Google Cloud Storage API.
@@ -8,6 +6,7 @@ defmodule GCloudex.CloudStorage.Impl do
   defmacro __using__(:cloud_storage) do 
     quote do 
       use GCloudex.CloudStorage.Request
+
       @endpoint "storage.googleapis.com"
       @project  GCloudex.get_project_id
 
@@ -385,33 +384,7 @@ defmodule GCloudex.CloudStorage.Impl do
       defp parse_query_params([{param, val} = _head | []], query), do: query <> param <> "=" <> val
       defp parse_query_params([{param, val} = _head | tail], query) do
         parse_query_params tail, query <> param <> "=" <> val <> "&"
-      end
-
-      # ########################################
-      # ### Request Overridables for Testing ###
-      # ########################################
-
-      # @doc false
-      # def request_service do 
-      #   GCloudex.CloudStorage.request_service
-      # end
-
-      # @doc false
-      # def request(verb, bucket, headers \\ [], body \\ "") do 
-      #   GCloudex.CloudStorage.request verb, bucket, headers, body
-      # end
-
-      # @doc false
-      # def request_query(verb, bucket, headers \\ [], body \\ "", parameters) do
-      #   GCloudex.CloudStorage.request_query verb, bucket, headers, body, parameters
-      # end
-
-      # defoverridable [
-      #   request_service: 0, 
-      #   request: 3,
-      #   request: 4, 
-      #   request_query: 5
-      # ]      
+      end     
     end
   end  
 end
