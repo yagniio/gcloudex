@@ -1,3 +1,4 @@
+[![Build Status](https://travis-ci.org/sashaafm/gcloudex.svg?branch=master)](https://travis-ci.org/sashaafm/gcloudex)
 # GCloudex
 
  Google Cloud for Elixir.
@@ -10,7 +11,7 @@
 - HTTP requests sent using the popular HTTPoison app providing familiar HTTP responses
 - Easy to extend
   
-## Installation
+## Installation and Configuration
 
 GCloudex uses HTTPoison for the HTTP requests, Poison for JSON encoding/decoding and Friendly for XML parsing. The Google Authorization Tokens are retrieved using Goth. The JSON API's for the various Google Cloud services are used whenever possible or available. 
 
@@ -26,7 +27,15 @@ GCloudex uses HTTPoison for the HTTP requests, Poison for JSON encoding/decoding
           [applications: [:gcloudex]]
         end
 
-Then go to the Google Cloud's website and download the credentials file for your Google Project. Put that file in your application's config folder and rename the file to 'creds.json'. This file will be used to authenticate the requests. Be sure to add it to your .gitignore file. 
+Then go to the Google Cloud's website and download the credentials file for your Google Project. 
+
+Put that file in your application's config folder and rename the file to 'creds.json' (or whatever name you prefer). This file will be used to authenticate the requests. **Be sure to add it to your .gitignore file in case you're uploading to
+a public reposity.**
+
+Finally put inside the config file you want (like `dev.exs`) the following line:
+
+    config :goth, 
+    json: "config/<filename>.json" |> Path.expand |> File.read!
 
 That's all you need to use GCloudex.
 
