@@ -308,6 +308,71 @@ defmodule CloudStorageTest do
     assert expected == API.get_object_metadata bucket, object, [{"key1", "abc"}, {"key2", "def"}]
   end  
 
+  ##################
+  ### PUT Object ###
+  ##################
+
+  test "put_object/2 (no path for the file)" do
+    filepath = __DIR__ <> "README.md" 
+    body     = {:file, filepath}
+    bucket   = "bucket"
+    expected = build_expected(:put, "#{bucket}.#{@endpoint}/#{filepath}", [], body)
+
+    assert expected == API.put_object bucket, filepath
+  end
+
+  test "put_object/3 (with path for the file)" do
+    filepath   = __DIR__ <> "README.md" 
+    bucketpath = "folder_1/folder_2"
+    body       = {:file, filepath}
+    bucket     = "bucket"
+    expected   = build_expected(:put, "#{bucket}.#{@endpoint}/#{bucketpath}", [], body)
+
+    assert expected == API.put_object bucket, filepath, bucketpath
+  end  
+
+  test "copy_object" do 
+    new_bucket    = "new_bucket"
+    new_object    = "new_object"
+    source_object = "source_object"
+    expected      = build_expected(
+      :put, 
+      "#{new_bucket}.#{@endpoint}/#{new_object}",
+      [{"x-goog-copy-source", source_object}],
+      ""
+    )
+
+    assert expected == API.copy_object new_bucket, new_object, source_object
+  end
+
+  test "set_object_acl/3 (no query)" do 
+    bucket     = "bucket"
+    object     = "object"
+    acl_config = "acl_config"
+    expected   = build_expected(
+      :put,
+      "#{bucket}.#{@endpoint}/#{object}?acl",
+      [],
+      acl_config
+    )
+
+    assert expected == API.set_object_acl bucket, object, acl_config
+  end
+
+  test "set_object_acl/4 (with query)" do 
+    bucket     = "bucket"
+    object     = "object"
+    acl_config = "acl_config"
+    query      = "key1=abc&key2=def"
+    expected   = build_expected(
+      :put,
+      "#{bucket}.#{@endpoint}/#{object}?acl&#{query}",
+      [],
+      acl_config
+    )
+
+    assert expected == API.set_object_acl bucket, object, acl_config, [{"key1", "abc"}, {"key2", "def"}]
+  end  
 
   ###############
   ### Helpers ###

@@ -336,7 +336,7 @@ defmodule GCloudex.CloudStorage.Impl do
         => # This will upload the file to the directory in 'bucket_path' and
              will create the directories if they do not exist.
       """
-      @spec put_object(binary, binary, binary) :: HTTPResponse.t
+      @spec put_object(bucket :: binary, filepath :: binary, bucket_path :: binary) :: HTTPResponse.t
       def put_object(bucket, filepath, bucket_path \\ :empty) do
         body = {:file, filepath}
 
@@ -350,7 +350,7 @@ defmodule GCloudex.CloudStorage.Impl do
       Copies the specified 'source_object' into the given 'new_bucket' as
       'new_object'.
       """
-      @spec copy_object(binary, binary, binary) :: HTTPResponse.t
+      @spec copy_object(new_bucket :: binary, new_object :: binary, source_object :: binary) :: HTTPResponse.t
       def copy_object(new_bucket, new_object, source_object) do
         headers = [{"x-goog-copy-source", source_object}]
         request_query :put, new_bucket, headers, new_object
@@ -360,7 +360,7 @@ defmodule GCloudex.CloudStorage.Impl do
       Sets or modifies the 'object' from the specified 'bucket' with the provided
       'acl_config' in XML format.
       """
-      @spec set_object_acl(binary, binary, binary) :: HTTPResponse.t
+      @spec set_object_acl(bucket :: binary, object :: binary, acl_config :: binary) :: HTTPResponse.t
       def set_object_acl(bucket, object, acl_config) do
         request_query :put, bucket, [], acl_config, object <> "?acl"
       end
@@ -371,7 +371,7 @@ defmodule GCloudex.CloudStorage.Impl do
       parameters must be passed as a list of tuples
       [{param_1, value_1}, {param_2, value_2}].
       """
-      @spec set_object_acl(binary, binary, binary, nonempty_list(tuple)) :: HTTPResponse.t
+      @spec set_object_acl(bucket :: binary, object :: binary, acl_config :: binary, [{binary, binary}]) :: HTTPResponse.t
       def set_object_acl(bucket, object, acl_config, query_params) do
         request_query :put, bucket, [], acl_config,
           object <> "?acl" <> "&" <> parse_query_params(query_params, "")
