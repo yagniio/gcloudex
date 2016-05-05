@@ -221,7 +221,7 @@ defmodule GCloudex.CloudSQL.Impl do
       @doc """
       Lists databases in the specified Cloud SQL 'instance'.
       """
-      @spec list_databases(binary) :: HTTPResponse.t
+      @spec list_databases(instance :: binary) :: HTTPResponse.t
       def list_databases(instance) do 
         request_query :get, @instance_ep, [], "", instance <> "/databases"
       end
@@ -230,78 +230,86 @@ defmodule GCloudex.CloudSQL.Impl do
       Creates a new database inside the specified Cloud SQL 'instance' with the 
       given 'name'.
       """
-      @spec insert_database(binary, binary) :: HTTPResponse.t
+      @spec insert_database(instance :: binary, name :: binary) :: HTTPResponse.t
       def insert_database(instance, name) do
-
-        body = Map.new
-               |> Map.put_new("instance", instance)
-               |> Map.put_new("name", name)
-               |> Map.put_new("project", @project_id)
-               |> Poison.encode!
-
-        request_query :post,
-                              @instance_ep, 
-                              [{"Content-Type", "application/json"}],
-                              body,
-                              instance <> "/databases"
-
+        body = %{
+          "instance" => instance,
+          "name"     => name,
+          "project"  => @project_id
+        } |> Poison.encode!
+        
+        request_query(
+          :post,
+          @instance_ep, 
+          [{"Content-Type", "application/json"}],
+          body,
+          instance <> "/databases"
+        )
       end
 
       @doc """
       Retrieves a resource containing information about the 'database' inside a
       Cloud SQL 'instance'.
       """
-      @spec get_database(binary, binary) :: HTTPResponse.t
+      @spec get_database(instance :: binary, database :: binary) :: HTTPResponse.t
       def get_database(instance, database) do 
-        request_query :get, @instance_ep, [], "", 
-                              instance <> "/databases" <> "/" <> database
+        request_query(
+          :get, 
+          @instance_ep, 
+          [], 
+          "", 
+          instance <> "/databases" <> "/" <> database
+        )
       end
 
       @doc """
       Deletes the 'database' from the Cloud SQL 'instance'.
       """
-      @spec delete_database(binary, binary) :: HTTPResponse.t
+      @spec delete_database(instance :: binary, database :: binary) :: HTTPResponse.t
       def delete_database(instance, database) do 
-        request_query :delete, @instance_ep, [], "", 
-                              instance <> "/databases" <> "/" <> database
+        request_query(
+          :delete, 
+          @instance_ep, 
+          [], 
+          "", 
+          instance <> "/databases" <> "/" <> database
+        )
       end
 
       @doc """
       Updates a resource containing information about a 'database' inside a 
-      Cloud SQL 'instance' using patch semantics. The 'patch_map' must be a Map.
+      Cloud SQL 'instance' using patch semantics. The 'db_resource' must follow
+      the description of Database Resources in:
+        https://cloud.google.com/sql/docs/admin-api/v1beta4/databases#resource
       """
-      @spec patch_database(binary, binary, map) :: HTTPResponse.t
-      def patch_database(instance, database, patch_map) do
-        {:ok, res}  = get_database instance, database
-        db_resource = res.body
-                      |> Poison.decode!
-                      |> Map.merge(patch_map) 
-                      |> Poison.encode!
+      @spec patch_database(instance :: binary, database :: binary, db_resource :: Map.t) :: HTTPResponse.t
+      def patch_database(instance, database, db_resource) do
+        body = db_resource |> Poison.encode!
 
-        request_query :patch,
-                              @instance_ep, 
-                              [{"Content-Type", "application/json"}], 
-                              db_resource,
-                              instance <> "/databases" <> "/" <> database
+        request_query(
+          :patch,
+          @instance_ep, 
+          [{"Content-Type", "application/json"}], 
+          body,
+          instance <> "/databases" <> "/" <> database
+        )
       end
 
       @doc """
       Updates a resource containing information about a 'database' inside a 
       Cloud SQL 'instance'. The 'update_map' must be a Map.
       """
-      @spec update_database(binary, binary, map) :: HTTPResponse.t
-      def update_database(instance, database, update_map) do 
-        {:ok, res}  = get_database instance, database
-        db_resource = res.body 
-                      |> Poison.decode! 
-                      |> Map.merge(update_map)
-                      |> Poison.encode!
+      @spec update_database(instance :: binary, database :: binary, db_resource :: Map.t) :: HTTPResponse.t
+      def update_database(instance, database, db_resource) do 
+        body = db_resource |> Poison.encode!
 
-        request_query :put,
-                              @instance_ep,
-                              [{"Content-Type", "application/json"}],
-                              db_resource,
-                              instance <> "/databases" <> "/" <> database
+        request_query(
+          :put,
+          @instance_ep,
+          [{"Content-Type", "application/json"}],
+          body,
+          instance <> "/databases" <> "/" <> database
+        )
       end
 
       #############

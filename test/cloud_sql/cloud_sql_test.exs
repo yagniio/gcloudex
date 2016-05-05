@@ -183,6 +183,74 @@ defmodule CloudSQLTest do
     assert expected == API.reset_ssl_config instance
   end
 
+  #######################
+  ### Databases Tests ###
+  #######################
+
+  test "list_databases" do 
+    instance = "instance"
+    headers  = []
+    expected = build_expected(:get, @instance_ep, headers, "", "#{instance}/databases")
+
+    assert expected == API.list_databases instance
+  end
+
+  test "insert_database" do 
+    instance = "instance"
+    name     = "name"
+    headers  = [{"Content-Type", "application/json"}]
+    body     = %{
+      "instance" => instance,
+      "name"     => name,
+      "project"  => @project_id
+    } |> Poison.encode!
+    expected = build_expected(:post, @instance_ep, headers, body, "#{instance}/databases")
+
+    assert expected == API.insert_database instance, name
+  end
+
+  test "get_database" do 
+    instance = "instance"
+    database = "database"
+    headers  = []
+    body     = ""
+    expected = build_expected(:get, @instance_ep, headers, body, "#{instance}/databases/#{database}")
+
+    assert expected == API.get_database instance, database
+  end
+
+  test "delete_database" do 
+    instance = "instance"
+    database = "database"
+    headers  = []
+    body     = ""
+    expected = build_expected(:delete, @instance_ep, headers, body, "#{instance}/databases/#{database}")
+
+    assert expected == API.delete_database instance, database
+  end
+
+  test "patch_database" do 
+    instance  = "instance"
+    database  = "database"
+    patch_map = %{"charset" => "abc", "collation" => "def"}
+    headers   = [{"Content-Type", "application/json"}]
+    body      = patch_map |> Poison.encode!
+    expected  = build_expected(:patch, @instance_ep, headers, body, "#{instance}/databases/#{database}")
+
+    assert expected == API.patch_database instance, database, patch_map
+  end
+
+  test "update_database" do 
+    instance   = "instance"
+    database   = "database"
+    update_map = %{"field_1" => "abc", "field_2" => "def"}
+    headers    = [{"Content-Type", "application/json"}]
+    body       = update_map |> Poison.encode!
+    expected   = build_expected(:put, @instance_ep, headers, body, "#{instance}/databases/#{database}")
+
+    assert expected == API.update_database instance, database, update_map
+  end
+
   ########################
   ### Helper Functions ###
   ########################
