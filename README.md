@@ -29,8 +29,8 @@ GCloudex uses HTTPoison for the HTTP requests, Poison for JSON encoding/decoding
 
 Then go to the Google Cloud's website and download the credentials file for your Google Project. 
 
-Put that file in your application's config folder and rename the file to 'creds.json' (or whatever name you prefer). This file will be used to authenticate the requests. **Be sure to add it to your .gitignore file in case you're uploading to
-a public reposity.**
+Put that file in your application's config folder and rename the file to 
+`creds.json` (or whatever name you prefer). This file will be used to authenticate the requests. **Be sure to add it to your .gitignore file in case you're uploading to a public repository.**
 
 Finally put inside the config file you want (like `dev.exs`) the following line:
 
@@ -52,7 +52,7 @@ That's all you need to use GCloudex.
 
  - [x] Google Cloud Storage
  - [x] Google Cloud SQL
- - [ ] Google Compute Engine
+ - [x] Google Compute Engine
  - [ ] Google Cloud Datastore
 
 
