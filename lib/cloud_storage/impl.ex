@@ -9,7 +9,7 @@ defmodule GCloudex.CloudStorage.Impl do
     quote do 
       use GCloudex.CloudStorage.Request
       @endpoint "storage.googleapis.com"
-      @project  Application.get_env(:gcloudex, :project)
+      @project  GCloudex.get_project_id
 
       ###################
       ### GET Service ###
@@ -130,7 +130,7 @@ defmodule GCloudex.CloudStorage.Impl do
       Indicates if the specified 'bucket' exists or whether the request has READ
       access to it.
       """
-      @spec exists_bucket(binary) :: HTTPResponse.t
+      @spec exists_bucket(bucket :: binary) :: HTTPResponse.t
       def exists_bucket(bucket) do
         request :head, bucket, [], ""
       end
@@ -144,7 +144,7 @@ defmodule GCloudex.CloudStorage.Impl do
       function will create the bucket in the default region 'US' and with
       the default class 'STANDARD'.
       """
-      @spec create_bucket(binary) :: HTTPResponse.t
+      @spec create_bucket(bucket :: binary) :: HTTPResponse.t
       def create_bucket(bucket) do
         headers = [{"x-goog-project-id", @project}]
 
@@ -156,7 +156,7 @@ defmodule GCloudex.CloudStorage.Impl do
       the specified 'region'. This function will create the bucket with the
       default class 'STANDARD'.
       """
-      @spec create_bucket(binary, binary) :: HTTPResponse.t
+      @spec create_bucket(bucket :: binary, region :: binary) :: HTTPResponse.t
       def create_bucket(bucket, region) do
         headers = [{"x-goog-project-id", @project}]
         body    =
@@ -173,7 +173,7 @@ defmodule GCloudex.CloudStorage.Impl do
       Creates a bucket with the specified 'bucket' name if available and in
       the specified 'region' and with the specified 'class'.
       """
-      @spec create_bucket(binary, binary, binary) :: HTTPResponse.t
+      @spec create_bucket(bucket :: binary, region :: binary, class :: binary) :: HTTPResponse.t
       def create_bucket(bucket, region, class) do
         headers = [{"x-goog-project-id", @project}]
 
@@ -191,7 +191,7 @@ defmodule GCloudex.CloudStorage.Impl do
       Sets or modifies the existing ACL in the specified 'bucket'
       with the given 'acl_config' in XML format.
       """
-      @spec set_bucket_acl(binary, binary) :: HTTPResponse.t
+      @spec set_bucket_acl(bucket :: binary, acl_config :: binary) :: HTTPResponse.t
       def set_bucket_acl(bucket, acl_config) do
         request_query :put, bucket, [], acl_config, "?acl"
       end
@@ -200,7 +200,7 @@ defmodule GCloudex.CloudStorage.Impl do
       Sets or modifies the existing CORS configuration in the specified 'bucket'
       with the given 'cors_config' in XML format.
       """
-      @spec set_bucket_cors(binary, binary) :: HTTPResponse.t
+      @spec set_bucket_cors(bucket :: binary, cors_config :: binary) :: HTTPResponse.t
       def set_bucket_cors(bucket, cors_config) do
         request_query :put, bucket, [], cors_config, "?cors"
       end
@@ -209,17 +209,16 @@ defmodule GCloudex.CloudStorage.Impl do
       Sets or modifies the existing lifecyle configuration in the specified
       'bucket' with the given 'lifecycle_config' in XML format.
       """
-      @spec set_bucket_lifecycle(binary, binary) :: HTTPResponse.t
+      @spec set_bucket_lifecycle(bucket :: binary, lifecycle_config :: binary) :: HTTPResponse.t
       def set_bucket_lifecycle(bucket, lifecycle_config) do
-        request_query :put, bucket, [], lifecycle_config,
-          "#{bucket}?lifecycle"
+        request_query :put, bucket, [], lifecycle_config, "?lifecycle"
       end
 
       @doc"""
       Sets or modifies the existing logging configuration in the specified
       'bucket' with the given 'logging_config' in XML format.
       """
-      @spec set_bucket_logging(binary, binary) :: HTTPResponse.t
+      @spec set_bucket_logging(bucket :: binary, logging_config :: binary) :: HTTPResponse.t
       def set_bucket_logging(bucket, logging_config) do
         request_query :put, bucket, [], logging_config, "?logging"
       end
@@ -228,7 +227,7 @@ defmodule GCloudex.CloudStorage.Impl do
       Sets or modifies the existing versioning configuration in the specified
       'bucket' with the given 'versioning_config' in XML format.
       """
-      @spec set_bucket_versioning(binary, binary) :: HTTPResponse.t
+      @spec set_bucket_versioning(bucket :: binary, versioning_config :: binary) :: HTTPResponse.t
       def set_bucket_versioning(bucket, versioning_config) do
         request_query :put, bucket, [], versioning_config, "?versioning"
       end

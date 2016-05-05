@@ -165,6 +165,80 @@ defmodule CloudStorageTest do
     assert expected == API.exists_bucket "bucket"
   end       
 
+  ########################
+  ### PUT Bucket Tests ###
+  ########################
+
+  test "create_bucket/1 (default class and region)" do 
+    expected = build_expected(:put, "bucket.#{@endpoint}", [{"x-goog-project-id", @project_id}], "")
+
+    assert expected == API.create_bucket "bucket"
+  end
+
+  test "create_bucket/2 (default class and custom region)" do 
+    region = "region"
+    body   =
+      """
+      <CreateBucketConfiguration>
+        <LocationConstraint>#{region}</LocationConstraint>
+      </CreateBucketConfiguration>
+      """
+    expected = build_expected(:put, "bucket.#{@endpoint}", [{"x-goog-project-id", @project_id}], body)
+
+    assert expected == API.create_bucket "bucket", region    
+  end
+
+  test "create_bucket/3 (custom class and custom region)" do 
+    region = "region"
+    class  = "class"
+    body   =
+      """
+      <CreateBucketConfiguration>
+        <LocationConstraint>#{region}</LocationConstraint>
+        <StorageClass>#{class}</StorageClass>
+      </CreateBucketConfiguration>
+      """
+    expected = build_expected(:put, "bucket.#{@endpoint}", [{"x-goog-project-id", @project_id}], body)
+
+    assert expected == API.create_bucket "bucket", region, class    
+  end  
+
+  test "set_bucket_acl" do 
+    expected = build_expected(:put, "bucket.#{@endpoint}/?acl", [], "acl_config")
+
+    assert expected == API.set_bucket_acl "bucket", "acl_config"
+  end
+
+  test "set_bucket_cors" do 
+    expected = build_expected(:put, "bucket.#{@endpoint}/?cors", [], "cors_config")
+
+    assert expected == API.set_bucket_cors "bucket", "cors_config"    
+  end
+
+  test "set_bucket_lifecycle" do 
+    expected = build_expected(:put, "bucket.#{@endpoint}/?lifecycle", [], "lifecycle_config")
+
+    assert expected == API.set_bucket_lifecycle "bucket", "lifecycle_config"        
+  end
+
+  test "set_bucket_logging" do 
+    expected = build_expected(:put, "bucket.#{@endpoint}/?logging", [], "logging_config")
+
+    assert expected == API.set_bucket_logging "bucket", "logging_config"        
+  end  
+
+  test "set_bucket_versioning" do 
+    expected = build_expected(:put, "bucket.#{@endpoint}/?versioning", [], "versioning_config")
+
+    assert expected == API.set_bucket_versioning "bucket", "versioning_config"        
+  end    
+
+  test "set_bucket_website" do 
+    expected = build_expected(:put, "bucket.#{@endpoint}/?websiteConfig", [], "website_config")
+
+    assert expected == API.set_bucket_website "bucket", "website_config"        
+  end      
+
   ###############
   ### Helpers ###
   ###############
