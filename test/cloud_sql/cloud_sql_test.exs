@@ -286,6 +286,18 @@ defmodule CloudSQLTest do
     assert expected == API.get_operation operation_id
   end
 
+  #############
+  ### Tiers ###
+  #############
+
+  test "list_tiers" do 
+    headers  = []
+    body     = ""
+    expected = build_expected(:get, @tiers_ep, headers, body)
+
+    assert expected == API.list_tiers
+  end
+
   ########################
   ### Helper Functions ###
   ########################

@@ -346,7 +346,7 @@ defmodule GCloudex.CloudSQL.Impl do
       Retrieves the instance operation with 'operation_id' that has been 
       performed on an instance.
       """
-      @spec get_operation(binary) :: HTTPResponse.t
+      @spec get_operation(operation_id :: binary) :: HTTPResponse.t
       def get_operation(operation_id) do 
         request_query(
           :get,
