@@ -1,0 +1,5 @@
+language: elixir
+script:
+  - mix local.hex --force
+  - mix deps.get
+  - mix test
