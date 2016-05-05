@@ -237,7 +237,27 @@ defmodule CloudStorageTest do
     expected = build_expected(:put, "bucket.#{@endpoint}/?websiteConfig", [], "website_config")
 
     assert expected == API.set_bucket_website "bucket", "website_config"        
-  end      
+  end     
+
+  #####################
+  ### DELETE Object ###
+  #####################
+
+  test "delete_object/2 (no query)" do 
+    object   = "object"
+    expected = build_expected(:delete, "bucket.#{@endpoint}/#{object}", [], "")
+
+    assert expected == API.delete_object "bucket", object
+  end
+
+  test "delete_object/3 (with query)" do 
+    query    = "key1=abc&key2=def"
+    object   = "object"
+    expected = build_expected(:delete, "bucket.#{@endpoint}/#{object}?#{query}", [], "")
+
+    assert expected == API.delete_object "bucket", object, [{"key1", "abc"}, {"key2", "def"}]
+  end  
+
 
   ###############
   ### Helpers ###

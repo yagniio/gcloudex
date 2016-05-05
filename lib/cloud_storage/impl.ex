@@ -236,7 +236,7 @@ defmodule GCloudex.CloudStorage.Impl do
       Sets or modifies the existing website configuration in the specified
       'bucket' with the given 'website_config' in XML format.
       """
-      @spec set_bucket_website(binary, binary) :: HTTPResponse.t
+      @spec set_bucket_website(bucket :: binary, website_config :: binary) :: HTTPResponse.t
       def set_bucket_website(bucket, website_config) do
         request_query :put, bucket, [], website_config, "?websiteConfig"
       end
@@ -248,7 +248,7 @@ defmodule GCloudex.CloudStorage.Impl do
       @doc"""
       Deletes the 'object' in the specified 'bucket'.
       """
-      @spec delete_object(binary, binary) :: HTTPResponse.t
+      @spec delete_object(bucket :: binary, object :: binary) :: HTTPResponse.t
       def delete_object(bucket, object) do
         request_query :delete, bucket, [], "", object
       end
@@ -258,7 +258,7 @@ defmodule GCloudex.CloudStorage.Impl do
       given 'query_params'. The query parameters must be passed as a list of tuples
       [{param_1, value_1}, {param_2, value_2}].
       """
-      @spec delete_object(binary, binary, nonempty_list(tuple)) :: HTTPResponse.t
+      @spec delete_object(bucket :: binary, object :: binary, query_params :: list(tuple)) :: HTTPResponse.t
       def delete_object(bucket, object, query_params) do
         request_query :delete, bucket, [], "",
           object <> "?" <> parse_query_params(query_params, "")
