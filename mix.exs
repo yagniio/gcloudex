@@ -1,13 +1,15 @@
 defmodule GCloudex.Mixfile do
   use Mix.Project
 
+  @version "0.4.1"
+
   def project do
     [
      app: :gcloudex,
-     version: "0.3.2",
+     version: @version,
      elixir: "~> 1.2",
      description: "Google Cloud for Elixir. Friendly set of wrappers for "
-                   <> "Google Cloud Platform services' API's.",
+                   <> "Google Cloud Platform API's.",
      build_embedded: Mix.env == :prod,
      start_permanent: Mix.env == :prod,
      deps: deps,
