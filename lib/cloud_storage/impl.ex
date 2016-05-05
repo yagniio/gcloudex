@@ -382,6 +382,7 @@ defmodule GCloudex.CloudStorage.Impl do
       ### HELPER FUNCTIONS ###
       ########################
 
+      defp parse_query_params([], query), do: query <> ""
       defp parse_query_params([{param, val} = _head | []], query), do: query <> param <> "=" <> val
       defp parse_query_params([{param, val} = _head | tail], query) do
         parse_query_params tail, query <> param <> "=" <> val <> "&"
