@@ -153,7 +153,17 @@ defmodule CloudStorageTest do
     expected = build_expected(:get, "bucket.#{@endpoint}/?website", [], "")
 
     assert expected == API.get_bucket_website "bucket"        
-  end          
+  end   
+
+  #########################
+  ### HEAD Bucket Tests ###
+  #########################
+
+  test "exists_bucket" do 
+    expected = build_expected(:head, "bucket.#{@endpoint}", [], "")
+
+    assert expected == API.exists_bucket "bucket"
+  end       
 
   ###############
   ### Helpers ###
