@@ -1293,7 +1293,7 @@ defmodule GCloudex.ComputeEngine.Impl do
       Retrieves the list of Zone resources available according to the given
       'query_params'.
       """
-      @spec list_zones(map) :: HTTPResponse.t
+      @spec list_zones(query_params :: Map.t) :: HTTPResponse.t
       def list_zones(query_params \\ %{}) do 
         query = query_params |> URI.encode_query
 
@@ -1303,7 +1303,7 @@ defmodule GCloudex.ComputeEngine.Impl do
       @doc """
       Returns the specified 'zone' resource. 
       """
-      @spec get_zone(binary, binary) :: HTTPResponse.t
+      @spec get_zone(zone :: binary, fields :: binary) :: HTTPResponse.t
       def get_zone(zone, fields \\ "") do
         query = 
           if fields == "" do 
