@@ -297,6 +297,176 @@ defmodule ComputeEngineTest do
   ### Disks Tests ###
   ###################
 
+  test "list_disks (no query)" do 
+    zone       = "zone"
+    headers    = []
+    body       = ""
+    endpoint   = @no_zone_ep <> "/zones/#{zone}/disks"
+    expected   = build_expected(:get, endpoint, headers, body)
+
+    assert expected == API.list_disks zone
+  end
+
+  test "list_disks (with query)" do 
+    zone       = "zone"
+    headers    = []
+    body       = ""
+    query      = %{"a" => 1, "b" => 2}
+    endpoint   = @no_zone_ep <> "/zones/#{zone}/disks"
+    expected   = build_expected(:get, endpoint, headers, body, query |> URI.encode_query)
+
+    assert expected == API.list_disks zone, query
+  end  
+
+  test "get_disk (no fields)" do 
+    zone       = "zone"
+    disk       = "disk"
+    headers    = []
+    body       = ""
+    endpoint   = @no_zone_ep <> "/zones/#{zone}/disks/#{disk}"
+    expected   = build_expected(:get, endpoint, headers, body)
+
+    assert expected == API.get_disk zone, disk
+  end  
+
+  test "get_disk (with fields)" do 
+    zone       = "zone"
+    disk       = "disk"
+    headers    = []
+    fields     = "a,b,c"
+    query      = %{"fields" => fields}
+    body       = ""
+    endpoint   = @no_zone_ep <> "/zones/#{zone}/disks/#{disk}"
+    expected   = build_expected(:get, endpoint, headers, body, query |> URI.encode_query)
+
+    assert expected == API.get_disk zone, disk, fields
+  end    
+
+  test "insert_disk (no fields with image)" do 
+    zone       = "zone"
+    resource   = %{"name" => "name"}
+    source_img = "source_image"
+    headers    = [{"Content-Type", "application/json"}]
+    body       = resource |> Poison.encode!
+    query      = %{"sourceImage" => source_img}
+    endpoint   = @no_zone_ep <> "/zones/#{zone}/disks"
+    expected   = build_expected(:post, endpoint, headers, body, query |> URI.encode_query)
+
+    assert expected == API.insert_disk zone, resource, source_img
+  end    
+
+  test "insert_disk (with fields with image)" do 
+    zone       = "zone"
+    resource   = %{"name" => "name"}
+    source_img = "source_image"
+    headers    = [{"Content-Type", "application/json"}]
+    fields     = "a,b,c"
+    body       = resource |> Poison.encode!
+    query      = %{"sourceImage" => source_img, "fields" => fields}
+    endpoint   = @no_zone_ep <> "/zones/#{zone}/disks"
+    expected   = build_expected(:post, endpoint, headers, body, query |> URI.encode_query)
+
+    assert expected == API.insert_disk zone, resource, source_img, fields
+  end      
+
+  test "insert_disk (with fields no image)" do 
+    zone       = "zone"
+    resource   = %{"name" => "name"}
+    source_img = ""
+    headers    = [{"Content-Type", "application/json"}]
+    fields     = "a,b,c"
+    body       = resource |> Poison.encode!
+    query      = %{"fields" => fields}
+    endpoint   = @no_zone_ep <> "/zones/#{zone}/disks"
+    expected   = build_expected(:post, endpoint, headers, body, query |> URI.encode_query)
+
+    assert expected == API.insert_disk zone, resource, source_img, fields
+  end        
+
+  test "insert_disk (no fields no image)" do 
+    zone       = "zone"
+    resource   = %{"name" => "name"}
+    source_img = ""
+    headers    = [{"Content-Type", "application/json"}]
+    body       = resource |> Poison.encode!
+    query      = %{}
+    endpoint   = @no_zone_ep <> "/zones/#{zone}/disks"
+    expected   = build_expected(:post, endpoint, headers, body, query |> URI.encode_query)
+
+    assert expected == API.insert_disk zone, resource, source_img
+  end   
+
+  test "delete_disk (no fields)" do 
+    zone       = "zone"
+    disk       = "disk"
+    headers    = []
+    body       = ""
+    endpoint   = @no_zone_ep <> "/zones/#{zone}/disks/#{disk}"
+    expected   = build_expected(:delete, endpoint, headers, body)
+
+    assert expected == API.delete_disk zone, disk
+  end      
+
+  test "delete_disk (with fields)" do 
+    zone       = "zone"
+    disk       = "disk"
+    headers    = []
+    body       = ""
+    fields     = "a,b,c"
+    query      = %{"fields" => fields}
+    endpoint   = @no_zone_ep <> "/zones/#{zone}/disks/#{disk}"
+    expected   = build_expected(:delete, endpoint, headers, body, query |> URI.encode_query)
+
+    assert expected == API.delete_disk zone, disk, fields
+  end        
+
+  test "resize_disk (no fields)" do 
+    zone       = "zone"
+    disk       = "disk"
+    size       = 10
+    headers    = [{"Content-Type", "application/json"}]
+    body       = %{"sizeGb" => size} |> Poison.encode!
+    endpoint   = @no_zone_ep <> "/zones/#{zone}/disks/#{disk}/resize"
+    expected   = build_expected(:post, endpoint, headers, body)
+
+    assert expected == API.resize_disk zone, disk, size
+  end        
+
+  test "resize_disk (with fields)" do 
+    zone       = "zone"
+    disk       = "disk"
+    size       = 10
+    headers    = [{"Content-Type", "application/json"}]
+    body       = %{"sizeGb" => size} |> Poison.encode!
+    fields     = "a,b,c"
+    query      = %{"fields" => fields}
+    endpoint   = @no_zone_ep <> "/zones/#{zone}/disks/#{disk}/resize"
+    expected   = build_expected(:post, endpoint, headers, body, query |> URI.encode_query)
+
+    assert expected == API.resize_disk zone, disk, size, fields
+  end 
+
+  test "aggregated_list_of_disks (no query)" do 
+    headers    = []
+    body       = ""
+    endpoint   = @no_zone_ep <> "/aggregated/disks"
+    expected   = build_expected(:get, endpoint, headers, body)
+
+    assert expected == API.aggregated_list_of_disks
+  end 
+
+  test "aggregated_list_of_disks (with query)" do 
+    headers    = []
+    body       = ""
+    query      = %{"field1" => 1, "field2" => 2}
+    endpoint   = @no_zone_ep <> "/aggregated/disks"
+    expected   = build_expected(:get, endpoint, headers, body, query |> URI.encode_query)
+
+    assert expected == API.aggregated_list_of_disks query
+  end  
+
+
+
   ###############
   ### Helpers ###
   ###############

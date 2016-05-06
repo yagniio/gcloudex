@@ -178,7 +178,7 @@ defmodule GCloudex.ComputeEngine.Impl do
       Retrieves a list of persistent disks contained within the specified 'zone' and
       according to the given 'query_params' if provided.
       """
-      @spec list_disks(binary, map) :: HTTPResponse.t
+      @spec list_disks(zone :: binary, query_params :: Map.t) :: HTTPResponse.t
       def list_disks(zone, query_params \\ %{}) do
         query = query_params |> URI.encode_query
         
@@ -189,7 +189,7 @@ defmodule GCloudex.ComputeEngine.Impl do
       Returns a specified persistent 'disk' if it exists in the given 'zone'. The
       HTTP reply contains a Disk Resource in the body.
       """
-      @spec get_disk(binary, binary, binary) :: HTTPResponse.t
+      @spec get_disk(zone :: binary, disk :: binary, fields :: binary) :: HTTPResponse.t
       def get_disk(zone, disk, fields \\ "") do
         query = fields_binary_to_map fields  
 
@@ -204,17 +204,22 @@ defmodule GCloudex.ComputeEngine.Impl do
       larger than the default size by specifying the sizeGb property in the 
       'disk_resource'.
       """
-      @spec insert_disk(binary, map, binary, binary) :: HTTPResponse.t
+      @spec insert_disk(zone :: binary, disk_resource :: map, source_image :: binary, fields :: binary) :: HTTPResponse.t
       def insert_disk(zone, disk_resource, source_image \\ "", fields \\ "") do 
         if not Map.has_key?(disk_resource, "name") do 
           raise ArgumentError, message: "The Disk Resource must contain at least the 'name' key."
         end
 
         query = 
-          if source_image != "" do 
-            fields_binary_to_map(fields) <> "&sourceImage=#{source_image}"
-          else
-            fields_binary_to_map fields
+          case {source_image != "", fields != ""} do 
+            {true, true} ->
+              fields_binary_to_map(fields) <> "&sourceImage=#{source_image}"
+            {true, false} ->
+              %{"sourceImage" => source_image} |> URI.encode_query
+            {false, true} ->
+              fields_binary_to_map fields
+            {false, false} ->
+              %{} |> URI.encode_query
           end
 
         body = disk_resource |> Poison.encode!
@@ -230,7 +235,7 @@ defmodule GCloudex.ComputeEngine.Impl do
       @doc """
       Deletes the specified persistent 'disk' if it exists in the given 'zone'.
       """
-      @spec delete_disk(binary, binary, binary) :: HTTPResponse.t
+      @spec delete_disk(zone :: binary, disk :: binary, fields :: binary) :: HTTPResponse.t
       def delete_disk(zone, disk, fields \\ "") do
         query = fields_binary_to_map fields
 
@@ -241,7 +246,7 @@ defmodule GCloudex.ComputeEngine.Impl do
       Resizes the specified persistent 'disk' if it exists in the given 'zone' to 
       the provided 'size_gb'.
       """
-      @spec resize_disk(binary, binary, pos_integer, binary) :: HTTPResponse.t
+      @spec resize_disk(zone :: binary, disk :: binary, size_gb :: pos_integer, fields :: binary) :: HTTPResponse.t
       def resize_disk(zone, disk, size_gb, fields \\ "") when size_gb > 0 do 
         query = fields_binary_to_map fields
         body  = %{"sizeGb" => size_gb} |> Poison.encode!
@@ -258,7 +263,7 @@ defmodule GCloudex.ComputeEngine.Impl do
       Retrieves an aggregated list of persistent disks according to the given
       'query_params' if they're provided.
       """
-      @spec aggregated_list_of_disks(map) :: HTTPResponse.t
+      @spec aggregated_list_of_disks(query_params :: Map.t) :: HTTPResponse.t
       def aggregated_list_of_disks(query_params \\ %{}) do
         query = query_params |> URI.encode_query
 
