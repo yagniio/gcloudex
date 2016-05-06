@@ -225,6 +225,78 @@ defmodule ComputeEngineTest do
     assert expected == API.aggregated_list_of_autoscalers query
   end  
 
+  #######################
+  ### DiskTypes Tests ###
+  #######################
+
+  test "list_disk_types (no query)" do 
+    zone       = "zone"
+    headers    = []
+    body       = ""
+    endpoint   = @no_zone_ep <> "/zones/#{zone}/diskTypes"
+    expected   = build_expected(:get, endpoint, headers, body)
+
+    assert expected == API.list_disk_types zone
+  end
+
+  test "list_disk_types (with query)" do 
+    zone       = "zone"
+    headers    = []
+    body       = ""
+    query      = %{"field1" => "abc", "field2" => "def"}
+    endpoint   = @no_zone_ep <> "/zones/#{zone}/diskTypes"
+    expected   = build_expected(:get, endpoint, headers, body, query |> URI.encode_query)
+
+    assert expected == API.list_disk_types zone, query
+  end  
+
+  test "get_disk_type (no fields)" do 
+    zone       = "zone"
+    disk_type  = "disk_type"
+    headers    = []
+    body       = ""
+    endpoint   = @no_zone_ep <> "/zones/#{zone}/diskTypes/#{disk_type}"
+    expected   = build_expected(:get, endpoint, headers, body)
+
+    assert expected == API.get_disk_type zone, disk_type
+  end  
+
+  test "get_disk_type (with fields)" do 
+    zone       = "zone"
+    disk_type  = "disk_type"
+    headers    = []
+    fields     = "a,b,c"
+    query      = %{"fields" => fields}
+    body       = ""
+    endpoint   = @no_zone_ep <> "/zones/#{zone}/diskTypes/#{disk_type}"
+    expected   = build_expected(:get, endpoint, headers, body, query |> URI.encode_query)
+
+    assert expected == API.get_disk_type zone, disk_type, fields
+  end    
+
+  test "aggregated_list_of_disk_types (no query)" do 
+    headers    = []
+    body       = ""
+    endpoint   = @no_zone_ep <> "/aggregated/diskTypes"
+    expected   = build_expected(:get, endpoint, headers, body)
+
+    assert expected == API.aggregated_list_of_disk_types
+  end 
+
+  test "aggregated_list_of_disk_types (with query)" do 
+    headers    = []
+    body       = ""
+    query      = %{"field1" => 1, "field2" => 2}
+    endpoint   = @no_zone_ep <> "/aggregated/diskTypes"
+    expected   = build_expected(:get, endpoint, headers, body, query |> URI.encode_query)
+
+    assert expected == API.aggregated_list_of_disk_types query
+  end   
+
+  ###################
+  ### Disks Tests ###
+  ###################
+
   ###############
   ### Helpers ###
   ###############
