@@ -20,7 +20,7 @@ defmodule GCloudex.ComputeEngine.Impl do
       Retrieves a list of autoscalers contained within the specified 'zone' and 
       according to the 'query_params' if provided.
       """
-      @spec list_autoscalers(binary, map) :: HTTPResponse.t
+      @spec list_autoscalers(zone :: binary, query_params :: map) :: HTTPResponse.t
       def list_autoscalers(zone, query_params \\ %{}) do
         query = query_params |> URI.encode_query
 
@@ -30,14 +30,8 @@ defmodule GCloudex.ComputeEngine.Impl do
       @doc """
       Returns the specified 'autoscaler' resource if it exists in the given 'zone'.
       """
-      @spec get_autoscaler(binary, binary, binary) :: HTTPResponse.t
+      @spec get_autoscaler(zone :: binary, autoscaler :: binary, fields :: binary) :: HTTPResponse.t
       def get_autoscaler(zone, autoscaler, fields \\ "") do
-        if not Regex.match?(~r/$[a-z](?:[-a-z0-9]{0,61}[a-z0-9])?/, autoscaler) do 
-          raise ArgumentError, 
-            message: "The autoscaler must match the regular "
-                      <> "expression '[a-z](?:[-a-z0-9]{0,61}[a-z0-9])?'."
-        end
-
         query = fields_binary_to_map fields
 
         request :get, @no_zone_ep <> "/zones/#{zone}/autoscalers/#{autoscaler}", [], "", query
@@ -50,13 +44,8 @@ defmodule GCloudex.ComputeEngine.Impl do
       For the properties and structure of the 'autoscaler_resource' check
       https://cloud.google.com/compute/docs/reference/latest/autoscalers#resource
       """
-      @spec insert_autoscaler(binary, map, binary) :: HTTPResponse.t | no_return
+      @spec insert_autoscaler(zone :: binary, autoscaler_resource :: Map.t, fields :: binary) :: HTTPResponse.t | no_return
       def insert_autoscaler(zone, autoscaler_resource, fields \\ "") do
-        if false in (["name", "target"] |> Enum.map(fn x -> if x in Map.keys(autoscaler_resource) do true end end)) do 
-          raise ArgumentError, 
-            message: "The Autoscaler Resource must have at least the fields 'name' and 'target'."
-        end
-
         query = fields_binary_to_map fields
         body  = autoscaler_resource |> Poison.encode!
 
@@ -72,7 +61,7 @@ defmodule GCloudex.ComputeEngine.Impl do
       Updates 'autoscaler_name' in the specified 'zone' using the data included in
       the 'autoscaler_resource'. This function supports patch semantics.
       """
-      @spec patch_autoscaler(binary, binary, map, binary) :: HTTPResponse.t
+      @spec patch_autoscaler(zone :: binary, autoscaler_name :: binary, autoscaler_resource :: Map.t, fields :: binary) :: HTTPResponse.t
       def patch_autoscaler(zone, autoscaler_name, autoscaler_resource, fields \\ "") do 
         query = 
           if fields == "" do 
@@ -96,7 +85,7 @@ defmodule GCloudex.ComputeEngine.Impl do
       the 'autoscaler_resource'. The 'autoscaler_name' may be provided but it's
       optional.
       """
-      @spec update_autoscaler(binary, binary, map, binary) :: HTTPResponse.t
+      @spec update_autoscaler(zone :: binary, autoscaler_name :: binary, autoscaler_resource :: Map.t, fields :: binary) :: HTTPResponse.t
       def update_autoscaler(zone, autoscaler_name \\ "", autoscaler_resource, fields \\ "") do
         body  = autoscaler_resource |> Poison.encode!
         query = 
@@ -122,7 +111,7 @@ defmodule GCloudex.ComputeEngine.Impl do
       @doc """
       Deletes the specified 'autoscaler' if it exists in the given 'zone'.
       """
-      @spec delete_autoscaler(binary, binary, binary) :: HTTPResponse.t
+      @spec delete_autoscaler(zone :: binary, autoscaler :: binary, fields :: binary) :: HTTPResponse.t
       def delete_autoscaler(zone, autoscaler, fields \\ "") do
         query = fields_binary_to_map fields
 
