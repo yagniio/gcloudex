@@ -1048,6 +1048,51 @@ defmodule ComputeEngineTest do
     assert expected == API.get_license license, fields
   end       
 
+  #####################
+  ### Regions Tests ###
+  #####################
+
+  test "list_regions (no query)" do 
+    headers    = []
+    body       = ""
+    endpoint   = @no_zone_ep <> "/regions"
+    expected   = build_expected(:get, endpoint, headers, body)
+
+    assert expected == API.list_regions
+  end
+
+  test "list_regions (with query)" do 
+    headers    = []
+    body       = ""
+    query      = %{"abc" => 1, "def" => 2}
+    endpoint   = @no_zone_ep <> "/regions"
+    expected   = build_expected(:get, endpoint, headers, body, query |> URI.encode_query)
+
+    assert expected == API.list_regions query
+  end
+
+  test "get_region (no fields)" do 
+    region   = "region"
+    headers  = []
+    body     = ""
+    endpoint = @no_zone_ep <> "/regions/#{region}"
+    expected = build_expected(:get, endpoint, headers, body)
+
+    assert expected == API.get_region region
+  end    
+
+  test "get_region (with fields)" do 
+    region   = "region"
+    headers  = []
+    body     = ""
+    fields   = "a,b,c"
+    query    = %{"fields" => fields}
+    endpoint = @no_zone_ep <> "/regions/#{region}"
+    expected = build_expected(:get, endpoint, headers, body, query |> URI.encode_query)
+
+    assert expected == API.get_region region, fields
+  end      
+
   ###############
   ### Helpers ###
   ###############

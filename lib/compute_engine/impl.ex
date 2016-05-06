@@ -1263,7 +1263,7 @@ defmodule GCloudex.ComputeEngine.Impl do
       @doc """
       Retrieves a list of region resources according to the given 'query_params'.
       """
-      @spec list_regions(map) :: HTTPResponse.t
+      @spec list_regions(query_params :: Map.t) :: HTTPResponse.t
       def list_regions(query_params \\ %{}) do
         query = query_params |> URI.encode_query
 
@@ -1273,7 +1273,7 @@ defmodule GCloudex.ComputeEngine.Impl do
       @doc """
       Returns the specified 'region' resource.
       """
-      @spec get_region(binary, binary) :: HTTPResponse.t
+      @spec get_region(region :: binary, fields :: binary) :: HTTPResponse.t
       def get_region(region, fields \\ "") do 
         query = 
           if fields == "" do 
