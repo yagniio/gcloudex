@@ -658,7 +658,7 @@ defmodule GCloudex.ComputeEngine.Impl do
       Lists all instances in the given 'zone' obeying the given 'query_params' if
       present.
       """
-      @spec list_instances(binary, map) :: HTTPResponse.t
+      @spec list_instances(zone :: binary, query_params :: Map.t) :: HTTPResponse.t
       def list_instances(zone, query_params \\ %{}) do
         query = query_params |> URI.encode_query
 
@@ -668,7 +668,7 @@ defmodule GCloudex.ComputeEngine.Impl do
       @doc """
       Returns the data about the 'instance' in the given 'zone' if it exists.
       """
-      @spec get_instance(binary, binary, binary) :: HTTPResponse.t
+      @spec get_instance(zone :: binary, instance :: binary, fields :: binary) :: HTTPResponse.t
       def get_instance(zone, instance, fields \\ "") do
         query = 
           if fields == "" do 
@@ -724,7 +724,7 @@ defmodule GCloudex.ComputeEngine.Impl do
 
         https://cloud.google.com/compute/docs/reference/latest/instances#resource
       """
-      @spec insert_instance(binary, map, binary) :: HTTPResponse.t
+      @spec insert_instance(zone :: binary, instance_resource :: Map.t, fields :: binary) :: HTTPResponse.t
       def insert_instance(zone, instance_resource, fields \\ "") do
         body  = instance_resource |> Poison.encode!
         query = 
@@ -745,7 +745,7 @@ defmodule GCloudex.ComputeEngine.Impl do
       @doc """
       Deletes the given 'instance' if it exists in the given 'zone'.
       """
-      @spec delete_instance(binary, binary, binary) :: HTTPResponse.t
+      @spec delete_instance(zone :: binary, instance :: binary, fields :: binary) :: HTTPResponse.t
       def delete_instance(zone, instance, fields \\ "") do 
         query = 
           if fields == "" do 
@@ -765,7 +765,7 @@ defmodule GCloudex.ComputeEngine.Impl do
       @doc """
       Starts a stopped 'instance' if it exists in the given 'zone'.
       """
-      @spec start_instance(binary, binary, binary) :: HTTPResponse.t
+      @spec start_instance(zone :: binary, instance :: binary, fields :: binary) :: HTTPResponse.t
       def start_instance(zone, instance, fields \\ "") do 
         query = 
           if fields == "" do 
@@ -785,7 +785,7 @@ defmodule GCloudex.ComputeEngine.Impl do
       @doc """
       Stops a running 'instance' if it exists in the given 'zone'.
       """
-      @spec stop_instance(binary, binary, binary) :: HTTPResponse.t
+      @spec stop_instance(zone :: binary, instance :: binary, fields :: binary) :: HTTPResponse.t
       def stop_instance(zone, instance, fields \\ "") do 
         query = 
           if fields == "" do 
@@ -805,7 +805,7 @@ defmodule GCloudex.ComputeEngine.Impl do
       @doc """
       Performs a hard reset on the 'instance' if it exists in the given 'zone'.
       """
-      @spec reset_instance(binary, binary, binary) :: HTTPResponse.t
+      @spec reset_instance(zone :: binary, instance :: binary, fields :: binary) :: HTTPResponse.t
       def reset_instance(zone, instance, fields \\ "") do 
         query = 
           if fields == "" do 
@@ -827,7 +827,7 @@ defmodule GCloudex.ComputeEngine.Impl do
       kind and type will automatically be added with the default (and only possible)
       values.
       """
-      @spec add_access_config(binary, binary, binary, binary, binary, binary) :: HTTPResponse.t
+      @spec add_access_config(zone :: binary, instance :: binary, network_interface :: binary, name :: binary, nat_ip :: binary, fields :: binary) :: HTTPResponse.t
       def add_access_config(zone, instance, network_interface, name, nat_ip \\ "", fields \\ "") do 
         body = 
           %{
@@ -864,7 +864,7 @@ defmodule GCloudex.ComputeEngine.Impl do
       Deletes te 'access_config' from the 'instance' 'network_interface' if the
       'instance' exists in the given 'zone'.
       """
-      @spec delete_access_config(binary, binary, binary, binary, binary) :: HTTPResponse.t
+      @spec delete_access_config(zone :: binary, instance :: binary, access_config :: binary, network_interface :: binary, fields :: binary) :: HTTPResponse.t
       def delete_access_config(zone, instance, access_config, network_interface, fields \\ "") do 
         query = 
           if fields == "" do 
@@ -891,8 +891,8 @@ defmodule GCloudex.ComputeEngine.Impl do
       Retrieves aggregated list of instances according to the specified 
       'query_params' if present.
       """
-      @spec get_aggregated_list_of_instances(map) :: HTTPResponse.t
-      def get_aggregated_list_of_instances(query_params \\ %{}) do
+      @spec aggregated_list_of_instances(query_params :: Map.t) :: HTTPResponse.t
+      def aggregated_list_of_instances(query_params \\ %{}) do
         query = query_params |> URI.encode_query
 
         request(
@@ -930,7 +930,7 @@ defmodule GCloudex.ComputeEngine.Impl do
           "interface": string
         }
       """
-      @spec attach_disk(binary, binary, map, binary) :: HTTPResponse.t
+      @spec attach_disk(zone :: binary, instance :: binary, disk_resource :: map, fields :: binary) :: HTTPResponse.t
       def attach_disk(zone, instance, disk_resource, fields \\ "") do
         query = 
           if fields == "" do 
@@ -951,7 +951,7 @@ defmodule GCloudex.ComputeEngine.Impl do
       Detaches the disk with 'device_name' from the 'instance' if it exists in the
       given 'zone'.
       """
-      @spec detach_disk(binary, binary, binary, binary) :: HTTPResponse.t
+      @spec detach_disk(zone :: binary, instance :: binary, device_name :: binary, fields :: binary) :: HTTPResponse.t
       def detach_disk(zone, instance, device_name, fields \\ "") do
         query = 
           if fields == "" do 
@@ -961,7 +961,7 @@ defmodule GCloudex.ComputeEngine.Impl do
           end    
 
         request(
-          :get, 
+          :post, 
           @instance_ep <> "/#{zone}/instances/#{instance}/detachDisk",
           [{"Content-Type", "application/json"}],
           "",
@@ -972,7 +972,7 @@ defmodule GCloudex.ComputeEngine.Impl do
       Sets the 'auto_delete' flag for the disk with 'device_name' attached to 
       'instance' if it exists in the given 'zone'.
       """
-      @spec set_disk_auto_delete(binary, binary, boolean, binary, binary) :: HTTPResponse.t
+      @spec set_disk_auto_delete(zone :: binary, instance :: binary, auto_delete :: boolean, device_name :: binary, fields :: binary) :: HTTPResponse.t
       def set_disk_auto_delete(zone, instance, auto_delete, device_name, fields \\ "") do 
         query = 
           if fields == "" do 
@@ -1000,7 +1000,7 @@ defmodule GCloudex.ComputeEngine.Impl do
       exists in the given 'zone'. The 'port' accepted values are from 1 to 4, 
       inclusive.
       """
-      @spec get_serial_port_output(binary, binary, pos_integer, binary) :: HTTPResponse.t
+      @spec get_serial_port_output(zone :: binary, instance :: binary, port :: 1..4, fields :: binary) :: HTTPResponse.t
       def get_serial_port_output(zone, instance, port \\ 1, fields \\ "") do 
         port = 
           if port == 1 do 
@@ -1028,14 +1028,14 @@ defmodule GCloudex.ComputeEngine.Impl do
       Changes the Machine Type for a stopped 'instance' to the specified 
       'machine_type' if the 'instance' exists in the given 'zone'.
       """
-      @spec set_machine_type(binary, binary, binary, binary) :: HTTPResponse.t
+      @spec set_machine_type(zone :: binary, instance :: binary, machine_type :: binary, fields :: binary) :: HTTPResponse.t
       def set_machine_type(zone, instance, machine_type, fields \\ "") do 
         body = %{"machineType" => machine_type} |> Poison.encode!
         query = 
           if fields == "" do
             fields
           else
-            %{"fields" => fields}
+            %{"fields" => fields} |> URI.encode_query
           end
 
         request(
@@ -1062,7 +1062,7 @@ defmodule GCloudex.ComputeEngine.Impl do
           }
         ]
       """
-      @spec set_metadata(binary, binary, binary, list(map), binary) :: HTTPResponse.t
+      @spec set_metadata(zone :: binary, instance :: binary, fingerprint :: binary, items :: list(map), fields :: binary) :: HTTPResponse.t
       def set_metadata(zone, instance, fingerprint, items, fields \\ "") do 
         body = %{"kind" => "compute#metadata"}
         |> Map.put_new("fingerprint", fingerprint)
@@ -1088,7 +1088,7 @@ defmodule GCloudex.ComputeEngine.Impl do
       Sets an 'instance' scheduling options if it exists in the given 'zone'. The
       'preemptible' option cannot be changed after instance creation.
       """
-      @spec set_scheduling(binary, binary, {binary, boolean, boolean}, binary) :: HTTPResponse.t
+      @spec set_scheduling(zone :: binary, instance :: binary, {on_host_maintenance :: binary, automatic_restart :: boolean, preemptible :: boolean}, fields :: binary) :: HTTPResponse.t
       def set_scheduling(zone, instance, {on_host_maintenance, automatic_restart, preemptible}, fields \\ "") do 
         body = %{
                   "onHostMaintenance" => on_host_maintenance, 
@@ -1101,7 +1101,7 @@ defmodule GCloudex.ComputeEngine.Impl do
           if fields == "" do
             fields
           else
-            %{"fields" => fields}
+            %{"fields" => fields} |> URI.encode_query
           end
 
         request(
@@ -1116,14 +1116,14 @@ defmodule GCloudex.ComputeEngine.Impl do
       Sets tags for the specified 'instance' to the given 'fingerprint' and 'items'.
       The 'instance' must exist in the given 'zone'.
       """
-      @spec set_tags(binary, binary, binary, list(binary), binary) :: HTTPResponse.t
+      @spec set_tags(zone :: binary, instance :: binary, fingerprint :: binary, items :: list(binary), fields :: binary) :: HTTPResponse.t
       def set_tags(zone, instance, fingerprint, items, fields \\ "") do 
-        body = %{"fingerprint" => fingerprint, "items" => items} |> Poison.encode!
+        body  = %{"fingerprint" => fingerprint, "items" => items} |> Poison.encode!
         query = 
           if fields == "" do
             fields
           else
-            %{"fields" => fields}
+            %{"fields" => fields} |> URI.encode_query
           end    
 
         request(

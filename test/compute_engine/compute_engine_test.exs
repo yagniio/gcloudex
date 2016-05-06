@@ -1022,6 +1022,560 @@ defmodule ComputeEngineTest do
     assert expected == API.set_named_ports_for_group zone, group, ports, fp
   end     
 
+  #######################
+  ### Instances Tests ###
+  #######################
+
+  test "list_instances (no query)" do 
+    zone     = "zone"
+    headers  = []
+    body     = ""
+    endpoint = @no_zone_ep <> "/zones/#{zone}/instances"
+    expected = build_expected(:get, endpoint, headers, body)
+
+    assert expected == API.list_instances zone
+  end
+
+  test "list_instances (with query)" do 
+    zone     = "zone"
+    headers  = []
+    body     = ""
+    query    = %{"abc" => 1, "def" => 2}
+    endpoint = @no_zone_ep <> "/zones/#{zone}/instances"
+    expected = build_expected(:get, endpoint, headers, body, query |> URI.encode_query)
+
+    assert expected == API.list_instances zone, query
+  end
+
+  test "get_instance (no fields)" do 
+    zone     = "zone"
+    instance = "instance"
+    headers  = []
+    body     = ""
+    endpoint = @no_zone_ep <> "/zones/#{zone}/instances/#{instance}"
+    expected = build_expected(:get, endpoint, headers, body)
+
+    assert expected == API.get_instance zone, instance
+  end    
+
+  test "get_instance (with fields)" do 
+    zone     = "zone"
+    instance = "instance"
+    headers  = []
+    body     = ""
+    fields   = "a,b,c"
+    query    = %{"fields" => fields}
+    endpoint = @no_zone_ep <> "/zones/#{zone}/instances/#{instance}"
+    expected = build_expected(:get, endpoint, headers, body, query |> URI.encode_query)
+
+    assert expected == API.get_instance zone, instance, fields
+  end     
+
+  test "insert_instance (no fields)" do 
+    zone     = "zone"
+    resource = %{"abc" => 1, "def" => 2}
+    headers  = [{"Content-Type", "application/json"}]
+    body     = resource |> Poison.encode!
+    endpoint = @no_zone_ep <> "/zones/#{zone}/instances"
+    expected = build_expected(:post, endpoint, headers, body)
+
+    assert expected == API.insert_instance zone, resource
+  end  
+
+  test "insert_instance (with fields)" do 
+    zone     = "zone"
+    resource = %{"abc" => 1, "def" => 2}
+    headers  = [{"Content-Type", "application/json"}]
+    body     = resource |> Poison.encode!
+    fields   = "a,b,c"
+    query    = %{"fields" => fields}
+    endpoint = @no_zone_ep <> "/zones/#{zone}/instances"
+    expected = build_expected(:post, endpoint, headers, body, query |> URI.encode_query)
+
+    assert expected == API.insert_instance zone, resource, fields
+  end    
+
+  test "delete_instance (no fields)" do 
+    zone     = "zone"
+    instance = "instance"
+    headers  = []
+    body     = ""
+    endpoint = @no_zone_ep <> "/zones/#{zone}/instances/#{instance}"
+    expected = build_expected(:delete, endpoint, headers, body)
+
+    assert expected == API.delete_instance zone, instance
+  end  
+
+  test "delete_instance (with fields)" do 
+    zone     = "zone"
+    instance = "instance"
+    headers  = []
+    body     = ""
+    fields   = "a,b,c"
+    query    = %{"fields" => fields}
+    endpoint = @no_zone_ep <> "/zones/#{zone}/instances/#{instance}"
+    expected = build_expected(:delete, endpoint, headers, body, query |> URI.encode_query)
+
+    assert expected == API.delete_instance zone, instance, fields
+  end  
+
+  test "start_instance (no fields)" do 
+    zone     = "zone"
+    instance = "instance"
+    headers  = [{"Content-Type", "application/json"}]
+    body     = ""
+    endpoint = @no_zone_ep <> "/zones/#{zone}/instances/#{instance}/start"
+    expected = build_expected(:post, endpoint, headers, body)
+
+    assert expected == API.start_instance zone, instance
+  end  
+
+  test "start_instance (with fields)" do 
+    zone     = "zone"
+    instance = "instance"
+    headers  = [{"Content-Type", "application/json"}]
+    body     = ""
+    fields   = "a,b,c"
+    query    = %{"fields" => fields}
+    endpoint = @no_zone_ep <> "/zones/#{zone}/instances/#{instance}/start"
+    expected = build_expected(:post, endpoint, headers, body, query |> URI.encode_query)
+
+    assert expected == API.start_instance zone, instance, fields
+  end  
+
+  test "stop_instance (no fields)" do 
+    zone     = "zone"
+    instance = "instance"
+    headers  = [{"Content-Type", "application/json"}]
+    body     = ""
+    endpoint = @no_zone_ep <> "/zones/#{zone}/instances/#{instance}/stop"
+    expected = build_expected(:post, endpoint, headers, body)
+
+    assert expected == API.stop_instance zone, instance
+  end  
+
+  test "stop_instance (with fields)" do 
+    zone     = "zone"
+    instance = "instance"
+    headers  = [{"Content-Type", "application/json"}]
+    body     = ""
+    fields   = "a,b,c"
+    query    = %{"fields" => fields}
+    endpoint = @no_zone_ep <> "/zones/#{zone}/instances/#{instance}/stop"
+    expected = build_expected(:post, endpoint, headers, body, query |> URI.encode_query)
+
+    assert expected == API.stop_instance zone, instance, fields
+  end  
+
+  test "reset_instance (no fields)" do 
+    zone     = "zone"
+    instance = "instance"
+    headers  = [{"Content-Type", "application/json"}]
+    body     = ""
+    endpoint = @no_zone_ep <> "/zones/#{zone}/instances/#{instance}/reset"
+    expected = build_expected(:post, endpoint, headers, body)
+
+    assert expected == API.reset_instance zone, instance
+  end  
+
+  test "reset_instance (with fields)" do 
+    zone     = "zone"
+    instance = "instance"
+    headers  = [{"Content-Type", "application/json"}]
+    body     = ""
+    fields   = "a,b,c"
+    query    = %{"fields" => fields}
+    endpoint = @no_zone_ep <> "/zones/#{zone}/instances/#{instance}/reset"
+    expected = build_expected(:post, endpoint, headers, body, query |> URI.encode_query)
+
+    assert expected == API.reset_instance zone, instance, fields
+  end  
+
+  test "add_access_config (no fields with nat)" do 
+    zone      = "zone"
+    instance  = "instance"
+    interface = "interface"
+    name      = "name"
+    nat       = "nat"
+    headers   = [{"Content-Type", "application/json"}]
+    query     = %{"networkInterface" => interface}
+    body      = %{
+      "kind"   => "compute#accessConfig",
+      "type"   => "ONE_TO_ONE_NAT",
+      "name"   => name,
+      "natIP"  => nat
+    } |> Poison.encode!
+    endpoint  = @no_zone_ep <> "/zones/#{zone}/instances/#{instance}/addAccessConfig"
+    expected  = build_expected(:post, endpoint, headers, body, query |> URI.encode_query)
+
+    assert expected == API.add_access_config zone, instance, interface, name, nat
+  end    
+
+  test "add_access_config (no fields no nat)" do 
+    zone      = "zone"
+    instance  = "instance"
+    interface = "interface"
+    name      = "name"
+    nat       = ""
+    headers   = [{"Content-Type", "application/json"}]
+    query     = %{"networkInterface" => interface}
+    body      = %{
+      "kind" => "compute#accessConfig",
+      "type" => "ONE_TO_ONE_NAT",
+      "name" => name,
+    } |> Poison.encode!
+    endpoint  = @no_zone_ep <> "/zones/#{zone}/instances/#{instance}/addAccessConfig"
+    expected  = build_expected(:post, endpoint, headers, body, query |> URI.encode_query)
+
+    assert expected == API.add_access_config zone, instance, interface, name, nat
+  end      
+
+  test "add_access_config (with fields with nat)" do 
+    zone      = "zone"
+    instance  = "instance"
+    interface = "interface"
+    name      = "name"
+    nat       = "nat"
+    headers   = [{"Content-Type", "application/json"}]
+    fields    = "a,b,c"
+    query     = %{"networkInterface" => interface, "fields" => fields}
+    body      = %{
+      "kind"   => "compute#accessConfig",
+      "type"   => "ONE_TO_ONE_NAT",
+      "name"   => name,
+      "natIP"  => nat
+    } |> Poison.encode!
+    endpoint  = @no_zone_ep <> "/zones/#{zone}/instances/#{instance}/addAccessConfig"
+    expected  = build_expected(:post, endpoint, headers, body, query |> URI.encode_query)
+
+    assert expected == API.add_access_config zone, instance, interface, name, nat, fields
+  end      
+
+  test "add_access_config (no fields no nat)" do 
+    zone      = "zone"
+    instance  = "instance"
+    interface = "interface"
+    name      = "name"
+    nat       = ""
+    headers   = [{"Content-Type", "application/json"}]
+    query     = %{}
+    body      = %{
+      "kind"   => "compute#accessConfig",
+      "type"   => "ONE_TO_ONE_NAT",
+      "name"   => name,
+      "natIP"  => nat
+    } |> Poison.encode!
+    endpoint  = @no_zone_ep <> "/zones/#{zone}/instances/#{instance}/addAccessConfig"
+    expected  = build_expected(:post, endpoint, headers, body, query |> URI.encode_query)
+
+    assert expected == API.add_access_config zone, instance, interface, name, nat
+  end        
+
+  test "delete_access_config (no fields)" do 
+    zone      = "zone"
+    instance  = "instance"
+    interface = "interface"
+    config    = "accessConfig"
+    headers   = [{"Content-Type", "application/json"}]
+    query     = %{"networkInterface" => interface, "accessConfig" => config}
+    body      = ""
+    endpoint  = @no_zone_ep <> "/zones/#{zone}/instances/#{instance}/deleteAccessConfig"
+    expected  = build_expected(:post, endpoint, headers, body, query |> URI.encode_query)
+
+    assert expected == API.delete_access_config zone, instance, config, interface
+  end   
+
+  test "delete_access_config (with fields)" do 
+    zone      = "zone"
+    instance  = "instance"
+    interface = "interface"
+    config    = "accessConfig"
+    headers   = [{"Content-Type", "application/json"}]
+    fields    = "a,b,c"
+    query     = %{
+      "networkInterface" => interface, 
+      "accessConfig"     => config, 
+      "fields"           => fields
+    }
+    body      = ""
+    endpoint  = @no_zone_ep <> "/zones/#{zone}/instances/#{instance}/deleteAccessConfig"
+    expected  = build_expected(:post, endpoint, headers, body, query |> URI.encode_query)
+
+    assert expected == API.delete_access_config zone, instance, config, interface, fields
+  end     
+
+  test "aggregated_list_of_instances (no query)" do 
+    headers  = []
+    body     = ""
+    endpoint = @no_zone_ep <> "/aggregated/instances"
+    expected = build_expected(:get, endpoint, headers, body)
+
+    assert expected == API.aggregated_list_of_instances
+  end
+
+  test "aggregated_list_of_instances (with query)" do 
+    headers  = []
+    body     = ""
+    query    = %{"abc" => 1, "def" => 2}
+    endpoint = @no_zone_ep <> "/aggregated/instances"
+    expected = build_expected(:get, endpoint, headers, body, query |> URI.encode_query)
+
+    assert expected == API.aggregated_list_of_instances query
+  end  
+
+  test "attach_disk (no fields)" do 
+    zone      = "zone"
+    instance  = "instance"
+    resource  = %{"abc" => 1, "def" => 2}
+    headers   = [{"Content-Type", "application/json"}]
+    body      = resource |> Poison.encode!
+    endpoint  = @no_zone_ep <> "/zones/#{zone}/instances/#{instance}/attachDisk"
+    expected  = build_expected(:post, endpoint, headers, body)
+
+    assert expected == API.attach_disk zone, instance, resource
+  end     
+
+  test "attach_disk (with fields)" do 
+    zone      = "zone"
+    instance  = "instance"
+    resource  = %{"abc" => 1, "def" => 2}
+    headers   = [{"Content-Type", "application/json"}]
+    body      = resource |> Poison.encode!
+    fields    = "a,b,c"
+    query     = %{"fields" => fields}
+    endpoint  = @no_zone_ep <> "/zones/#{zone}/instances/#{instance}/attachDisk"
+    expected  = build_expected(:post, endpoint, headers, body, query |> URI.encode_query)
+
+    assert expected == API.attach_disk zone, instance, resource, fields
+  end       
+
+  test "detach_disk (no fields)" do 
+    zone      = "zone"
+    instance  = "instance"
+    device    = "device"
+    headers   = [{"Content-Type", "application/json"}]
+    body      = ""
+    query     = %{"deviceName" => device}
+    endpoint  = @no_zone_ep <> "/zones/#{zone}/instances/#{instance}/detachDisk"
+    expected  = build_expected(:post, endpoint, headers, body, query |> URI.encode_query)
+
+    assert expected == API.detach_disk zone, instance, device
+  end     
+
+  test "detach_disk (with fields)" do 
+    zone      = "zone"
+    instance  = "instance"
+    device    = "device"
+    headers   = [{"Content-Type", "application/json"}]
+    body      = ""
+    fields    = "a,b,c"
+    query     = %{"deviceName" => device, "fields" => fields}
+    endpoint  = @no_zone_ep <> "/zones/#{zone}/instances/#{instance}/detachDisk"
+    expected  = build_expected(:post, endpoint, headers, body, query |> URI.encode_query)
+
+    assert expected == API.detach_disk zone, instance, device, fields
+  end            
+
+  test "set_disk_auto_delete (no fields)" do 
+    zone      = "zone"
+    instance  = "instance"
+    delete    = true
+    device    = "device"
+    headers   = [{"Content-Type", "application/json"}]
+    body      = ""
+    query     = %{"deviceName" => device, "autoDelete" => delete}
+    endpoint  = @no_zone_ep <> "/zones/#{zone}/instances/#{instance}/setDiskAutoDelete"
+    expected  = build_expected(:post, endpoint, headers, body, query |> URI.encode_query)
+
+    assert expected == API.set_disk_auto_delete zone, instance, delete, device
+  end    
+
+  test "set_disk_auto_delete (with fields)" do 
+    zone      = "zone"
+    instance  = "instance"
+    delete    = true
+    device    = "device"
+    headers   = [{"Content-Type", "application/json"}]
+    body      = ""
+    fields    = "a,b,c"
+    query     = %{
+      "deviceName" => device, 
+      "autoDelete" => delete,
+      "fields"     => fields
+    }
+    endpoint  = @no_zone_ep <> "/zones/#{zone}/instances/#{instance}/setDiskAutoDelete"
+    expected  = build_expected(:post, endpoint, headers, body, query |> URI.encode_query)
+
+    assert expected == API.set_disk_auto_delete zone, instance, delete, device, fields
+  end      
+
+  test "get_serial_port_output (no fields)" do 
+    zone      = "zone"
+    instance  = "instance"
+    port      = 1
+    headers   = []
+    body      = ""
+    query     = %{"port" => port}
+    endpoint  = @no_zone_ep <> "/zones/#{zone}/instances/#{instance}/serialPort"
+    expected  = build_expected(:get, endpoint, headers, body, query |> URI.encode_query)
+
+    assert expected == API.get_serial_port_output zone, instance, port
+  end    
+
+  test "get_serial_port_output (with fields)" do 
+    zone      = "zone"
+    instance  = "instance"
+    port      = 1
+    headers   = []
+    body      = ""
+    fields    = "a,b,c"
+    query     = %{"port" => port, "fields" => fields}
+    endpoint  = @no_zone_ep <> "/zones/#{zone}/instances/#{instance}/serialPort"
+    expected  = build_expected(:get, endpoint, headers, body, query |> URI.encode_query)
+
+    assert expected == API.get_serial_port_output zone, instance, port, fields
+  end      
+
+  test "set_machine_type (no fields)" do 
+    zone      = "zone"
+    instance  = "instance"
+    type      = "type"
+    headers   = [{"Content-Type", "application/json"}]
+    body      = %{"machineType" => type} |> Poison.encode!
+    endpoint  = @no_zone_ep <> "/zones/#{zone}/instances/#{instance}/setMachineType"
+    expected  = build_expected(:post, endpoint, headers, body)
+
+    assert expected == API.set_machine_type zone, instance, type
+  end     
+
+  test "set_machine_type (with fields)" do 
+    zone      = "zone"
+    instance  = "instance"
+    type      = "type"
+    headers   = [{"Content-Type", "application/json"}]
+    body      = %{"machineType" => type} |> Poison.encode!
+    fields    = "a,b,c"
+    query     = %{"fields" => fields}
+    endpoint  = @no_zone_ep <> "/zones/#{zone}/instances/#{instance}/setMachineType"
+    expected  = build_expected(:post, endpoint, headers, body, query |> URI.encode_query)
+
+    assert expected == API.set_machine_type zone, instance, type, fields
+  end    
+
+  test "set_metadata (no fields)" do 
+    zone      = "zone"
+    instance  = "instance"
+    fp        = "fingerprint"
+    items     = [
+      %{"key" => "val1", "value" => "val2"},
+      %{"key" => "val3", "value" => "val4"}
+    ]
+    headers   = [{"Content-Type", "application/json"}]
+    body      = %{
+      "kind"        => "compute#metadata",
+      "fingerprint" => fp,
+      "items"       => items
+    } |> Poison.encode!
+    endpoint  = @no_zone_ep <> "/zones/#{zone}/instances/#{instance}/setMetadata"
+    expected  = build_expected(:post, endpoint, headers, body)
+
+    assert expected == API.set_metadata zone, instance, fp, items
+  end     
+
+  test "set_metadata (no fields)" do 
+    zone      = "zone"
+    instance  = "instance"
+    fp        = "fingerprint"
+    items     = [
+      %{"key" => "val1", "value" => "val2"},
+      %{"key" => "val3", "value" => "val4"}
+    ]
+    headers   = [{"Content-Type", "application/json"}]
+    body      = %{
+      "kind"        => "compute#metadata",
+      "fingerprint" => fp,
+      "items"       => items
+    } |> Poison.encode!
+    fields    = "a,b,c"
+    query     = %{"fields" => fields}
+    endpoint  = @no_zone_ep <> "/zones/#{zone}/instances/#{instance}/setMetadata"
+    expected  = build_expected(:post, endpoint, headers, body, query |> URI.encode_query)
+
+    assert expected == API.set_metadata zone, instance, fp, items, fields
+  end       
+
+  test "set_scheduling (no fields)" do 
+    zone      = "zone"
+    instance  = "instance"
+    on_host   = "abc"
+    restart   = true
+    pre       = true
+    headers   = [{"Content-Type", "application/json"}]
+    body      = %{
+      "onHostMaintenance" => on_host,
+      "automaticRestart"  => restart,
+      "preemptible"       => pre
+    } |> Poison.encode!
+    endpoint  = @no_zone_ep <> "/zones/#{zone}/instances/#{instance}/setScheduling"
+    expected  = build_expected(:post, endpoint, headers, body)
+
+    assert expected == API.set_scheduling zone, instance, {on_host, restart, pre}
+  end     
+
+  test "set_scheduling (with fields)" do 
+    zone      = "zone"
+    instance  = "instance"
+    on_host   = "abc"
+    restart   = true
+    pre       = true
+    headers   = [{"Content-Type", "application/json"}]
+    body      = %{
+      "onHostMaintenance" => on_host,
+      "automaticRestart"  => restart,
+      "preemptible"       => pre
+    } |> Poison.encode!
+    fields    = "a,b,c"
+    query     = %{"fields" => fields}
+    endpoint  = @no_zone_ep <> "/zones/#{zone}/instances/#{instance}/setScheduling"
+    expected  = build_expected(:post, endpoint, headers, body, query |> URI.encode_query)
+
+    assert expected == API.set_scheduling zone, instance, {on_host, restart, pre}, fields
+  end       
+
+  test "set_tags (no fields)" do 
+    zone      = "zone"
+    instance  = "instance"
+    fp        = "fingerprint"
+    items     = ["abc", "def"]
+    headers   = [{"Content-Type", "application/json"}]
+    body      = %{
+      "items"       => items,
+      "fingerprint" => fp
+    } |> Poison.encode!
+    endpoint  = @no_zone_ep <> "/zones/#{zone}/instances/#{instance}/setTags"
+    expected  = build_expected(:post, endpoint, headers, body)
+
+    assert expected == API.set_tags zone, instance, fp, items
+  end    
+
+  test "set_tags (with fields)" do 
+    zone      = "zone"
+    instance  = "instance"
+    fp        = "fingerprint"
+    items     = ["abc", "def"]
+    headers   = [{"Content-Type", "application/json"}]
+    body      = %{
+      "items"       => items,
+      "fingerprint" => fp
+    } |> Poison.encode!
+    fields    = "a,b,c"
+    query     = %{"fields" => fields}
+    endpoint  = @no_zone_ep <> "/zones/#{zone}/instances/#{instance}/setTags"
+    expected  = build_expected(:post, endpoint, headers, body, query |> URI.encode_query)
+
+    assert expected == API.set_tags zone, instance, fp, items, fields
+  end      
+
   ######################
   ### Licenses Tests ###
   ######################
