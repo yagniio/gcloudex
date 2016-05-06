@@ -276,15 +276,8 @@ defmodule GCloudex.ComputeEngine.Impl do
       contain the keys "name" and "description" and "name" must obey the 
       refex '(?:[a-z](?:[-a-z0-9]{0,61}[a-z0-9])?)'.
       """
-      @spec create_snapshot(binary, binary, map, binary) :: HTTPResponse.t
-      def create_snapshot(zone, disk, request, fields \\ "") do
-
-        if request == %{} do 
-          raise ArgumentError, 
-            message: "The request cannot be empty. At least keys 'name' "
-                     <> "and 'description' must be provided."
-        end
-
+      @spec create_snapshot(zone :: binary, disk :: binary, request :: Map.t, fields :: binary) :: HTTPResponse.t
+      def create_snapshot(zone, disk, request, fields \\ "") when request != %{} do
         query = fields_binary_to_map fields
         body  = request |> Poison.encode!
 
@@ -304,7 +297,7 @@ defmodule GCloudex.ComputeEngine.Impl do
       Retrieves the list of firewall rules according to the 'query_params' if 
       provided.
       """
-      @spec list_firewalls(map) :: HTTPResponse.t
+      @spec list_firewalls(query_params :: Map.t) :: HTTPResponse.t
       def list_firewalls(query_params \\ %{}) do
         query = query_params |> URI.encode_query
 
@@ -314,7 +307,7 @@ defmodule GCloudex.ComputeEngine.Impl do
       @doc """
       Returns the specified 'firewall'.
       """
-      @spec get_firewall(binary, binary) :: HTTPResponse.t
+      @spec get_firewall(firewall :: binary, fields :: binary) :: HTTPResponse.t
       def get_firewall(firewall, fields \\ "") do
         query = fields_binary_to_map fields
 
@@ -326,7 +319,7 @@ defmodule GCloudex.ComputeEngine.Impl do
       information about the structure and properties of Firewall Resources check
       https://cloud.google.com/compute/docs/reference/latest/firewalls#resource
       """
-      @spec insert_firewall(map, binary) :: HTTPResponse.t
+      @spec insert_firewall(firewall_resource :: Map.t, fields :: binary) :: HTTPResponse.t
       def insert_firewall(firewall_resource, fields \\ "") when is_map(firewall_resource) do
         query = fields_binary_to_map fields
         body  = firewall_resource |> Poison.encode!
@@ -343,10 +336,10 @@ defmodule GCloudex.ComputeEngine.Impl do
       Updates the specified 'firewall' rule with the data included in the 
       'firewall_resource'. This function supports patch semantics.
       """
-      @spec patch_firewall(binary, map, binary) :: HTTPResponse.t
+      @spec patch_firewall(firewall :: binary, firewall_resource :: Map.t, fields :: binary) :: HTTPResponse.t
       def patch_firewall(firewall, firewall_resource, fields \\ "") when is_map(firewall_resource) do
         query = fields_binary_to_map fields
-        body  = firewall_resource |> URI.encode_query
+        body  = firewall_resource |> Poison.encode!
 
         request(
           :patch, 
@@ -360,10 +353,10 @@ defmodule GCloudex.ComputeEngine.Impl do
       Updates the specified 'firewall' rule with the data included in the 
       'firewall_resource'.
       """
-      @spec update_firewall(binary, map, binary) :: HTTPResponse.t
+      @spec update_firewall(firewall :: binary, firewall_resource :: map, fields :: binary) :: HTTPResponse.t
       def update_firewall(firewall, firewall_resource, fields \\ "") when is_map(firewall_resource) do
         query = fields_binary_to_map fields
-        body  = firewall_resource |> URI.encode_query
+        body  = firewall_resource |> Poison.encode!
 
         request(
           :put, 
@@ -376,7 +369,7 @@ defmodule GCloudex.ComputeEngine.Impl do
       @doc """
       Deletes the specified 'firewall'.
       """
-      @spec delete_firewall(binary, binary) :: HTTPResponse.t
+      @spec delete_firewall(firewall :: binary, fields :: binary) :: HTTPResponse.t
       def delete_firewall(firewall, fields \\ "") do
         query = fields_binary_to_map fields
 

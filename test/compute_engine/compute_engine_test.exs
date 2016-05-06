@@ -465,7 +465,168 @@ defmodule ComputeEngineTest do
     assert expected == API.aggregated_list_of_disks query
   end  
 
+  test "create_snapshot (no fields)" do 
+    zone       = "zone"
+    disk       = "disk"
+    resource   = %{"abc" => 1, "def" => 2}
+    headers    = [{"Content-Type", "application/json"}]
+    body       = resource |> Poison.encode!
+    endpoint   = @no_zone_ep <> "/zones/#{zone}/disks/#{disk}/createSnapshot"
+    expected   = build_expected(:post, endpoint, headers, body)
 
+    assert expected == API.create_snapshot zone, disk, resource
+  end
+
+  test "create_snapshot (with fields)" do 
+    zone       = "zone"
+    disk       = "disk"
+    resource   = %{"abc" => 1, "def" => 2}
+    headers    = [{"Content-Type", "application/json"}]
+    fields     = "a,b,c"
+    query      = %{"fields" => fields}
+    body       = resource |> Poison.encode!
+    endpoint   = @no_zone_ep <> "/zones/#{zone}/disks/#{disk}/createSnapshot"
+    expected   = build_expected(:post, endpoint, headers, body, query |> URI.encode_query)
+
+    assert expected == API.create_snapshot zone, disk, resource, fields
+  end  
+
+  #######################
+  ### Firewalls Tests ###
+  #######################
+
+  test "list_firewalls (no query)" do 
+    headers    = []
+    body       = ""
+    endpoint   = @no_zone_ep <> "/global/firewalls"
+    expected   = build_expected(:get, endpoint, headers, body)
+
+    assert expected == API.list_firewalls
+  end
+
+  test "list_firewalls (with query)" do 
+    headers    = []
+    body       = ""
+    query      = %{"a" => 1, "b" => 2}
+    endpoint   = @no_zone_ep <> "/global/firewalls"
+    expected   = build_expected(:get, endpoint, headers, body, query |> URI.encode_query)
+
+    assert expected == API.list_firewalls query
+  end  
+
+  test "get_firewall (no fields)" do 
+    firewall   = "firewall"
+    headers    = []
+    body       = ""
+    endpoint   = @no_zone_ep <> "/global/firewalls/#{firewall}"
+    expected   = build_expected(:get, endpoint, headers, body)
+
+    assert expected == API.get_firewall firewall
+  end
+
+  test "get_firewall (with fields)" do 
+    firewall   = "firewall"
+    headers    = []
+    body       = ""
+    fields     = "a,b,c"
+    query      = %{"fields" => fields}
+    endpoint   = @no_zone_ep <> "/global/firewalls/#{firewall}"
+    expected   = build_expected(:get, endpoint, headers, body, query |> URI.encode_query)
+
+    assert expected == API.get_firewall firewall, fields
+  end  
+
+  test "insert_firewall (no fields)" do 
+    resource = %{"abc" => 1, "def" => 2}
+    headers  = [{"Content-Type", "application/json"}]
+    body     = resource |> Poison.encode!
+    endpoint = @no_zone_ep <> "/global/firewalls"
+    expected = build_expected(:post, endpoint, headers, body)
+
+    assert expected == API.insert_firewall resource
+  end
+
+  test "insert_firewall (with fields)" do 
+    resource = %{"abc" => 1, "def" => 2}
+    headers  = [{"Content-Type", "application/json"}]
+    body     = resource |> Poison.encode!
+    fields   = "a,b,c"
+    query    = %{"fields" => fields}
+    endpoint = @no_zone_ep <> "/global/firewalls"
+    expected = build_expected(:post, endpoint, headers, body, query |> URI.encode_query)
+
+    assert expected == API.insert_firewall resource, fields
+  end  
+
+  test "patch_firewall (no fields)" do 
+    firewall = "firewall"
+    resource = %{"abc" => 1, "def" => 2}
+    headers  = [{"Content-Type", "application/json"}]
+    body     = resource |> Poison.encode!
+    endpoint = @no_zone_ep <> "/global/firewalls/#{firewall}"
+    expected = build_expected(:patch, endpoint, headers, body)
+
+    assert expected == API.patch_firewall firewall, resource
+  end  
+
+  test "patch_firewall (with fields)" do 
+    firewall = "firewall"
+    resource = %{"abc" => 1, "def" => 2}
+    headers  = [{"Content-Type", "application/json"}]
+    body     = resource |> Poison.encode!
+    fields   = "a,b,c"
+    query    = %{"fields" => fields}
+    endpoint = @no_zone_ep <> "/global/firewalls/#{firewall}"
+    expected = build_expected(:patch, endpoint, headers, body, query |> URI.encode_query)
+
+    assert expected == API.patch_firewall firewall, resource, fields
+  end    
+
+  test "update_firewall (no fields)" do 
+    firewall = "firewall"
+    resource = %{"abc" => 1, "def" => 2}
+    headers  = [{"Content-Type", "application/json"}]
+    body     = resource |> Poison.encode!
+    endpoint = @no_zone_ep <> "/global/firewalls/#{firewall}"
+    expected = build_expected(:put, endpoint, headers, body)
+
+    assert expected == API.update_firewall firewall, resource
+  end  
+
+  test "update_firewall (with fields)" do 
+    firewall = "firewall"
+    resource = %{"abc" => 1, "def" => 2}
+    headers  = [{"Content-Type", "application/json"}]
+    body     = resource |> Poison.encode!
+    fields   = "a,b,c"
+    query    = %{"fields" => fields}
+    endpoint = @no_zone_ep <> "/global/firewalls/#{firewall}"
+    expected = build_expected(:put, endpoint, headers, body, query |> URI.encode_query)
+
+    assert expected == API.update_firewall firewall, resource, fields
+  end 
+
+  test "delete_firewall (no fields)" do 
+    firewall = "firewall"
+    headers  = []
+    body     = ""
+    endpoint = @no_zone_ep <> "/global/firewalls/#{firewall}"
+    expected = build_expected(:delete, endpoint, headers, body)
+
+    assert expected == API.delete_firewall firewall
+  end    
+
+  test "delete_firewall (with fields)" do 
+    firewall = "firewall"
+    headers  = []
+    body     = ""
+    fields   = "a,b,c"
+    query    = %{"fields" => fields}
+    endpoint = @no_zone_ep <> "/global/firewalls/#{firewall}"
+    expected = build_expected(:delete, endpoint, headers, body, query |> URI.encode_query)
+
+    assert expected == API.delete_firewall firewall, fields 
+  end      
 
   ###############
   ### Helpers ###
