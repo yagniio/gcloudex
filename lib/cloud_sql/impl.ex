@@ -453,67 +453,73 @@ defmodule GCloudex.CloudSQL.Impl do
       Lists all backup runs associated with a given 'instance' and configuration 
       in the reverse chronological order of the backup initiation time.
       """
-      @spec list_backup_runs(binary) :: HTTPResponse.t
+      @spec list_backup_runs(instance :: binary) :: HTTPResponse.t
       def list_backup_runs(instance) do 
-        request_query :get,
-                              @instance_ep,
-                              [],
-                              "",
-                              instance <> "/" <> "backupRuns"
+        request_query(
+          :get,
+          @instance_ep,
+          [],
+          "",
+          instance <> "/" <> "backupRuns"
+        )
       end
 
       @doc """
       Retrieves a resource containing information about a backup run with the ID
       of 'run_id' and belonging to the given 'instance'.
       """
-      @spec get_backup_run(binary, binary | number) :: HTTPResponse.t
+      @spec get_backup_run(instance :: binary, run_id :: binary | number) :: HTTPResponse.t
       def get_backup_run(instance, run_id) do 
         gbr instance, run_id
       end
 
       defp gbr(instance, run_id) when is_integer(run_id) do 
-        request_query :get,
-                              @instance_ep,
-                              [],
-                              "",
-                              instance <> "/" <> "backupRuns" 
-                                       <> "/" <> Integer.to_string(run_id)
+        request_query(
+          :get,
+          @instance_ep,
+          [],
+          "",
+          instance <> "/" <> "backupRuns" <> "/" <> Integer.to_string(run_id)
+        )
       end
 
       defp gbr(instance, run_id) do 
-        request_query :get,
-                              @instance_ep,
-                              [],
-                              "",
-                              instance <> "/" <> "backupRuns" 
-                                       <> "/" <> run_id
+        request_query(
+          :get,
+          @instance_ep,
+          [],
+          "",
+          instance <> "/" <> "backupRuns" <> "/" <> run_id
+        )
       end
 
       @doc """
       Deletes the backup taken by a backup run with ID 'run_id' and belonging to 
       the given 'instance'. 
       """
-      @spec delete_backup_run(binary, binary | number) :: HTTPResponse.t
+      @spec delete_backup_run(instance :: binary, run_id :: binary | number) :: HTTPResponse.t
       def delete_backup_run(instance, run_id) do 
         dbr instance, run_id
       end
 
       defp dbr(instance, run_id) when is_integer(run_id) do 
-        request_query :delete,
-                              @instance_ep,
-                              [],
-                              "",
-                              instance <> "/" <> "backupRuns"
-                                       <> "/" <> Integer.to_string(run_id)
+        request_query(
+          :delete,
+          @instance_ep,
+          [],
+          "",
+          instance <> "/" <> "backupRuns" <> "/" <> Integer.to_string(run_id)
+        )
       end
 
       defp dbr(instance, run_id) do 
-        request_query :delete,
-                              @instance_ep,
-                              [],
-                              "",
-                              instance <> "/" <> "backupRuns"
-                                       <> "/" <> run_id
+        request_query(
+          :delete,
+          @instance_ep,
+          [],
+          "",
+          instance <> "/" <> "backupRuns" <> "/" <> run_id
+        )
       end
 
       ########################

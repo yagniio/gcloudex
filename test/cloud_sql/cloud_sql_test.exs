@@ -371,6 +371,39 @@ defmodule CloudSQLTest do
     assert expected == API.delete_user instance, host, name
   end
 
+  #########################
+  ### Backup Runs Tests ###
+  #########################
+
+  test "list_backup_runs" do 
+    instance = "instance"
+    headers  = []
+    body     = ""
+    expected = build_expected(:get, @instance_ep, headers, body, "#{instance}/backupRuns")
+
+    assert expected == API.list_backup_runs instance
+  end
+
+  test "get_backup_run" do 
+    instance = "instance"
+    run_id   = "run_id"
+    headers  = []
+    body     = ""
+    expected = build_expected(:get, @instance_ep, headers, body, "#{instance}/backupRuns/#{run_id}")
+
+    assert expected == API.get_backup_run instance, run_id
+  end
+
+  test "delete_backup_run" do 
+    instance = "instance"
+    run_id   = "run_id"
+    headers  = []
+    body     = ""
+    expected = build_expected(:delete, @instance_ep, headers, body, "#{instance}/backupRuns/#{run_id}")
+
+    assert expected == API.delete_backup_run instance, run_id    
+  end
+
   ########################
   ### Helper Functions ###
   ########################
