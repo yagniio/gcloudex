@@ -388,7 +388,7 @@ defmodule GCloudex.ComputeEngine.Impl do
       @doc """
       Retrieves the list of private images available (project scoped only).
       """
-      @spec list_images(map) :: HTTPResponse.t
+      @spec list_images(query_params :: Map.t) :: HTTPResponse.t
       def list_images(query_params \\ %{}) do
         query = query_params |> URI.encode_query
 
@@ -398,7 +398,7 @@ defmodule GCloudex.ComputeEngine.Impl do
       @doc """
       Returns the specified 'image'.
       """
-      @spec get_image(binary, binary) :: HTTPResponse.t
+      @spec get_image(image :: binary, fields :: binary) :: HTTPResponse.t
       def get_image(image, fields \\ "") do 
         query = 
           if fields == "" do 
@@ -413,7 +413,7 @@ defmodule GCloudex.ComputeEngine.Impl do
       @doc """
       Creates an image with the provided 'image_resource'.
       """
-      @spec insert_image_with_resource(map, binary) :: HTTPResponse.t
+      @spec insert_image_with_resource(image_resource :: Map.t, fields :: binary) :: HTTPResponse.t
       def insert_image_with_resource(image_resource, fields \\ "") when is_map(image_resource) do 
         body  = image_resource |> Poison.encode!
         query = 
@@ -437,7 +437,7 @@ defmodule GCloudex.ComputeEngine.Impl do
       detailed image creation use insert_image_with_resource/2 where more complex 
       Image Resources can be passed.
       """
-      @spec insert_image(binary, binary, binary) :: HTTPResponse.t
+      @spec insert_image(name :: binary, source_url :: binary, fields :: binary) :: HTTPResponse.t
       def insert_image(name, source_url, fields \\ "") do
         body  = %{"name" => name, "rawDisk" => %{"source" => source_url}} |> Poison.encode!
         query = 
@@ -458,7 +458,7 @@ defmodule GCloudex.ComputeEngine.Impl do
       @doc """
       Deletes the specified 'image'.
       """
-      @spec delete_image(binary, binary) :: HTTPResponse.t
+      @spec delete_image(image :: binary, fields :: binary) :: HTTPResponse.t
       def delete_image(image, fields \\ "") do
         query = 
           if fields == "" do 
@@ -474,7 +474,7 @@ defmodule GCloudex.ComputeEngine.Impl do
       Sets the deprecation status of an 'image' using the data provided in the
       'request_params'. 
       """
-      @spec deprecate_image(binary, map, binary) :: HTTPResponse.t
+      @spec deprecate_image(image :: binary, request_params :: Map.t, fields :: binary) :: HTTPResponse.t
       def deprecate_image(image, request_params, fields \\ "") do 
         body  = request_params |> Poison.encode!
         query = 

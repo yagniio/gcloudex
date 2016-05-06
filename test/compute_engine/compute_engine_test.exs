@@ -628,6 +628,142 @@ defmodule ComputeEngineTest do
     assert expected == API.delete_firewall firewall, fields 
   end      
 
+  ####################
+  ### Images Tests ###
+  ####################
+
+  test "list_images (no query)" do 
+    headers    = []
+    body       = ""
+    endpoint   = @no_zone_ep <> "/global/images"
+    expected   = build_expected(:get, endpoint, headers, body)
+
+    assert expected == API.list_images
+  end
+
+  test "list_images (with query)" do 
+    headers    = []
+    body       = ""
+    query      = %{"abc" => 1, "def" => 2}
+    endpoint   = @no_zone_ep <> "/global/images"
+    expected   = build_expected(:get, endpoint, headers, body, query |> URI.encode_query)
+
+    assert expected == API.list_images query
+  end
+
+  test "get_image (no fields)" do 
+    image      = "image"
+    headers    = []
+    body       = ""
+    endpoint   = @no_zone_ep <> "/global/images/#{image}"
+    expected   = build_expected(:get, endpoint, headers, body)
+
+    assert expected == API.get_image image
+  end  
+
+  test "get_image (with fields)" do 
+    image      = "image"
+    headers    = []
+    body       = ""
+    endpoint   = @no_zone_ep <> "/global/images/#{image}"
+    expected   = build_expected(:get, endpoint, headers, body)
+
+    assert expected == API.get_image image
+  end    
+
+  test "insert_image_with_resource (no fields)" do 
+    resource   = %{"abc" => 1, "def" => 2}
+    headers    = [{"Content-Type", "application/json"}]
+    body       = resource |> Poison.encode!
+    endpoint   = @no_zone_ep <> "/global/images"
+    expected   = build_expected(:post, endpoint, headers, body)
+
+    assert expected == API.insert_image_with_resource resource
+  end    
+
+  test "insert_image_with_resource (with fields)" do 
+    resource   = %{"abc" => 1, "def" => 2}
+    headers    = [{"Content-Type", "application/json"}]
+    body       = resource |> Poison.encode!
+    fields     = "a,b,c"
+    query      = %{"fields" => fields}
+    endpoint   = @no_zone_ep <> "/global/images"
+    expected   = build_expected(:post, endpoint, headers, body, query |> URI.encode_query)
+
+    assert expected == API.insert_image_with_resource resource, fields
+  end      
+
+  test "insert_image (no fields)" do 
+    name       = "name"
+    url        = "url"
+    headers    = [{"Content-Type", "application/json"}]
+    body       = %{"name" => name, "rawDisk" => %{"source" => url}} |> Poison.encode!
+    endpoint   = @no_zone_ep <> "/global/images"
+    expected   = build_expected(:post, endpoint, headers, body)
+
+    assert expected == API.insert_image name, url
+  end    
+
+  test "insert_image (with fields)" do 
+    name       = "name"
+    url        = "url"
+    headers    = [{"Content-Type", "application/json"}]
+    fields     = "a,b,c"
+    query      = %{"fields" => fields}
+    body       = %{"name" => name, "rawDisk" => %{"source" => url}} |> Poison.encode!
+    endpoint   = @no_zone_ep <> "/global/images"
+    expected   = build_expected(:post, endpoint, headers, body, query |> URI.encode_query)
+
+    assert expected == API.insert_image name, url, fields
+  end      
+
+  test "delete_image (no fields)" do 
+    image      = "image"
+    headers    = []
+    body       = ""
+    endpoint   = @no_zone_ep <> "/global/images/#{image}"
+    expected   = build_expected(:delete, endpoint, headers, body)
+
+    assert expected == API.delete_image image
+  end   
+
+  test "delete_image (with fields)" do 
+    image      = "image"
+    headers    = []
+    body       = ""
+    fields     = "a,b,c"
+    query      = %{"fields" => fields}
+    endpoint   = @no_zone_ep <> "/global/images/#{image}"
+    expected   = build_expected(:delete, endpoint, headers, body, query |> URI.encode_query)
+
+    assert expected == API.delete_image image, fields
+  end     
+
+  test "deprecate_image (no fields)" do 
+    image      = "image"
+    request    = %{"abc" => 1, "def" => 2}
+    headers    = [{"Content-Type", "application/json"}]
+    body       = request |> Poison.encode!
+    endpoint   = @no_zone_ep <> "/global/images/#{image}/deprecate"
+    expected   = build_expected(:post, endpoint, headers, body)
+
+    assert expected == API.deprecate_image image, request
+  end   
+
+  test "deprecate_image (with fields)" do 
+    image      = "image"
+    request    = %{"abc" => 1, "def" => 2}
+    headers    = [{"Content-Type", "application/json"}]
+    body       = request |> Poison.encode!
+    fields     = "a,b,c"
+    query      = %{"fields" => fields} 
+    endpoint   = @no_zone_ep <> "/global/images/#{image}/deprecate"
+    expected   = build_expected(:post, endpoint, headers, body, query |> URI.encode_query)
+
+    assert expected == API.deprecate_image image, request, fields
+  end     
+
+
   ###############
   ### Helpers ###
   ###############
