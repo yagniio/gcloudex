@@ -1156,7 +1156,7 @@ defmodule GCloudex.ComputeEngine.Impl do
       Retrieves a list of machine types available in the specified 'zone' and 
       that fit in the given 'query_params' if present.
       """
-      @spec list_machine_types(binary, map) :: HTTPResponse.t
+      @spec list_machine_types(zone :: binary, query_params :: Map.t) :: HTTPResponse.t
       def list_machine_types(zone, query_params \\ %{}) do 
         query = query_params |> URI.encode_query
 

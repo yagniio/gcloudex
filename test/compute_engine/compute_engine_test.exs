@@ -1022,6 +1022,32 @@ defmodule ComputeEngineTest do
     assert expected == API.set_named_ports_for_group zone, group, ports, fp
   end     
 
+  ######################
+  ### Licenses Tests ###
+  ######################
+
+  test "get_license (no fields)" do 
+    license  = "license"
+    headers  = []
+    body     = ""
+    endpoint = @no_zone_ep <> "/global/licenses/#{license}"
+    expected = build_expected(:get, endpoint, headers, body)
+
+    assert expected == API.get_license license
+  end     
+
+  test "get_license (with fields)" do 
+    license  = "license"
+    headers  = []
+    body     = ""
+    fields   = "a,b,c"
+    query    = %{"fields" => fields}
+    endpoint = @no_zone_ep <> "/global/licenses/#{license}"
+    expected = build_expected(:get, endpoint, headers, body, query |> URI.encode_query)
+
+    assert expected == API.get_license license, fields
+  end       
+
   ###############
   ### Helpers ###
   ###############
