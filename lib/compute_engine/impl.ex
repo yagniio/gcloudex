@@ -1202,7 +1202,7 @@ defmodule GCloudex.ComputeEngine.Impl do
       Retrieves the list of networks available according to the given 
       'query_params' if provided.
       """
-      @spec list_networks(map) :: HTTPResponse.t
+      @spec list_networks(query_params :: Map.t) :: HTTPResponse.t
       def list_networks(query_params \\ %{}) do
         query = query_params |> URI.encode_query
 
@@ -1212,7 +1212,7 @@ defmodule GCloudex.ComputeEngine.Impl do
       @doc """
       Returns the speciefied 'network'.
       """
-      @spec get_network(binary, binary) :: HTTPResponse.t
+      @spec get_network(network :: binary, fields :: binary) :: HTTPResponse.t
       def get_network(network, fields \\ "") do
         query = fields_binary_to_map fields
 
@@ -1224,12 +1224,8 @@ defmodule GCloudex.ComputeEngine.Impl do
       about the structure and properties of the Network Resource check
       https://cloud.google.com/compute/docs/reference/latest/networks#resource.
       """
-      @spec insert_network(map, binary) :: HTTPResponse.t | no_return
+      @spec insert_network(network_resource :: Map.t, fields :: binary) :: HTTPResponse.t | no_return
       def insert_network(network_resource, fields \\ "") when is_map(network_resource) do
-        if not "name" in Map.keys(network_resource) do 
-          raise ArgumentError, message: "The 'name' property is required in the Network Resource."
-        end
-
         query = fields_binary_to_map fields
         body  = network_resource |> Poison.encode!
 
@@ -1244,7 +1240,7 @@ defmodule GCloudex.ComputeEngine.Impl do
       @doc """
       Deletes the specified 'network'.
       """
-      @spec delete_network(binary, binary) :: HTTPResponse.t
+      @spec delete_network(network :: binary, fields :: binary) :: HTTPResponse.t
       def delete_network(network, fields \\ "") do
         query = fields_binary_to_map fields
 

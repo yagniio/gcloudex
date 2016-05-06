@@ -1093,6 +1093,95 @@ defmodule ComputeEngineTest do
     assert expected == API.get_region region, fields
   end      
 
+  ######################
+  ### Networks Tests ###
+  ######################
+
+  test "list_networks (no query)" do 
+    headers    = []
+    body       = ""
+    endpoint   = @no_zone_ep <> "/global/networks"
+    expected   = build_expected(:get, endpoint, headers, body)
+
+    assert expected == API.list_networks
+  end
+
+  test "list_networks (with query)" do 
+    headers    = []
+    body       = ""
+    query      = %{"abc" => 1, "def" => 2}
+    endpoint   = @no_zone_ep <> "/global/networks"
+    expected   = build_expected(:get, endpoint, headers, body, query |> URI.encode_query)
+
+    assert expected == API.list_networks query
+  end  
+
+  test "get_network (no fields)" do 
+    network  = "network"
+    headers  = []
+    body     = ""
+    endpoint = @no_zone_ep <> "/global/networks/#{network}"
+    expected = build_expected(:get, endpoint, headers, body)
+
+    assert expected == API.get_network network
+  end      
+
+  test "get_network (with fields)" do 
+    network  = "network"
+    headers  = []
+    body     = ""
+    fields   = "a,b,c"
+    query    = %{"fields" => fields}
+    endpoint = @no_zone_ep <> "/global/networks/#{network}"
+    expected = build_expected(:get, endpoint, headers, body, query |> URI.encode_query)
+
+    assert expected == API.get_network network, fields
+  end  
+
+  test "insert_network (no fields)" do 
+    resource = %{"abc" => 1, "def" => 2}
+    headers  = [{"Content-Type", "application/json"}]
+    body     = resource |> Poison.encode!
+    endpoint = @no_zone_ep <> "/global/networks"
+    expected = build_expected(:post, endpoint, headers, body)
+
+    assert expected == API.insert_network resource
+  end            
+
+  test "insert_network (with fields)" do 
+    resource = %{"abc" => 1, "def" => 2}
+    headers  = [{"Content-Type", "application/json"}]
+    body     = resource |> Poison.encode!
+    fields   = "a,b,c"
+    query    = %{"fields" => fields}
+    endpoint = @no_zone_ep <> "/global/networks"
+    expected = build_expected(:post, endpoint, headers, body, query |> URI.encode_query)
+
+    assert expected == API.insert_network resource, fields
+  end            
+
+  test "delete_network (no fields)" do 
+    network  = "network"
+    headers  = []
+    body     = ""
+    endpoint = @no_zone_ep <> "/global/networks/#{network}"
+    expected = build_expected(:delete, endpoint, headers, body)
+
+    assert expected == API.delete_network network
+  end     
+
+  test "delete_network (with fields)" do 
+    network  = "network"
+    headers  = []
+    body     = ""
+    fields   = "a,b,c"
+    query    = %{"fields" => fields}
+    endpoint = @no_zone_ep <> "/global/networks/#{network}"
+    expected = build_expected(:delete, endpoint, headers, body, query |> URI.encode_query)
+
+    assert expected == API.delete_network network, fields
+  end       
+
   ###################
   ### Zones Tests ###
   ###################
