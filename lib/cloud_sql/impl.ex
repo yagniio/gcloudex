@@ -529,14 +529,15 @@ defmodule GCloudex.CloudSQL.Impl do
       @doc """
       Lists all of the current SSL certificates for the 'instance'.
       """
-      @spec list_ssl_certs(binary) :: HTTPResponse.t
+      @spec list_ssl_certs(instance :: binary) :: HTTPResponse.t
       def list_ssl_certs(instance) do 
-        request_query :get,
-                              @instance_ep,
-                              [],
-                              "",
-                              instance <> "/" <> "sslCerts"
-
+        request_query(
+          :get,
+          @instance_ep,
+          [],
+          "",
+          instance <> "/" <> "sslCerts"
+        )
       end
 
       @doc """
@@ -545,13 +546,15 @@ defmodule GCloudex.CloudSQL.Impl do
       (required for usage). The private key must be saved from the response 
       to initial creation.
       """
-      @spec get_ssl_cert(binary, binary) :: HTTPResponse.t
+      @spec get_ssl_cert(instance :: binary, sh1_fingerprint :: binary) :: HTTPResponse.t
       def get_ssl_cert(instance, sha1_fingerprint) do 
-        request_query :get,
-                              @instance_ep,
-                              [],
-                              "",
-                              instance <> "/" <> "sslCerts" <> "/" <> sha1_fingerprint
+        request_query(
+          :get,
+          @instance_ep,
+          [],
+          "",
+          instance <> "/" <> "sslCerts" <> "/" <> sha1_fingerprint
+        )
       end
 
       @doc """
@@ -562,28 +565,32 @@ defmodule GCloudex.CloudSQL.Impl do
       For First Generation instances, the new certificate does not take effect 
       until the instance is restarted.
       """
-      @spec insert_ssl_cert(binary, binary) :: HTTPResponse.t
+      @spec insert_ssl_cert(instance :: binary, common_name :: binary) :: HTTPResponse.t
       def insert_ssl_cert(instance, common_name) do 
-        body = Map.new |> Map.put_new("commonName", common_name) |> Poison.encode!
+        body = %{"commonName" => common_name} |> Poison.encode!
 
-        request_query :post,
-                              @instance_ep,
-                              [{"Content-Type", "application/json"}],
-                              body,
-                              instance <> "/" <> "sslCerts"
+        request_query(
+          :post,
+          @instance_ep,
+          [{"Content-Type", "application/json"}],
+          body,
+          instance <> "/" <> "sslCerts"
+        )
       end
 
       @doc """
       Deletes the SSL certificate with the given 'sha1_fingerprint' from the 
       specified 'instance'.
       """
-      @spec delete_ssl_cert(binary, binary) :: HTTPResponse.t
+      @spec delete_ssl_cert(instance :: binary, sha1_fingerprint :: binary) :: HTTPResponse.t
       def delete_ssl_cert(instance, sha1_fingerprint) do 
-        request_query :delete,
-                              @instance_ep,
-                              [],
-                              "",
-                              instance <> "/" <> "sslCerts" <> "/" <> sha1_fingerprint
+        request_query(
+          :delete,
+          @instance_ep,
+          [],
+          "",
+          instance <> "/" <> "sslCerts" <> "/" <> sha1_fingerprint
+        )
       end
 
       @doc """
@@ -591,15 +598,17 @@ defmodule GCloudex.CloudSQL.Impl do
       and signed by a private key specific to the target 'instance'. Users may use 
       the certificate to authenticate as themselves when connecting to the database.
       """
-      @spec create_ephemeral_ssl_cert(binary, binary) :: HTTPResponse.t
+      @spec create_ephemeral_ssl_cert(instance :: binary, public_key :: binary) :: HTTPResponse.t
       def create_ephemeral_ssl_cert(instance, public_key) do 
-        body = Map.new |> Map.put_new("public_key", public_key) |> Poison.encode!
+        body = %{"public_key" => public_key} |> Poison.encode!
 
-        request_query :post,
-                              @instance_ep,
-                              [{"Content-Type", "application/json"}],
-                              body,
-                              instance <> "/" <> "createEphemeral"
+        request_query(
+          :post,
+          @instance_ep,
+          [{"Content-Type", "application/json"}],
+          body,
+          instance <> "/" <> "createEphemeral"
+        )
       end
     end
   end

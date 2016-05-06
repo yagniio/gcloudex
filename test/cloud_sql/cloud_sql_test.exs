@@ -405,6 +405,58 @@ defmodule CloudSQLTest do
   end
 
   ########################
+  ### SSL Certificates ###
+  ########################
+
+  test "list_ssl_certs" do 
+    instance = "instance"
+    headers  = []
+    body     = ""
+    expected = build_expected(:get, @instance_ep, headers, body, "#{instance}/sslCerts")
+
+    assert expected == API.list_ssl_certs instance
+  end
+
+  test "get_ssl_cert" do 
+    instance    = "instance"
+    fingerprint = "fingerprint"
+    headers     = []
+    body        = ""
+    expected    = build_expected(:get, @instance_ep, headers, body, "#{instance}/sslCerts/#{fingerprint}")
+
+    assert expected == API.get_ssl_cert instance, fingerprint
+  end
+
+  test "insert_ssl_cert" do 
+    instance    = "instance"
+    common_name = "common_name"
+    headers     = [{"Content-Type", "application/json"}]
+    body        = %{"commonName" => common_name} |> Poison.encode!
+    expected    = build_expected(:post, @instance_ep, headers, body, "#{instance}/sslCerts")
+
+    assert expected == API.insert_ssl_cert instance, common_name
+  end
+
+  test "delete_ssl_cert" do
+    instance    = "instance"
+    fingerprint = "fingerprint"
+    headers     = []
+    body        = ""
+    expected    = build_expected(:delete, @instance_ep, headers, body, "#{instance}/sslCerts/#{fingerprint}")
+
+    assert expected == API.delete_ssl_cert instance, fingerprint
+  end
+
+  test "create_ephemeral_ssl_cert" do 
+    instance   = "instance"
+    public_key = "public_key"
+    headers    = [{"Content-Type", "application/json"}]
+    body       = %{"public_key" => public_key} |> Poison.encode! 
+    expected   = build_expected(:post, @instance_ep, headers, body, "#{instance}/createEphemeral")
+
+    assert expected == API.create_ephemeral_ssl_cert instance, public_key
+  end
+  ########################
   ### Helper Functions ###
   ########################
 
