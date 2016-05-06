@@ -763,6 +763,264 @@ defmodule ComputeEngineTest do
     assert expected == API.deprecate_image image, request, fields
   end     
 
+  ############################
+  ### InstanceGroups Tests ###
+  ############################
+
+  test "list_instance_groups (no query)" do 
+    zone       = "zone"
+    headers    = []
+    body       = ""
+    endpoint   = @no_zone_ep <> "/zones/#{zone}/instanceGroups"
+    expected   = build_expected(:get, endpoint, headers, body)
+
+    assert expected == API.list_instance_groups zone
+  end
+
+  test "list_instance_groups (with query)" do 
+    zone       = "zone"
+    headers    = []
+    body       = ""
+    query      = %{"abc" => 1, "def" => 2}
+    endpoint   = @no_zone_ep <> "/zones/#{zone}/instanceGroups"
+    expected   = build_expected(:get, endpoint, headers, body, query |> URI.encode_query)
+
+    assert expected == API.list_instance_groups zone, query
+  end
+
+  test "list_instances_in_group (no query)" do 
+    zone       = "zone"
+    group      = "group"
+    state      = "state"
+    headers    = [{"Content-Type", "application/json"}]
+    body       = %{"instanceState" => state} |> Poison.encode!
+    endpoint   = @no_zone_ep <> "/zones/#{zone}/instanceGroups/#{group}/listInstances"
+    expected   = build_expected(:post, endpoint, headers, body)
+
+    assert expected == API.list_instances_in_group zone, group, state
+  end
+
+  test "list_instances_in_group (with) query)" do 
+    zone       = "zone"
+    group      = "group"
+    state      = "state"
+    headers    = [{"Content-Type", "application/json"}]
+    body       = %{"instanceState" => state} |> Poison.encode!
+    query      = %{"abc" => 1, "def" => 2}
+    endpoint   = @no_zone_ep <> "/zones/#{zone}/instanceGroups/#{group}/listInstances"
+    expected   = build_expected(:post, endpoint, headers, body, query |> URI.encode_query)
+
+    assert expected == API.list_instances_in_group zone, group, state, query
+  end
+
+  test "get_instance_group (no fields)" do 
+    zone       = "zone"
+    group      = "group"
+    headers    = []
+    body       = ""
+    endpoint   = @no_zone_ep <> "/zones/#{zone}/instanceGroups/#{group}"
+    expected   = build_expected(:get, endpoint, headers, body)
+
+    assert expected == API.get_instance_group zone, group
+  end    
+
+  test "get_instance_group (with fields)" do 
+    zone       = "zone"
+    group      = "group"
+    headers    = []
+    body       = ""
+    fields     = "a,b,c"
+    query      = %{"fields" => fields}
+    endpoint   = @no_zone_ep <> "/zones/#{zone}/instanceGroups/#{group}"
+    expected   = build_expected(:get, endpoint, headers, body, query |> URI.encode_query)
+
+    assert expected == API.get_instance_group zone, group, fields
+  end      
+
+  test "insert_instance_group (no fields)" do 
+    zone       = "zone"
+    resource   = %{"abc" => 1, "def" => 2}
+    headers    = [{"Content-Type", "application/json"}]
+    body       = resource |> Poison.encode!
+    endpoint   = @no_zone_ep <> "/zones/#{zone}/instanceGroups"
+    expected   = build_expected(:post, endpoint, headers, body)
+
+    assert expected == API.insert_instance_group zone, resource
+  end   
+
+  test "insert_instance_group (with fields)" do 
+    zone       = "zone"
+    resource   = %{"abc" => 1, "def" => 2}
+    headers    = [{"Content-Type", "application/json"}]
+    body       = resource |> Poison.encode!
+    fields     = "a,b,c"
+    query      = %{"fields" => fields}
+    endpoint   = @no_zone_ep <> "/zones/#{zone}/instanceGroups"
+    expected   = build_expected(:post, endpoint, headers, body, query |> URI.encode_query)
+
+    assert expected == API.insert_instance_group zone, resource, fields
+  end  
+
+  test "delete_instance_group (no fields)" do 
+    zone       = "zone"
+    group      = "group"
+    headers    = []
+    body       = ""
+    endpoint   = @no_zone_ep <> "/zones/#{zone}/instanceGroups/#{group}"
+    expected   = build_expected(:get, endpoint, headers, body)
+
+    assert expected == API.get_instance_group zone, group
+  end   
+
+  test "delete_instance_group (with fields)" do 
+    zone       = "zone"
+    group      = "group"
+    headers    = []
+    body       = ""
+    fields     = "a,b,c"
+    query      = %{"fields" => fields}
+    endpoint   = @no_zone_ep <> "/zones/#{zone}/instanceGroups/#{group}"
+    expected   = build_expected(:get, endpoint, headers, body, query |> URI.encode_query)
+
+    assert expected == API.get_instance_group zone, group, fields
+  end     
+
+  test "aggregated_list_of_instance_groups (no query)" do 
+    headers    = []
+    body       = ""
+    endpoint   = @no_zone_ep <> "/aggregated/instanceGroups"
+    expected   = build_expected(:get, endpoint, headers, body)
+
+    assert expected == API.aggregated_list_of_instance_groups
+  end 
+
+  test "aggregated_list_of_instance_groups (with query)" do 
+    headers    = []
+    body       = ""
+    endpoint   = @no_zone_ep <> "/aggregated/instanceGroups"
+    query      = %{"abc" => 1, "def" => 2}
+    expected   = build_expected(:get, endpoint, headers, body, query |> URI.encode_query)
+
+    assert expected == API.aggregated_list_of_instance_groups query
+  end 
+
+  test "add_instances_to_group (no fields)" do 
+    zone       = "zone"
+    group      = "group"
+    instances  = ["a", "b", "c"]
+    headers    = [{"Content-Type", "application/json"}]
+    body       = %{
+      "instances" => [
+        %{"instance" => "a"},
+        %{"instance" => "b"},
+        %{"instance" => "c"}
+      ]
+    } |> Poison.encode!
+    endpoint   = @no_zone_ep <> "/zones/#{zone}/instanceGroups/#{group}/addInstances"
+    expected   = build_expected(:post, endpoint, headers, body)
+
+    assert expected == API.add_instances_to_group zone, group, instances
+  end   
+
+  test "add_instances_to_group (with fields)" do 
+    zone       = "zone"
+    group      = "group"
+    instances  = ["a", "b", "c"]
+    headers    = [{"Content-Type", "application/json"}]
+    fields     = "a,b,c"
+    query      = %{"fields" => fields}
+    body       = %{
+      "instances" => [
+        %{"instance" => "a"},
+        %{"instance" => "b"},
+        %{"instance" => "c"}
+      ]
+    } |> Poison.encode!
+    endpoint   = @no_zone_ep <> "/zones/#{zone}/instanceGroups/#{group}/addInstances"
+    expected   = build_expected(:post, endpoint, headers, body, query |> URI.encode_query)
+
+    assert expected == API.add_instances_to_group zone, group, instances, fields
+  end     
+
+  test "remove_instances_from_group (no fields)" do 
+    zone       = "zone"
+    group      = "group"
+    instances  = ["a", "b", "c"]
+    headers    = [{"Content-Type", "application/json"}]
+    body       = %{
+      "instances" => [
+        %{"instance" => "a"},
+        %{"instance" => "b"},
+        %{"instance" => "c"}
+      ]
+    } |> Poison.encode!
+    endpoint   = @no_zone_ep <> "/zones/#{zone}/instanceGroups/#{group}/removeInstances"
+    expected   = build_expected(:post, endpoint, headers, body)
+
+    assert expected == API.remove_instances_from_group zone, group, instances
+  end     
+
+  test "remove_instances_from_group (with fields)" do 
+    zone       = "zone"
+    group      = "group"
+    instances  = ["a", "b", "c"]
+    headers    = [{"Content-Type", "application/json"}]
+    fields     = "a,b,c"
+    query      = %{"fields" => fields}
+    body       = %{
+      "instances" => [
+        %{"instance" => "a"},
+        %{"instance" => "b"},
+        %{"instance" => "c"}
+      ]
+    } |> Poison.encode!
+    endpoint   = @no_zone_ep <> "/zones/#{zone}/instanceGroups/#{group}/removeInstances"
+    expected   = build_expected(:post, endpoint, headers, body, query |> URI.encode_query)
+
+    assert expected == API.remove_instances_from_group zone, group, instances, fields
+  end     
+
+  test "set_named_ports_for_group (no fields)" do 
+    zone       = "zone"
+    group      = "group"
+    fp         = "fingerprint"
+    ports      = [{"a", "1"}, {"b", "2"}, {"c", "3"}]
+    headers    = [{"Content-Type", "application/json"}]
+    body       = %{
+      "namedPorts" => [
+        %{"name" => "a", "port" => "1"},
+        %{"name" => "b", "port" => "2"},
+        %{"name" => "c", "port" => "3"}
+      ],
+      "fingerprint" => fp
+    } |> Poison.encode!
+    endpoint   = @no_zone_ep <> "/zones/#{zone}/instanceGroups/#{group}/setNamedPorts"
+    expected   = build_expected(:post, endpoint, headers, body)
+
+    assert expected == API.set_named_ports_for_group zone, group, ports, fp
+  end   
+
+  test "set_named_ports_for_group (with fields)" do 
+    zone       = "zone"
+    group      = "group"
+    fp         = "fingerprint"
+    ports      = [{"a", "1"}, {"b", "2"}, {"c", "3"}]
+    fields     = "a,b,c"
+    query      = %{"fields" => fields}
+    headers    = [{"Content-Type", "application/json"}]
+    body       = %{
+      "namedPorts" => [
+        %{"name" => "a", "port" => "1"},
+        %{"name" => "b", "port" => "2"},
+        %{"name" => "c", "port" => "3"}
+      ],
+      "fingerprint" => fp
+    } |> Poison.encode!
+    endpoint   = @no_zone_ep <> "/zones/#{zone}/instanceGroups/#{group}/setNamedPorts"
+    expected   = build_expected(:post, endpoint, headers, body)
+
+    assert expected == API.set_named_ports_for_group zone, group, ports, fp
+  end     
 
   ###############
   ### Helpers ###

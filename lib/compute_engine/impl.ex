@@ -500,7 +500,7 @@ defmodule GCloudex.ComputeEngine.Impl do
       Retrieves the list of instance groups that are located in the 
       specified 'zone'.
       """
-      @spec list_instance_groups(binary, map) :: HTTPResponse.t
+      @spec list_instance_groups(zone :: binary, query_params :: Map.t) :: HTTPResponse.t
       def list_instance_groups(zone, query_params \\ %{}) do
         query = query_params |> URI.encode_query
 
@@ -512,7 +512,7 @@ defmodule GCloudex.ComputeEngine.Impl do
       given 'zone'. A filter for the state of the instances can be passed
       through 'instance_state'.
       """
-      @spec list_instances_in_group(binary, binary, binary, map) :: HTTPResponse.t
+      @spec list_instances_in_group(zone :: binary, instance_group :: binary, instance_state :: binary, query_params :: Map.t) :: HTTPResponse.t
       def list_instances_in_group(zone, instance_group, instance_state \\ "", query_params \\ %{}) do
         query = query_params |> URI.encode_query
         body  = %{"instanceState" => instance_state} |> Poison.encode!
@@ -528,7 +528,7 @@ defmodule GCloudex.ComputeEngine.Impl do
       @doc """
       Returns the specified 'instance_group' if it exists in the given 'zone'.
       """
-      @spec get_instance_group(binary, binary, binary) :: HTTPResponse.t
+      @spec get_instance_group(zone :: binary, instance_group :: binary, fields :: binary) :: HTTPResponse.t
       def get_instance_group(zone, instance_group, fields \\ "") do
         query = fields_binary_to_map fields
 
@@ -541,7 +541,7 @@ defmodule GCloudex.ComputeEngine.Impl do
       the Instance Group Resources check
       https://cloud.google.com/compute/docs/reference/latest/instanceGroups#resource
       """
-      @spec insert_instance_group(binary, map, binary) :: HTTPResponse.t
+      @spec insert_instance_group(zone :: binary, instance_group_resource :: map, fields :: binary) :: HTTPResponse.t
       def insert_instance_group(zone, instance_group_resource, fields \\ "") when is_map(instance_group_resource) do
         query = fields_binary_to_map fields
         body  = instance_group_resource |> Poison.encode!
@@ -557,7 +557,7 @@ defmodule GCloudex.ComputeEngine.Impl do
       @doc """
       Deletes the specified 'instance_group' if it exists in the given 'zone'.
       """
-      @spec delete_instance_group(binary, binary, binary) :: HTTPResponse.t
+      @spec delete_instance_group(zone :: binary, instance_group :: binary, fields :: binary) :: HTTPResponse.t
       def delete_instance_group(zone, instance_group, fields \\ "") do
         query = fields_binary_to_map fields
 
@@ -572,7 +572,7 @@ defmodule GCloudex.ComputeEngine.Impl do
       @doc """
       Retrieves the list of Instance Groups and sorts them by zone.
       """
-      @spec aggregated_list_of_instance_groups(map) :: HTTPResponse.t
+      @spec aggregated_list_of_instance_groups(query_params :: Map.t) :: HTTPResponse.t
       def aggregated_list_of_instance_groups(query_params \\ %{}) do
         query = query_params |> URI.encode_query
 
@@ -583,7 +583,7 @@ defmodule GCloudex.ComputeEngine.Impl do
       Adds a list of 'instances' to the specified 'instance_group' if it exists in
       the given 'zone'.
       """
-      @spec add_instances_to_group(binary, binary, [binary], binary) :: HTTPResponse.t
+      @spec add_instances_to_group(zone :: binary, instance_group :: binary, instances :: [binary], fields :: binary) :: HTTPResponse.t
       def add_instances_to_group(zone, instance_group, instances, fields \\ "") do
         query = fields_binary_to_map fields
         body  = %{"instances" => build_list_of_instances(instances, [])}
@@ -601,7 +601,7 @@ defmodule GCloudex.ComputeEngine.Impl do
       Removes the 'instances' from the provided 'instance_group' if it exists in
       the given 'zone'.
       """
-      @spec remove_instances_from_group(binary, binary, [binary], binary) :: HTTPResponse.t
+      @spec remove_instances_from_group(zone :: binary, insance_group :: binary, instances :: [binary], fields :: binary) :: HTTPResponse.t
       def remove_instances_from_group(zone, instance_group, instances, fields \\ "") do
         query = fields_binary_to_map fields
         body  = %{"instances" => build_list_of_instances(instances, [])}
@@ -620,7 +620,7 @@ defmodule GCloudex.ComputeEngine.Impl do
       given 'zone'. The 'ports' must be passed as a list of tuples with the format
       {<name>, <port>}.
       """
-      @spec set_named_ports_for_group(binary, binary, [{binary, binary}], binary, binary) :: HTTPResponse.t
+      @spec set_named_ports_for_group(zone :: binary, instance_group :: binary, ports :: [{name :: binary, port :: binary}], fingerprint :: binary, fields :: binary) :: HTTPResponse.t
       def set_named_ports_for_group(zone, instance_group, ports, fingerprint \\ "", fields \\ "") do
         query = fields_binary_to_map fields
         body  = %{"namedPorts" => build_list_of_ports(ports, [])}
