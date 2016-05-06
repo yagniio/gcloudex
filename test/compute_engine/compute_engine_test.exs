@@ -1093,6 +1093,74 @@ defmodule ComputeEngineTest do
     assert expected == API.get_region region, fields
   end      
 
+  ##########################
+  ### MachineTypes Tests ###
+  ##########################
+
+  test "list_machine_types (no query)" do 
+    zone     = "zone"
+    headers  = []
+    body     = ""
+    endpoint = @no_zone_ep <> "/zones/#{zone}/machineTypes"
+    expected = build_expected(:get, endpoint, headers, body)
+
+    assert expected == API.list_machine_types zone
+  end
+
+  test "list_machine_types (with query)" do 
+    zone     = "zone"
+    headers  = []
+    body     = ""
+    query    = %{"abc" => 1, "def" => 2}
+    endpoint = @no_zone_ep <> "/zones/#{zone}/machineTypes"
+    expected = build_expected(:get, endpoint, headers, body, query |> URI.encode_query)
+
+    assert expected == API.list_machine_types zone, query
+  end  
+
+  test "get_machine_type (no fields)" do 
+    zone     = "zone"
+    type     = "machine_type"
+    headers  = []
+    body     = ""
+    endpoint = @no_zone_ep <> "/zones/#{zone}/machineTypes/#{type}"
+    expected = build_expected(:get, endpoint, headers, body)
+
+    assert expected == API.get_machine_type zone, type
+  end    
+
+  test "get_machine_type (with fields)" do 
+    zone     = "zone"
+    type     = "machine_type"
+    headers  = []
+    body     = ""
+    fields   = "a,b,c"
+    query    = %{"fields" => fields}
+    endpoint = @no_zone_ep <> "/zones/#{zone}/machineTypes/#{type}"
+    expected = build_expected(:get, endpoint, headers, body, query |> URI.encode_query)
+
+    assert expected == API.get_machine_type zone, type, fields
+  end      
+
+  test "aggregated_list_of_machine_types (no query)" do 
+    headers    = []
+    body       = ""
+    endpoint   = @no_zone_ep <> "/aggregated/machineTypes"
+    expected   = build_expected(:get, endpoint, headers, body)
+
+    assert expected == API.aggregated_list_of_machine_types
+  end 
+
+  test "aggregated_list_of_machine_types (with query)" do 
+    headers    = []
+    body       = ""
+    query      = %{"abc" => 1, "def" => 2}
+    endpoint   = @no_zone_ep <> "/aggregated/machineTypes"
+    expected   = build_expected(:get, endpoint, headers, body, query |> URI.encode_query)
+
+    assert expected == API.aggregated_list_of_machine_types query
+  end   
+
   ######################
   ### Networks Tests ###
   ######################

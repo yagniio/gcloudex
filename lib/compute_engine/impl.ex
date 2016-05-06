@@ -1166,7 +1166,7 @@ defmodule GCloudex.ComputeEngine.Impl do
       @doc """
       Returns the specified 'machine_type' in the given 'zone'.
       """
-      @spec get_machine_type(binary, binary, binary) :: HTTPResponse.t
+      @spec get_machine_type(zone :: binary, machine_type :: binary, fields :: binary) :: HTTPResponse.t
       def get_machine_type(zone, machine_type, fields \\ "") do 
         query = 
           if fields == "" do 
@@ -1187,8 +1187,8 @@ defmodule GCloudex.ComputeEngine.Impl do
       Returns an aggragated list of machine types following the specified 
       'query_params' if present.
       """
-      @spec get_aggregated_list_of_machine_types(map) :: HTTPResponse.t
-      def get_aggregated_list_of_machine_types(query_params \\ %{}) do 
+      @spec aggregated_list_of_machine_types(query_params :: Map.t) :: HTTPResponse.t
+      def aggregated_list_of_machine_types(query_params \\ %{}) do 
         query = query_params |> URI.encode_query
 
         request :get, @no_zone_ep <> "/aggregated/machineTypes", [], "", query
