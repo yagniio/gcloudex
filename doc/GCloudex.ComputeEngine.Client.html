@@ -1,0 +1,2532 @@
+    <!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="ExDoc v0.11.5">
+    <title>GCloudex.ComputeEngine.Client – gcloudex v0.4.3</title>
+    <link rel="stylesheet" href="dist/app-ddd9717ad9.css" />
+    
+      <link rel="canonical" href="https://hexdocs.pm/gcloudex/GCloudex.ComputeEngine.Client.html" />
+    
+    <script src="dist/sidebar_items.js"></script>
+  </head>
+  <body data-type="modules">
+
+    <div class="main">
+<button class="sidebar-toggle">
+  <i class="icon-menu"></i>
+</button>
+<section class="sidebar">
+  <button class="sidebar-toggle">
+    <i class="icon-menu"></i>
+  </button>
+
+  
+  <a href="api-reference.html" class="sidebar-projectLink">
+    <div class="sidebar-projectDetails">
+      <h1 class="sidebar-projectName">
+        gcloudex
+      </h1>
+      <h2 class="sidebar-projectVersion">
+        v0.4.3
+      </h2>
+    </div>
+    
+  </a>
+
+  <div class="sidebar-search">
+    <i class="icon-search"></i>
+    <input type="text" class="sidebar-searchInput" placeholder="search" autocomplete="off" />
+  </div>
+
+  <ul class="sidebar-listNav">
+    <li><a id="extras-list" href="#full-list">Pages</a></li>
+
+    
+      <li><a id="modules-list" href="#full-list">Modules</a></li>
+    
+
+    
+
+    
+  </ul>
+
+  <ul id="full-list" class="sidebar-fullList"></ul>
+  <div class="sidebar-noResults"></div>
+</section>
+
+<section class="content">
+  <div id="content" class="content-inner">
+
+
+      <h1>
+        <small class="visible-xs">gcloudex v0.4.3</small>
+        GCloudex.ComputeEngine.Client
+        
+        
+      </h1>
+
+      
+
+      
+        <section id="summary" class="details-list">
+          <h1 class="section-heading">
+            <a class="hover-link" href="#summary">
+              <i class="icon-link"></i>
+            </a>
+            Summary
+          </h1>
+          
+
+          
+  <div class="summary-functions summary">
+    <h2>
+      <a href="#functions">Functions</a>
+    </h2>
+    <div class="summary-row">
+  <div class="summary-signature">
+    <a href="#add_access_config/6">add_access_config(zone, instance, network_interface, name, nat_ip \\ &quot;&quot;, fields \\ &quot;&quot;)</a>
+  </div>
+  
+    <div class="summary-synopsis"><p>Adds an access config to the ‘instance’ if it exists in the given ‘zone’. The
+kind and type will automatically be added with the default (and only possible)
+values</p>
+</div>
+  
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#add_instances_to_group/4">add_instances_to_group(zone, instance_group, instances, fields \\ &quot;&quot;)</a>
+  </div>
+  
+    <div class="summary-synopsis"><p>Adds a list of ‘instances’ to the specified ‘instance_group’ if it exists in
+the given ‘zone’</p>
+</div>
+  
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#aggregated_list_of_autoscalers/1">aggregated_list_of_autoscalers(query_params \\ %{})</a>
+  </div>
+  
+    <div class="summary-synopsis"><p>Retrieves an aggregated list of autoscalers according to the given 
+‘query_params’ if provided</p>
+</div>
+  
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#aggregated_list_of_disk_types/1">aggregated_list_of_disk_types(query_params \\ %{})</a>
+  </div>
+  
+    <div class="summary-synopsis"><p>Retrieves an aggregated list of Disk Types according to the
+‘query_params’ if provided</p>
+</div>
+  
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#aggregated_list_of_disks/1">aggregated_list_of_disks(query_params \\ %{})</a>
+  </div>
+  
+    <div class="summary-synopsis"><p>Retrieves an aggregated list of persistent disks according to the given
+‘query_params’ if they’re provided</p>
+</div>
+  
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#aggregated_list_of_instance_groups/1">aggregated_list_of_instance_groups(query_params \\ %{})</a>
+  </div>
+  
+    <div class="summary-synopsis"><p>Retrieves the list of Instance Groups and sorts them by zone</p>
+</div>
+  
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#aggregated_list_of_instances/1">aggregated_list_of_instances(query_params \\ %{})</a>
+  </div>
+  
+    <div class="summary-synopsis"><p>Retrieves aggregated list of instances according to the specified 
+‘query_params’ if present</p>
+</div>
+  
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#aggregated_list_of_machine_types/1">aggregated_list_of_machine_types(query_params \\ %{})</a>
+  </div>
+  
+    <div class="summary-synopsis"><p>Returns an aggragated list of machine types following the specified 
+‘query_params’ if present</p>
+</div>
+  
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#attach_disk/4">attach_disk(zone, instance, disk_resource, fields \\ &quot;&quot;)</a>
+  </div>
+  
+    <div class="summary-synopsis"><p>Attaches the ‘disk_resource’ to the ‘instance’ if it exists in the given
+‘zone’</p>
+</div>
+  
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#create_snapshot/4">create_snapshot(zone, disk, request, fields \\ &quot;&quot;)</a>
+  </div>
+  
+    <div class="summary-synopsis"><p>Creates a snapshot of a specified persistent ‘disk’ if it exists in the
+given ‘zone’ and according to the given ‘resource’. The ‘request’ map must
+contain the keys “name” and “description” and “name” must obey the 
+refex ‘(?:<a href="?:[-a-z0-9]%7B0,61%7D[a-z0-9]">a-z</a>?)’</p>
+</div>
+  
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#delete_access_config/5">delete_access_config(zone, instance, access_config, network_interface, fields \\ &quot;&quot;)</a>
+  </div>
+  
+    <div class="summary-synopsis"><p>Deletes te ‘access_config’ from the ‘instance’ ‘network_interface’ if the
+‘instance’ exists in the given ‘zone’</p>
+</div>
+  
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#delete_autoscaler/3">delete_autoscaler(zone, autoscaler, fields \\ &quot;&quot;)</a>
+  </div>
+  
+    <div class="summary-synopsis"><p>Deletes the specified ‘autoscaler’ if it exists in the given ‘zone’</p>
+</div>
+  
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#delete_disk/3">delete_disk(zone, disk, fields \\ &quot;&quot;)</a>
+  </div>
+  
+    <div class="summary-synopsis"><p>Deletes the specified persistent ‘disk’ if it exists in the given ‘zone’</p>
+</div>
+  
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#delete_firewall/2">delete_firewall(firewall, fields \\ &quot;&quot;)</a>
+  </div>
+  
+    <div class="summary-synopsis"><p>Deletes the specified ‘firewall’</p>
+</div>
+  
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#delete_image/2">delete_image(image, fields \\ &quot;&quot;)</a>
+  </div>
+  
+    <div class="summary-synopsis"><p>Deletes the specified ‘image’</p>
+</div>
+  
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#delete_instance/3">delete_instance(zone, instance, fields \\ &quot;&quot;)</a>
+  </div>
+  
+    <div class="summary-synopsis"><p>Deletes the given ‘instance’ if it exists in the given ‘zone’</p>
+</div>
+  
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#delete_instance_group/3">delete_instance_group(zone, instance_group, fields \\ &quot;&quot;)</a>
+  </div>
+  
+    <div class="summary-synopsis"><p>Deletes the specified ‘instance_group’ if it exists in the given ‘zone’</p>
+</div>
+  
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#delete_network/2">delete_network(network, fields \\ &quot;&quot;)</a>
+  </div>
+  
+    <div class="summary-synopsis"><p>Deletes the specified ‘network’</p>
+</div>
+  
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#deprecate_image/3">deprecate_image(image, request_params, fields \\ &quot;&quot;)</a>
+  </div>
+  
+    <div class="summary-synopsis"><p>Sets the deprecation status of an ‘image’ using the data provided in the
+‘request_params’</p>
+</div>
+  
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#detach_disk/4">detach_disk(zone, instance, device_name, fields \\ &quot;&quot;)</a>
+  </div>
+  
+    <div class="summary-synopsis"><p>Detaches the disk with ‘device_name’ from the ‘instance’ if it exists in the
+given ‘zone’</p>
+</div>
+  
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#get_autoscaler/3">get_autoscaler(zone, autoscaler, fields \\ &quot;&quot;)</a>
+  </div>
+  
+    <div class="summary-synopsis"><p>Returns the specified ‘autoscaler’ resource if it exists in the given ‘zone’</p>
+</div>
+  
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#get_disk/3">get_disk(zone, disk, fields \\ &quot;&quot;)</a>
+  </div>
+  
+    <div class="summary-synopsis"><p>Returns a specified persistent ‘disk’ if it exists in the given ‘zone’. The
+HTTP reply contains a Disk Resource in the body</p>
+</div>
+  
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#get_disk_type/3">get_disk_type(zone, disk_type, fields \\ &quot;&quot;)</a>
+  </div>
+  
+    <div class="summary-synopsis"><p>Returns the specified ‘disk_type’ if it exists in the given ‘zone’</p>
+</div>
+  
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#get_firewall/2">get_firewall(firewall, fields \\ &quot;&quot;)</a>
+  </div>
+  
+    <div class="summary-synopsis"><p>Returns the specified ‘firewall’</p>
+</div>
+  
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#get_image/2">get_image(image, fields \\ &quot;&quot;)</a>
+  </div>
+  
+    <div class="summary-synopsis"><p>Returns the specified ‘image’</p>
+</div>
+  
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#get_instance/3">get_instance(zone, instance, fields \\ &quot;&quot;)</a>
+  </div>
+  
+    <div class="summary-synopsis"><p>Returns the data about the ‘instance’ in the given ‘zone’ if it exists</p>
+</div>
+  
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#get_instance_group/3">get_instance_group(zone, instance_group, fields \\ &quot;&quot;)</a>
+  </div>
+  
+    <div class="summary-synopsis"><p>Returns the specified ‘instance_group’ if it exists in the given ‘zone’</p>
+</div>
+  
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#get_license/2">get_license(license, fields \\ &quot;&quot;)</a>
+  </div>
+  
+    <div class="summary-synopsis"><p>Returns the specified ‘license’ resource</p>
+</div>
+  
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#get_machine_type/3">get_machine_type(zone, machine_type, fields \\ &quot;&quot;)</a>
+  </div>
+  
+    <div class="summary-synopsis"><p>Returns the specified ‘machine_type’ in the given ‘zone’</p>
+</div>
+  
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#get_network/2">get_network(network, fields \\ &quot;&quot;)</a>
+  </div>
+  
+    <div class="summary-synopsis"><p>Returns the speciefied ‘network’</p>
+</div>
+  
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#get_region/2">get_region(region, fields \\ &quot;&quot;)</a>
+  </div>
+  
+    <div class="summary-synopsis"><p>Returns the specified ‘region’ resource</p>
+</div>
+  
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#get_serial_port_output/4">get_serial_port_output(zone, instance, port \\ 1, fields \\ &quot;&quot;)</a>
+  </div>
+  
+    <div class="summary-synopsis"><p>Returns the specified ‘instance’ serial ‘port’ output if the ‘instance’
+exists in the given ‘zone’. The ‘port’ accepted values are from 1 to 4, 
+inclusive</p>
+</div>
+  
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#get_zone/2">get_zone(zone, fields \\ &quot;&quot;)</a>
+  </div>
+  
+    <div class="summary-synopsis"><p>Returns the specified ‘zone’ resource</p>
+</div>
+  
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#insert_autoscaler/3">insert_autoscaler(zone, autoscaler_resource, fields \\ &quot;&quot;)</a>
+  </div>
+  
+    <div class="summary-synopsis"><p>Creates an autoscaler in the given ‘zone’ using the data provided in 
+‘autoscaler_resource’</p>
+</div>
+  
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#insert_disk/4">insert_disk(zone, disk_resource, source_image \\ &quot;&quot;, fields \\ &quot;&quot;)</a>
+  </div>
+  
+    <div class="summary-synopsis"><p>Creates a persistent disk in the specified ‘zone’ using the data in the 
+‘disk_resource’. You can create a disk with a ‘source_image’ or a 
+sourceSnapshot (provided in the ‘disk_resource’), or create an empty 500 GB 
+data disk by omitting all properties. You can also create a disk that is 
+larger than the default size by specifying the sizeGb property in the 
+‘disk_resource’</p>
+</div>
+  
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#insert_firewall/2">insert_firewall(firewall_resource, fields \\ &quot;&quot;)</a>
+  </div>
+  
+    <div class="summary-synopsis"><p>Creates a new firewall using the data included in ‘firewall_resource’. For 
+information about the structure and properties of Firewall Resources check
+<a href="https://cloud.google.com/compute/docs/reference/latest/firewalls#resource">https://cloud.google.com/compute/docs/reference/latest/firewalls#resource</a></p>
+</div>
+  
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#insert_image/3">insert_image(name, source_url, fields \\ &quot;&quot;)</a>
+  </div>
+  
+    <div class="summary-synopsis"><p>Creates an image with the given ‘name’ and ‘source_url’. This function uses
+the minimal amount of parameters needed to build the image. For a more 
+detailed image creation use insert_image_with_resource/2 where more complex 
+Image Resources can be passed</p>
+</div>
+  
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#insert_image_with_resource/2">insert_image_with_resource(image_resource, fields \\ &quot;&quot;)</a>
+  </div>
+  
+    <div class="summary-synopsis"><p>Creates an image with the provided ‘image_resource’</p>
+</div>
+  
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#insert_instance/3">insert_instance(zone, instance_resource, fields \\ &quot;&quot;)</a>
+  </div>
+  
+    <div class="summary-synopsis"><p>Creates a new Virtual Machine instance on Google Compute Engine in the given
+‘zone’ and with properties defined in ‘instance_resource’. Example of the 
+minimal Instance Resource the API will accept</p>
+</div>
+  
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#insert_instance_group/3">insert_instance_group(zone, instance_group_resource, fields \\ &quot;&quot;)</a>
+  </div>
+  
+    <div class="summary-synopsis"><p>Creates an Instance Group in the specified ‘zone’ using the data provided
+in ‘instance_group_resource’. For the structure and properties required in
+the Instance Group Resources check
+<a href="https://cloud.google.com/compute/docs/reference/latest/instanceGroups#resource">https://cloud.google.com/compute/docs/reference/latest/instanceGroups#resource</a></p>
+</div>
+  
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#insert_network/2">insert_network(network_resource, fields \\ &quot;&quot;)</a>
+  </div>
+  
+    <div class="summary-synopsis"><p>Creates a network using the data specified in ‘network_resource’. To read
+about the structure and properties of the Network Resource check
+<a href="https://cloud.google.com/compute/docs/reference/latest/networks#resource">https://cloud.google.com/compute/docs/reference/latest/networks#resource</a></p>
+</div>
+  
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#list_autoscalers/2">list_autoscalers(zone, query_params \\ %{})</a>
+  </div>
+  
+    <div class="summary-synopsis"><p>Retrieves a list of autoscalers contained within the specified ‘zone’ and 
+according to the ‘query_params’ if provided</p>
+</div>
+  
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#list_disk_types/2">list_disk_types(zone, query_params \\ %{})</a>
+  </div>
+  
+    <div class="summary-synopsis"><p>Retrieves a list of disk types available to the specified ‘zone’ according
+to the given ‘query_params’ if provided</p>
+</div>
+  
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#list_disks/2">list_disks(zone, query_params \\ %{})</a>
+  </div>
+  
+    <div class="summary-synopsis"><p>Retrieves a list of persistent disks contained within the specified ‘zone’ and
+according to the given ‘query_params’ if provided</p>
+</div>
+  
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#list_firewalls/1">list_firewalls(query_params \\ %{})</a>
+  </div>
+  
+    <div class="summary-synopsis"><p>Retrieves the list of firewall rules according to the ‘query_params’ if 
+provided</p>
+</div>
+  
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#list_images/1">list_images(query_params \\ %{})</a>
+  </div>
+  
+    <div class="summary-synopsis"><p>Retrieves the list of private images available (project scoped only)</p>
+</div>
+  
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#list_instance_groups/2">list_instance_groups(zone, query_params \\ %{})</a>
+  </div>
+  
+    <div class="summary-synopsis"><p>Retrieves the list of instance groups that are located in the 
+specified ‘zone’</p>
+</div>
+  
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#list_instances/2">list_instances(zone, query_params \\ %{})</a>
+  </div>
+  
+    <div class="summary-synopsis"><p>Lists all instances in the given ‘zone’ obeying the given ‘query_params’ if
+present</p>
+</div>
+  
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#list_instances_in_group/4">list_instances_in_group(zone, instance_group, instance_state \\ &quot;&quot;, query_params \\ %{})</a>
+  </div>
+  
+    <div class="summary-synopsis"><p>Lists the instances in the specified ‘instance_group’ if it exists in the 
+given ‘zone’. A filter for the state of the instances can be passed
+through ‘instance_state’</p>
+</div>
+  
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#list_machine_types/2">list_machine_types(zone, query_params \\ %{})</a>
+  </div>
+  
+    <div class="summary-synopsis"><p>Retrieves a list of machine types available in the specified ‘zone’ and 
+that fit in the given ‘query_params’ if present</p>
+</div>
+  
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#list_networks/1">list_networks(query_params \\ %{})</a>
+  </div>
+  
+    <div class="summary-synopsis"><p>Retrieves the list of networks available according to the given 
+‘query_params’ if provided</p>
+</div>
+  
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#list_regions/1">list_regions(query_params \\ %{})</a>
+  </div>
+  
+    <div class="summary-synopsis"><p>Retrieves a list of region resources according to the given ‘query_params’</p>
+</div>
+  
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#list_zones/1">list_zones(query_params \\ %{})</a>
+  </div>
+  
+    <div class="summary-synopsis"><p>Retrieves the list of Zone resources available according to the given
+‘query_params’</p>
+</div>
+  
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#patch_autoscaler/4">patch_autoscaler(zone, autoscaler_name, autoscaler_resource, fields \\ &quot;&quot;)</a>
+  </div>
+  
+    <div class="summary-synopsis"><p>Updates ‘autoscaler_name’ in the specified ‘zone’ using the data included in
+the ‘autoscaler_resource’. This function supports patch semantics</p>
+</div>
+  
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#patch_firewall/3">patch_firewall(firewall, firewall_resource, fields \\ &quot;&quot;)</a>
+  </div>
+  
+    <div class="summary-synopsis"><p>Updates the specified ‘firewall’ rule with the data included in the 
+‘firewall_resource’. This function supports patch semantics</p>
+</div>
+  
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#remove_instances_from_group/4">remove_instances_from_group(zone, instance_group, instances, fields \\ &quot;&quot;)</a>
+  </div>
+  
+    <div class="summary-synopsis"><p>Removes the ‘instances’ from the provided ‘instance_group’ if it exists in
+the given ‘zone’</p>
+</div>
+  
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#request/5">request(verb, endpoint, headers \\ [], body \\ &quot;&quot;, parameters \\ &quot;&quot;)</a>
+  </div>
+  
+    <div class="summary-synopsis"></div>
+  
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#reset_instance/3">reset_instance(zone, instance, fields \\ &quot;&quot;)</a>
+  </div>
+  
+    <div class="summary-synopsis"><p>Performs a hard reset on the ‘instance’ if it exists in the given ‘zone’</p>
+</div>
+  
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#resize_disk/4">resize_disk(zone, disk, size_gb, fields \\ &quot;&quot;)</a>
+  </div>
+  
+    <div class="summary-synopsis"><p>Resizes the specified persistent ‘disk’ if it exists in the given ‘zone’ to 
+the provided ‘size_gb’</p>
+</div>
+  
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#set_disk_auto_delete/5">set_disk_auto_delete(zone, instance, auto_delete, device_name, fields \\ &quot;&quot;)</a>
+  </div>
+  
+    <div class="summary-synopsis"><p>Sets the ‘auto_delete’ flag for the disk with ‘device_name’ attached to 
+‘instance’ if it exists in the given ‘zone’</p>
+</div>
+  
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#set_machine_type/4">set_machine_type(zone, instance, machine_type, fields \\ &quot;&quot;)</a>
+  </div>
+  
+    <div class="summary-synopsis"><p>Changes the Machine Type for a stopped ‘instance’ to the specified 
+‘machine_type’ if the ‘instance’ exists in the given ‘zone’</p>
+</div>
+  
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#set_metadata/5">set_metadata(zone, instance, fingerprint, items, fields \\ &quot;&quot;)</a>
+  </div>
+  
+    <div class="summary-synopsis"><p>Sets metadata for the specified ‘instance’ to the data specified in 
+‘fingerprint’ and ‘items’. The ‘instance’ must exist in the given ‘zone’</p>
+</div>
+  
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#set_named_ports_for_group/5">set_named_ports_for_group(zone, instance_group, ports, fingerprint \\ &quot;&quot;, fields \\ &quot;&quot;)</a>
+  </div>
+  
+    <div class="summary-synopsis"><p>Sets the named ‘ports’ for the specified ‘instance_group’ if it exists in the
+given ‘zone’. The ‘ports’ must be passed as a list of tuples with the format
+{<name>, <port>}</p>
+</div>
+  
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#set_scheduling/4">set_scheduling(zone, instance, arg, fields \\ &quot;&quot;)</a>
+  </div>
+  
+    <div class="summary-synopsis"><p>Sets an ‘instance’ scheduling options if it exists in the given ‘zone’. The
+‘preemptible’ option cannot be changed after instance creation</p>
+</div>
+  
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#set_tags/5">set_tags(zone, instance, fingerprint, items, fields \\ &quot;&quot;)</a>
+  </div>
+  
+    <div class="summary-synopsis"><p>Sets tags for the specified ‘instance’ to the given ‘fingerprint’ and ‘items’.
+The ‘instance’ must exist in the given ‘zone’</p>
+</div>
+  
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#start_instance/3">start_instance(zone, instance, fields \\ &quot;&quot;)</a>
+  </div>
+  
+    <div class="summary-synopsis"><p>Starts a stopped ‘instance’ if it exists in the given ‘zone’</p>
+</div>
+  
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#stop_instance/3">stop_instance(zone, instance, fields \\ &quot;&quot;)</a>
+  </div>
+  
+    <div class="summary-synopsis"><p>Stops a running ‘instance’ if it exists in the given ‘zone’</p>
+</div>
+  
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#update_autoscaler/4">update_autoscaler(zone, autoscaler_name \\ &quot;&quot;, autoscaler_resource, fields \\ &quot;&quot;)</a>
+  </div>
+  
+    <div class="summary-synopsis"><p>Updates an autoscaler in the specified ‘zone’ using the data included in 
+the ‘autoscaler_resource’. The ‘autoscaler_name’ may be provided but it’s
+optional</p>
+</div>
+  
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#update_firewall/3">update_firewall(firewall, firewall_resource, fields \\ &quot;&quot;)</a>
+  </div>
+  
+    <div class="summary-synopsis"><p>Updates the specified ‘firewall’ rule with the data included in the 
+‘firewall_resource’</p>
+</div>
+  
+</div>
+
+  </div>
+
+
+          
+
+          
+
+        </section>
+      
+
+      
+
+      
+        <section id="functions" class="details-list">
+          <h1 class="section-heading">
+            <a class="hover-link" href="#functions">
+              <i class="icon-link"></i>
+            </a>
+            Functions
+          </h1>
+          <div class="detail" id="add_access_config/6">
+  <div class="detail-header">
+    <a href="#add_access_config/6" class="detail-link" title="Link to this function">
+      <i class="icon-link"></i>
+    </a>
+    <span class="signature">add_access_config(zone, instance, network_interface, name, nat_ip \\ &quot;&quot;, fields \\ &quot;&quot;)</span>
+      
+  </div>
+  
+    <div class="specs">
+      <h4 class="specs-title">Specs</h4>
+      <div class="specs-list">
+        
+          <pre><code class="elixir">add_access_config(zone :: binary, instance :: binary, network_interface :: binary, name :: binary, nat_ip :: binary, fields :: binary) :: HTTPResponse.t</code></pre>
+        
+      </div>
+    </div>
+  
+  <section class="docstring">
+    <p>Adds an access config to the ‘instance’ if it exists in the given ‘zone’. The
+kind and type will automatically be added with the default (and only possible)
+values.</p>
+
+  </section>
+</div>
+<div class="detail" id="add_instances_to_group/4">
+  <div class="detail-header">
+    <a href="#add_instances_to_group/4" class="detail-link" title="Link to this function">
+      <i class="icon-link"></i>
+    </a>
+    <span class="signature">add_instances_to_group(zone, instance_group, instances, fields \\ &quot;&quot;)</span>
+      
+  </div>
+  
+    <div class="specs">
+      <h4 class="specs-title">Specs</h4>
+      <div class="specs-list">
+        
+          <pre><code class="elixir">add_instances_to_group(zone :: binary, instance_group :: binary, instances :: [binary], fields :: binary) :: HTTPResponse.t</code></pre>
+        
+      </div>
+    </div>
+  
+  <section class="docstring">
+    <p>Adds a list of ‘instances’ to the specified ‘instance_group’ if it exists in
+the given ‘zone’.</p>
+
+  </section>
+</div>
+<div class="detail" id="aggregated_list_of_autoscalers/1">
+  <div class="detail-header">
+    <a href="#aggregated_list_of_autoscalers/1" class="detail-link" title="Link to this function">
+      <i class="icon-link"></i>
+    </a>
+    <span class="signature">aggregated_list_of_autoscalers(query_params \\ %{})</span>
+      
+  </div>
+  
+    <div class="specs">
+      <h4 class="specs-title">Specs</h4>
+      <div class="specs-list">
+        
+          <pre><code class="elixir">aggregated_list_of_autoscalers(query_params :: <a href="http://elixir-lang.org/docs/stable/elixir/Map.html#t:t/0">Map.t</a>) :: HTTPResponse.t</code></pre>
+        
+      </div>
+    </div>
+  
+  <section class="docstring">
+    <p>Retrieves an aggregated list of autoscalers according to the given 
+‘query_params’ if provided.</p>
+
+  </section>
+</div>
+<div class="detail" id="aggregated_list_of_disk_types/1">
+  <div class="detail-header">
+    <a href="#aggregated_list_of_disk_types/1" class="detail-link" title="Link to this function">
+      <i class="icon-link"></i>
+    </a>
+    <span class="signature">aggregated_list_of_disk_types(query_params \\ %{})</span>
+      
+  </div>
+  
+    <div class="specs">
+      <h4 class="specs-title">Specs</h4>
+      <div class="specs-list">
+        
+          <pre><code class="elixir">aggregated_list_of_disk_types(query_params :: <a href="http://elixir-lang.org/docs/stable/elixir/Map.html#t:t/0">Map.t</a>) :: HTTPResponse.t</code></pre>
+        
+      </div>
+    </div>
+  
+  <section class="docstring">
+    <p>Retrieves an aggregated list of Disk Types according to the
+‘query_params’ if provided.</p>
+
+  </section>
+</div>
+<div class="detail" id="aggregated_list_of_disks/1">
+  <div class="detail-header">
+    <a href="#aggregated_list_of_disks/1" class="detail-link" title="Link to this function">
+      <i class="icon-link"></i>
+    </a>
+    <span class="signature">aggregated_list_of_disks(query_params \\ %{})</span>
+      
+  </div>
+  
+    <div class="specs">
+      <h4 class="specs-title">Specs</h4>
+      <div class="specs-list">
+        
+          <pre><code class="elixir">aggregated_list_of_disks(query_params :: <a href="http://elixir-lang.org/docs/stable/elixir/Map.html#t:t/0">Map.t</a>) :: HTTPResponse.t</code></pre>
+        
+      </div>
+    </div>
+  
+  <section class="docstring">
+    <p>Retrieves an aggregated list of persistent disks according to the given
+‘query_params’ if they’re provided.</p>
+
+  </section>
+</div>
+<div class="detail" id="aggregated_list_of_instance_groups/1">
+  <div class="detail-header">
+    <a href="#aggregated_list_of_instance_groups/1" class="detail-link" title="Link to this function">
+      <i class="icon-link"></i>
+    </a>
+    <span class="signature">aggregated_list_of_instance_groups(query_params \\ %{})</span>
+      
+  </div>
+  
+    <div class="specs">
+      <h4 class="specs-title">Specs</h4>
+      <div class="specs-list">
+        
+          <pre><code class="elixir">aggregated_list_of_instance_groups(query_params :: <a href="http://elixir-lang.org/docs/stable/elixir/Map.html#t:t/0">Map.t</a>) :: HTTPResponse.t</code></pre>
+        
+      </div>
+    </div>
+  
+  <section class="docstring">
+    <p>Retrieves the list of Instance Groups and sorts them by zone.</p>
+
+  </section>
+</div>
+<div class="detail" id="aggregated_list_of_instances/1">
+  <div class="detail-header">
+    <a href="#aggregated_list_of_instances/1" class="detail-link" title="Link to this function">
+      <i class="icon-link"></i>
+    </a>
+    <span class="signature">aggregated_list_of_instances(query_params \\ %{})</span>
+      
+  </div>
+  
+    <div class="specs">
+      <h4 class="specs-title">Specs</h4>
+      <div class="specs-list">
+        
+          <pre><code class="elixir">aggregated_list_of_instances(query_params :: <a href="http://elixir-lang.org/docs/stable/elixir/Map.html#t:t/0">Map.t</a>) :: HTTPResponse.t</code></pre>
+        
+      </div>
+    </div>
+  
+  <section class="docstring">
+    <p>Retrieves aggregated list of instances according to the specified 
+‘query_params’ if present.</p>
+
+  </section>
+</div>
+<div class="detail" id="aggregated_list_of_machine_types/1">
+  <div class="detail-header">
+    <a href="#aggregated_list_of_machine_types/1" class="detail-link" title="Link to this function">
+      <i class="icon-link"></i>
+    </a>
+    <span class="signature">aggregated_list_of_machine_types(query_params \\ %{})</span>
+      
+  </div>
+  
+    <div class="specs">
+      <h4 class="specs-title">Specs</h4>
+      <div class="specs-list">
+        
+          <pre><code class="elixir">aggregated_list_of_machine_types(query_params :: <a href="http://elixir-lang.org/docs/stable/elixir/Map.html#t:t/0">Map.t</a>) :: HTTPResponse.t</code></pre>
+        
+      </div>
+    </div>
+  
+  <section class="docstring">
+    <p>Returns an aggragated list of machine types following the specified 
+‘query_params’ if present.</p>
+
+  </section>
+</div>
+<div class="detail" id="attach_disk/4">
+  <div class="detail-header">
+    <a href="#attach_disk/4" class="detail-link" title="Link to this function">
+      <i class="icon-link"></i>
+    </a>
+    <span class="signature">attach_disk(zone, instance, disk_resource, fields \\ &quot;&quot;)</span>
+      
+  </div>
+  
+    <div class="specs">
+      <h4 class="specs-title">Specs</h4>
+      <div class="specs-list">
+        
+          <pre><code class="elixir">attach_disk(zone :: binary, instance :: binary, disk_resource :: map, fields :: binary) :: HTTPResponse.t</code></pre>
+        
+      </div>
+    </div>
+  
+  <section class="docstring">
+    <p>Attaches the ‘disk_resource’ to the ‘instance’ if it exists in the given
+‘zone’.</p>
+<p>Disk Resource structure:</p>
+<p>  {</p>
+<pre><code class="elixir">&quot;kind&quot;: &quot;compute#attachedDisk&quot;,
+&quot;index&quot;: integer,
+&quot;type&quot;: string,
+&quot;mode&quot;: string,
+&quot;source&quot;: string,
+&quot;deviceName&quot;: string,
+&quot;boot&quot;: boolean,
+&quot;initializeParams&quot;: {
+  &quot;diskName&quot;: string,
+  &quot;sourceImage&quot;: string,
+  &quot;diskSizeGb&quot;: long,
+  &quot;diskType&quot;: string
+},
+&quot;autoDelete&quot;: boolean,
+&quot;licenses&quot;: [
+  string
+],
+&quot;interface&quot;: string</code></pre>
+<p>  }</p>
+
+  </section>
+</div>
+<div class="detail" id="create_snapshot/4">
+  <div class="detail-header">
+    <a href="#create_snapshot/4" class="detail-link" title="Link to this function">
+      <i class="icon-link"></i>
+    </a>
+    <span class="signature">create_snapshot(zone, disk, request, fields \\ &quot;&quot;)</span>
+      
+  </div>
+  
+    <div class="specs">
+      <h4 class="specs-title">Specs</h4>
+      <div class="specs-list">
+        
+          <pre><code class="elixir">create_snapshot(zone :: binary, disk :: binary, request :: <a href="http://elixir-lang.org/docs/stable/elixir/Map.html#t:t/0">Map.t</a>, fields :: binary) :: HTTPResponse.t</code></pre>
+        
+      </div>
+    </div>
+  
+  <section class="docstring">
+    <p>Creates a snapshot of a specified persistent ‘disk’ if it exists in the
+given ‘zone’ and according to the given ‘resource’. The ‘request’ map must
+contain the keys “name” and “description” and “name” must obey the 
+refex ‘(?:<a href="?:[-a-z0-9]%7B0,61%7D[a-z0-9]">a-z</a>?)’.</p>
+
+  </section>
+</div>
+<div class="detail" id="delete_access_config/5">
+  <div class="detail-header">
+    <a href="#delete_access_config/5" class="detail-link" title="Link to this function">
+      <i class="icon-link"></i>
+    </a>
+    <span class="signature">delete_access_config(zone, instance, access_config, network_interface, fields \\ &quot;&quot;)</span>
+      
+  </div>
+  
+    <div class="specs">
+      <h4 class="specs-title">Specs</h4>
+      <div class="specs-list">
+        
+          <pre><code class="elixir">delete_access_config(zone :: binary, instance :: binary, access_config :: binary, network_interface :: binary, fields :: binary) :: HTTPResponse.t</code></pre>
+        
+      </div>
+    </div>
+  
+  <section class="docstring">
+    <p>Deletes te ‘access_config’ from the ‘instance’ ‘network_interface’ if the
+‘instance’ exists in the given ‘zone’.</p>
+
+  </section>
+</div>
+<div class="detail" id="delete_autoscaler/3">
+  <div class="detail-header">
+    <a href="#delete_autoscaler/3" class="detail-link" title="Link to this function">
+      <i class="icon-link"></i>
+    </a>
+    <span class="signature">delete_autoscaler(zone, autoscaler, fields \\ &quot;&quot;)</span>
+      
+  </div>
+  
+    <div class="specs">
+      <h4 class="specs-title">Specs</h4>
+      <div class="specs-list">
+        
+          <pre><code class="elixir">delete_autoscaler(zone :: binary, autoscaler :: binary, fields :: binary) :: HTTPResponse.t</code></pre>
+        
+      </div>
+    </div>
+  
+  <section class="docstring">
+    <p>Deletes the specified ‘autoscaler’ if it exists in the given ‘zone’.</p>
+
+  </section>
+</div>
+<div class="detail" id="delete_disk/3">
+  <div class="detail-header">
+    <a href="#delete_disk/3" class="detail-link" title="Link to this function">
+      <i class="icon-link"></i>
+    </a>
+    <span class="signature">delete_disk(zone, disk, fields \\ &quot;&quot;)</span>
+      
+  </div>
+  
+    <div class="specs">
+      <h4 class="specs-title">Specs</h4>
+      <div class="specs-list">
+        
+          <pre><code class="elixir">delete_disk(zone :: binary, disk :: binary, fields :: binary) :: HTTPResponse.t</code></pre>
+        
+      </div>
+    </div>
+  
+  <section class="docstring">
+    <p>Deletes the specified persistent ‘disk’ if it exists in the given ‘zone’.</p>
+
+  </section>
+</div>
+<div class="detail" id="delete_firewall/2">
+  <div class="detail-header">
+    <a href="#delete_firewall/2" class="detail-link" title="Link to this function">
+      <i class="icon-link"></i>
+    </a>
+    <span class="signature">delete_firewall(firewall, fields \\ &quot;&quot;)</span>
+      
+  </div>
+  
+    <div class="specs">
+      <h4 class="specs-title">Specs</h4>
+      <div class="specs-list">
+        
+          <pre><code class="elixir">delete_firewall(firewall :: binary, fields :: binary) :: HTTPResponse.t</code></pre>
+        
+      </div>
+    </div>
+  
+  <section class="docstring">
+    <p>Deletes the specified ‘firewall’.</p>
+
+  </section>
+</div>
+<div class="detail" id="delete_image/2">
+  <div class="detail-header">
+    <a href="#delete_image/2" class="detail-link" title="Link to this function">
+      <i class="icon-link"></i>
+    </a>
+    <span class="signature">delete_image(image, fields \\ &quot;&quot;)</span>
+      
+  </div>
+  
+    <div class="specs">
+      <h4 class="specs-title">Specs</h4>
+      <div class="specs-list">
+        
+          <pre><code class="elixir">delete_image(image :: binary, fields :: binary) :: HTTPResponse.t</code></pre>
+        
+      </div>
+    </div>
+  
+  <section class="docstring">
+    <p>Deletes the specified ‘image’.</p>
+
+  </section>
+</div>
+<div class="detail" id="delete_instance/3">
+  <div class="detail-header">
+    <a href="#delete_instance/3" class="detail-link" title="Link to this function">
+      <i class="icon-link"></i>
+    </a>
+    <span class="signature">delete_instance(zone, instance, fields \\ &quot;&quot;)</span>
+      
+  </div>
+  
+    <div class="specs">
+      <h4 class="specs-title">Specs</h4>
+      <div class="specs-list">
+        
+          <pre><code class="elixir">delete_instance(zone :: binary, instance :: binary, fields :: binary) :: HTTPResponse.t</code></pre>
+        
+      </div>
+    </div>
+  
+  <section class="docstring">
+    <p>Deletes the given ‘instance’ if it exists in the given ‘zone’.</p>
+
+  </section>
+</div>
+<div class="detail" id="delete_instance_group/3">
+  <div class="detail-header">
+    <a href="#delete_instance_group/3" class="detail-link" title="Link to this function">
+      <i class="icon-link"></i>
+    </a>
+    <span class="signature">delete_instance_group(zone, instance_group, fields \\ &quot;&quot;)</span>
+      
+  </div>
+  
+    <div class="specs">
+      <h4 class="specs-title">Specs</h4>
+      <div class="specs-list">
+        
+          <pre><code class="elixir">delete_instance_group(zone :: binary, instance_group :: binary, fields :: binary) :: HTTPResponse.t</code></pre>
+        
+      </div>
+    </div>
+  
+  <section class="docstring">
+    <p>Deletes the specified ‘instance_group’ if it exists in the given ‘zone’.</p>
+
+  </section>
+</div>
+<div class="detail" id="delete_network/2">
+  <div class="detail-header">
+    <a href="#delete_network/2" class="detail-link" title="Link to this function">
+      <i class="icon-link"></i>
+    </a>
+    <span class="signature">delete_network(network, fields \\ &quot;&quot;)</span>
+      
+  </div>
+  
+    <div class="specs">
+      <h4 class="specs-title">Specs</h4>
+      <div class="specs-list">
+        
+          <pre><code class="elixir">delete_network(network :: binary, fields :: binary) :: HTTPResponse.t</code></pre>
+        
+      </div>
+    </div>
+  
+  <section class="docstring">
+    <p>Deletes the specified ‘network’.</p>
+
+  </section>
+</div>
+<div class="detail" id="deprecate_image/3">
+  <div class="detail-header">
+    <a href="#deprecate_image/3" class="detail-link" title="Link to this function">
+      <i class="icon-link"></i>
+    </a>
+    <span class="signature">deprecate_image(image, request_params, fields \\ &quot;&quot;)</span>
+      
+  </div>
+  
+    <div class="specs">
+      <h4 class="specs-title">Specs</h4>
+      <div class="specs-list">
+        
+          <pre><code class="elixir">deprecate_image(image :: binary, request_params :: <a href="http://elixir-lang.org/docs/stable/elixir/Map.html#t:t/0">Map.t</a>, fields :: binary) :: HTTPResponse.t</code></pre>
+        
+      </div>
+    </div>
+  
+  <section class="docstring">
+    <p>Sets the deprecation status of an ‘image’ using the data provided in the
+‘request_params’. </p>
+
+  </section>
+</div>
+<div class="detail" id="detach_disk/4">
+  <div class="detail-header">
+    <a href="#detach_disk/4" class="detail-link" title="Link to this function">
+      <i class="icon-link"></i>
+    </a>
+    <span class="signature">detach_disk(zone, instance, device_name, fields \\ &quot;&quot;)</span>
+      
+  </div>
+  
+    <div class="specs">
+      <h4 class="specs-title">Specs</h4>
+      <div class="specs-list">
+        
+          <pre><code class="elixir">detach_disk(zone :: binary, instance :: binary, device_name :: binary, fields :: binary) :: HTTPResponse.t</code></pre>
+        
+      </div>
+    </div>
+  
+  <section class="docstring">
+    <p>Detaches the disk with ‘device_name’ from the ‘instance’ if it exists in the
+given ‘zone’.</p>
+
+  </section>
+</div>
+<div class="detail" id="get_autoscaler/3">
+  <div class="detail-header">
+    <a href="#get_autoscaler/3" class="detail-link" title="Link to this function">
+      <i class="icon-link"></i>
+    </a>
+    <span class="signature">get_autoscaler(zone, autoscaler, fields \\ &quot;&quot;)</span>
+      
+  </div>
+  
+    <div class="specs">
+      <h4 class="specs-title">Specs</h4>
+      <div class="specs-list">
+        
+          <pre><code class="elixir">get_autoscaler(zone :: binary, autoscaler :: binary, fields :: binary) :: HTTPResponse.t</code></pre>
+        
+      </div>
+    </div>
+  
+  <section class="docstring">
+    <p>Returns the specified ‘autoscaler’ resource if it exists in the given ‘zone’.</p>
+
+  </section>
+</div>
+<div class="detail" id="get_disk/3">
+  <div class="detail-header">
+    <a href="#get_disk/3" class="detail-link" title="Link to this function">
+      <i class="icon-link"></i>
+    </a>
+    <span class="signature">get_disk(zone, disk, fields \\ &quot;&quot;)</span>
+      
+  </div>
+  
+    <div class="specs">
+      <h4 class="specs-title">Specs</h4>
+      <div class="specs-list">
+        
+          <pre><code class="elixir">get_disk(zone :: binary, disk :: binary, fields :: binary) :: HTTPResponse.t</code></pre>
+        
+      </div>
+    </div>
+  
+  <section class="docstring">
+    <p>Returns a specified persistent ‘disk’ if it exists in the given ‘zone’. The
+HTTP reply contains a Disk Resource in the body.</p>
+
+  </section>
+</div>
+<div class="detail" id="get_disk_type/3">
+  <div class="detail-header">
+    <a href="#get_disk_type/3" class="detail-link" title="Link to this function">
+      <i class="icon-link"></i>
+    </a>
+    <span class="signature">get_disk_type(zone, disk_type, fields \\ &quot;&quot;)</span>
+      
+  </div>
+  
+    <div class="specs">
+      <h4 class="specs-title">Specs</h4>
+      <div class="specs-list">
+        
+          <pre><code class="elixir">get_disk_type(zone :: binary, disk_type :: binary, fields :: binary) :: HTTPResponse.t</code></pre>
+        
+      </div>
+    </div>
+  
+  <section class="docstring">
+    <p>Returns the specified ‘disk_type’ if it exists in the given ‘zone’.</p>
+
+  </section>
+</div>
+<div class="detail" id="get_firewall/2">
+  <div class="detail-header">
+    <a href="#get_firewall/2" class="detail-link" title="Link to this function">
+      <i class="icon-link"></i>
+    </a>
+    <span class="signature">get_firewall(firewall, fields \\ &quot;&quot;)</span>
+      
+  </div>
+  
+    <div class="specs">
+      <h4 class="specs-title">Specs</h4>
+      <div class="specs-list">
+        
+          <pre><code class="elixir">get_firewall(firewall :: binary, fields :: binary) :: HTTPResponse.t</code></pre>
+        
+      </div>
+    </div>
+  
+  <section class="docstring">
+    <p>Returns the specified ‘firewall’.</p>
+
+  </section>
+</div>
+<div class="detail" id="get_image/2">
+  <div class="detail-header">
+    <a href="#get_image/2" class="detail-link" title="Link to this function">
+      <i class="icon-link"></i>
+    </a>
+    <span class="signature">get_image(image, fields \\ &quot;&quot;)</span>
+      
+  </div>
+  
+    <div class="specs">
+      <h4 class="specs-title">Specs</h4>
+      <div class="specs-list">
+        
+          <pre><code class="elixir">get_image(image :: binary, fields :: binary) :: HTTPResponse.t</code></pre>
+        
+      </div>
+    </div>
+  
+  <section class="docstring">
+    <p>Returns the specified ‘image’.</p>
+
+  </section>
+</div>
+<div class="detail" id="get_instance/3">
+  <div class="detail-header">
+    <a href="#get_instance/3" class="detail-link" title="Link to this function">
+      <i class="icon-link"></i>
+    </a>
+    <span class="signature">get_instance(zone, instance, fields \\ &quot;&quot;)</span>
+      
+  </div>
+  
+    <div class="specs">
+      <h4 class="specs-title">Specs</h4>
+      <div class="specs-list">
+        
+          <pre><code class="elixir">get_instance(zone :: binary, instance :: binary, fields :: binary) :: HTTPResponse.t</code></pre>
+        
+      </div>
+    </div>
+  
+  <section class="docstring">
+    <p>Returns the data about the ‘instance’ in the given ‘zone’ if it exists.</p>
+
+  </section>
+</div>
+<div class="detail" id="get_instance_group/3">
+  <div class="detail-header">
+    <a href="#get_instance_group/3" class="detail-link" title="Link to this function">
+      <i class="icon-link"></i>
+    </a>
+    <span class="signature">get_instance_group(zone, instance_group, fields \\ &quot;&quot;)</span>
+      
+  </div>
+  
+    <div class="specs">
+      <h4 class="specs-title">Specs</h4>
+      <div class="specs-list">
+        
+          <pre><code class="elixir">get_instance_group(zone :: binary, instance_group :: binary, fields :: binary) :: HTTPResponse.t</code></pre>
+        
+      </div>
+    </div>
+  
+  <section class="docstring">
+    <p>Returns the specified ‘instance_group’ if it exists in the given ‘zone’.</p>
+
+  </section>
+</div>
+<div class="detail" id="get_license/2">
+  <div class="detail-header">
+    <a href="#get_license/2" class="detail-link" title="Link to this function">
+      <i class="icon-link"></i>
+    </a>
+    <span class="signature">get_license(license, fields \\ &quot;&quot;)</span>
+      
+  </div>
+  
+    <div class="specs">
+      <h4 class="specs-title">Specs</h4>
+      <div class="specs-list">
+        
+          <pre><code class="elixir">get_license(binary, binary) :: HTTPResponse.t</code></pre>
+        
+      </div>
+    </div>
+  
+  <section class="docstring">
+    <p>Returns the specified ‘license’ resource.</p>
+
+  </section>
+</div>
+<div class="detail" id="get_machine_type/3">
+  <div class="detail-header">
+    <a href="#get_machine_type/3" class="detail-link" title="Link to this function">
+      <i class="icon-link"></i>
+    </a>
+    <span class="signature">get_machine_type(zone, machine_type, fields \\ &quot;&quot;)</span>
+      
+  </div>
+  
+    <div class="specs">
+      <h4 class="specs-title">Specs</h4>
+      <div class="specs-list">
+        
+          <pre><code class="elixir">get_machine_type(zone :: binary, machine_type :: binary, fields :: binary) :: HTTPResponse.t</code></pre>
+        
+      </div>
+    </div>
+  
+  <section class="docstring">
+    <p>Returns the specified ‘machine_type’ in the given ‘zone’.</p>
+
+  </section>
+</div>
+<div class="detail" id="get_network/2">
+  <div class="detail-header">
+    <a href="#get_network/2" class="detail-link" title="Link to this function">
+      <i class="icon-link"></i>
+    </a>
+    <span class="signature">get_network(network, fields \\ &quot;&quot;)</span>
+      
+  </div>
+  
+    <div class="specs">
+      <h4 class="specs-title">Specs</h4>
+      <div class="specs-list">
+        
+          <pre><code class="elixir">get_network(network :: binary, fields :: binary) :: HTTPResponse.t</code></pre>
+        
+      </div>
+    </div>
+  
+  <section class="docstring">
+    <p>Returns the speciefied ‘network’.</p>
+
+  </section>
+</div>
+<div class="detail" id="get_region/2">
+  <div class="detail-header">
+    <a href="#get_region/2" class="detail-link" title="Link to this function">
+      <i class="icon-link"></i>
+    </a>
+    <span class="signature">get_region(region, fields \\ &quot;&quot;)</span>
+      
+  </div>
+  
+    <div class="specs">
+      <h4 class="specs-title">Specs</h4>
+      <div class="specs-list">
+        
+          <pre><code class="elixir">get_region(region :: binary, fields :: binary) :: HTTPResponse.t</code></pre>
+        
+      </div>
+    </div>
+  
+  <section class="docstring">
+    <p>Returns the specified ‘region’ resource.</p>
+
+  </section>
+</div>
+<div class="detail" id="get_serial_port_output/4">
+  <div class="detail-header">
+    <a href="#get_serial_port_output/4" class="detail-link" title="Link to this function">
+      <i class="icon-link"></i>
+    </a>
+    <span class="signature">get_serial_port_output(zone, instance, port \\ 1, fields \\ &quot;&quot;)</span>
+      
+  </div>
+  
+    <div class="specs">
+      <h4 class="specs-title">Specs</h4>
+      <div class="specs-list">
+        
+          <pre><code class="elixir">get_serial_port_output(zone :: binary, instance :: binary, port :: 1..4, fields :: binary) :: HTTPResponse.t</code></pre>
+        
+      </div>
+    </div>
+  
+  <section class="docstring">
+    <p>Returns the specified ‘instance’ serial ‘port’ output if the ‘instance’
+exists in the given ‘zone’. The ‘port’ accepted values are from 1 to 4, 
+inclusive.</p>
+
+  </section>
+</div>
+<div class="detail" id="get_zone/2">
+  <div class="detail-header">
+    <a href="#get_zone/2" class="detail-link" title="Link to this function">
+      <i class="icon-link"></i>
+    </a>
+    <span class="signature">get_zone(zone, fields \\ &quot;&quot;)</span>
+      
+  </div>
+  
+    <div class="specs">
+      <h4 class="specs-title">Specs</h4>
+      <div class="specs-list">
+        
+          <pre><code class="elixir">get_zone(zone :: binary, fields :: binary) :: HTTPResponse.t</code></pre>
+        
+      </div>
+    </div>
+  
+  <section class="docstring">
+    <p>Returns the specified ‘zone’ resource. </p>
+
+  </section>
+</div>
+<div class="detail" id="insert_autoscaler/3">
+  <div class="detail-header">
+    <a href="#insert_autoscaler/3" class="detail-link" title="Link to this function">
+      <i class="icon-link"></i>
+    </a>
+    <span class="signature">insert_autoscaler(zone, autoscaler_resource, fields \\ &quot;&quot;)</span>
+      
+  </div>
+  
+    <div class="specs">
+      <h4 class="specs-title">Specs</h4>
+      <div class="specs-list">
+        
+          <pre><code class="elixir">insert_autoscaler(zone :: binary, autoscaler_resource :: <a href="http://elixir-lang.org/docs/stable/elixir/Map.html#t:t/0">Map.t</a>, fields :: binary) ::
+  HTTPResponse.t |
+  no_return</code></pre>
+        
+      </div>
+    </div>
+  
+  <section class="docstring">
+    <p>Creates an autoscaler in the given ‘zone’ using the data provided in 
+‘autoscaler_resource’.</p>
+<p>For the properties and structure of the ‘autoscaler_resource’ check
+<a href="https://cloud.google.com/compute/docs/reference/latest/autoscalers#resource">https://cloud.google.com/compute/docs/reference/latest/autoscalers#resource</a></p>
+
+  </section>
+</div>
+<div class="detail" id="insert_disk/4">
+  <div class="detail-header">
+    <a href="#insert_disk/4" class="detail-link" title="Link to this function">
+      <i class="icon-link"></i>
+    </a>
+    <span class="signature">insert_disk(zone, disk_resource, source_image \\ &quot;&quot;, fields \\ &quot;&quot;)</span>
+      
+  </div>
+  
+    <div class="specs">
+      <h4 class="specs-title">Specs</h4>
+      <div class="specs-list">
+        
+          <pre><code class="elixir">insert_disk(zone :: binary, disk_resource :: map, source_image :: binary, fields :: binary) :: HTTPResponse.t</code></pre>
+        
+      </div>
+    </div>
+  
+  <section class="docstring">
+    <p>Creates a persistent disk in the specified ‘zone’ using the data in the 
+‘disk_resource’. You can create a disk with a ‘source_image’ or a 
+sourceSnapshot (provided in the ‘disk_resource’), or create an empty 500 GB 
+data disk by omitting all properties. You can also create a disk that is 
+larger than the default size by specifying the sizeGb property in the 
+‘disk_resource’.</p>
+
+  </section>
+</div>
+<div class="detail" id="insert_firewall/2">
+  <div class="detail-header">
+    <a href="#insert_firewall/2" class="detail-link" title="Link to this function">
+      <i class="icon-link"></i>
+    </a>
+    <span class="signature">insert_firewall(firewall_resource, fields \\ &quot;&quot;)</span>
+      
+  </div>
+  
+    <div class="specs">
+      <h4 class="specs-title">Specs</h4>
+      <div class="specs-list">
+        
+          <pre><code class="elixir">insert_firewall(firewall_resource :: <a href="http://elixir-lang.org/docs/stable/elixir/Map.html#t:t/0">Map.t</a>, fields :: binary) :: HTTPResponse.t</code></pre>
+        
+      </div>
+    </div>
+  
+  <section class="docstring">
+    <p>Creates a new firewall using the data included in ‘firewall_resource’. For 
+information about the structure and properties of Firewall Resources check
+<a href="https://cloud.google.com/compute/docs/reference/latest/firewalls#resource">https://cloud.google.com/compute/docs/reference/latest/firewalls#resource</a></p>
+
+  </section>
+</div>
+<div class="detail" id="insert_image/3">
+  <div class="detail-header">
+    <a href="#insert_image/3" class="detail-link" title="Link to this function">
+      <i class="icon-link"></i>
+    </a>
+    <span class="signature">insert_image(name, source_url, fields \\ &quot;&quot;)</span>
+      
+  </div>
+  
+    <div class="specs">
+      <h4 class="specs-title">Specs</h4>
+      <div class="specs-list">
+        
+          <pre><code class="elixir">insert_image(name :: binary, source_url :: binary, fields :: binary) :: HTTPResponse.t</code></pre>
+        
+      </div>
+    </div>
+  
+  <section class="docstring">
+    <p>Creates an image with the given ‘name’ and ‘source_url’. This function uses
+the minimal amount of parameters needed to build the image. For a more 
+detailed image creation use insert_image_with_resource/2 where more complex 
+Image Resources can be passed.</p>
+
+  </section>
+</div>
+<div class="detail" id="insert_image_with_resource/2">
+  <div class="detail-header">
+    <a href="#insert_image_with_resource/2" class="detail-link" title="Link to this function">
+      <i class="icon-link"></i>
+    </a>
+    <span class="signature">insert_image_with_resource(image_resource, fields \\ &quot;&quot;)</span>
+      
+  </div>
+  
+    <div class="specs">
+      <h4 class="specs-title">Specs</h4>
+      <div class="specs-list">
+        
+          <pre><code class="elixir">insert_image_with_resource(image_resource :: <a href="http://elixir-lang.org/docs/stable/elixir/Map.html#t:t/0">Map.t</a>, fields :: binary) :: HTTPResponse.t</code></pre>
+        
+      </div>
+    </div>
+  
+  <section class="docstring">
+    <p>Creates an image with the provided ‘image_resource’.</p>
+
+  </section>
+</div>
+<div class="detail" id="insert_instance/3">
+  <div class="detail-header">
+    <a href="#insert_instance/3" class="detail-link" title="Link to this function">
+      <i class="icon-link"></i>
+    </a>
+    <span class="signature">insert_instance(zone, instance_resource, fields \\ &quot;&quot;)</span>
+      
+  </div>
+  
+    <div class="specs">
+      <h4 class="specs-title">Specs</h4>
+      <div class="specs-list">
+        
+          <pre><code class="elixir">insert_instance(zone :: binary, instance_resource :: <a href="http://elixir-lang.org/docs/stable/elixir/Map.html#t:t/0">Map.t</a>, fields :: binary) :: HTTPResponse.t</code></pre>
+        
+      </div>
+    </div>
+  
+  <section class="docstring">
+    <p>Creates a new Virtual Machine instance on Google Compute Engine in the given
+‘zone’ and with properties defined in ‘instance_resource’. Example of the 
+minimal Instance Resource the API will accept:</p>
+<p>  %{</p>
+<pre><code class="elixir">&quot;disks&quot; =&gt; 
+[
+  %{
+    &quot;autoDelete&quot; =&gt; true, &quot;boot&quot; =&gt; true,
+    &quot;initializeParams&quot; =&gt; 
+    %{
+      &quot;sourceImage&quot; =&gt; 
+        &quot;projects/debian-cloud/global/images/debian-8-jessie-v20160119&quot;
+      },
+    &quot;type&quot; =&gt; &quot;PERSISTENT&quot;
+  }
+],
+&quot;machineType&quot; =&gt; &quot;zones/europe-west1-d/machineTypes/f1-micro&quot;,
+&quot;name&quot; =&gt; &quot;example-instance&quot;,
+&quot;networkInterfaces&quot; =&gt; 
+[
+  %{
+    &quot;accessConfigs&quot; =&gt; 
+    [
+      %{
+       &quot;name&quot; =&gt; &quot;External NAT&quot;,
+       &quot;type&quot; =&gt; &quot;ONE_TO_ONE_NAT&quot;
+      }
+   ], 
+   &quot;network&quot; =&gt; &quot;global/networks/default&quot;
+  }
+]</code></pre>
+<p>  }</p>
+<p>For the ‘instance_resource’ check the documentation at:</p>
+<p>  <a href="https://cloud.google.com/compute/docs/reference/latest/instances#resource">https://cloud.google.com/compute/docs/reference/latest/instances#resource</a></p>
+
+  </section>
+</div>
+<div class="detail" id="insert_instance_group/3">
+  <div class="detail-header">
+    <a href="#insert_instance_group/3" class="detail-link" title="Link to this function">
+      <i class="icon-link"></i>
+    </a>
+    <span class="signature">insert_instance_group(zone, instance_group_resource, fields \\ &quot;&quot;)</span>
+      
+  </div>
+  
+    <div class="specs">
+      <h4 class="specs-title">Specs</h4>
+      <div class="specs-list">
+        
+          <pre><code class="elixir">insert_instance_group(zone :: binary, instance_group_resource :: map, fields :: binary) :: HTTPResponse.t</code></pre>
+        
+      </div>
+    </div>
+  
+  <section class="docstring">
+    <p>Creates an Instance Group in the specified ‘zone’ using the data provided
+in ‘instance_group_resource’. For the structure and properties required in
+the Instance Group Resources check
+<a href="https://cloud.google.com/compute/docs/reference/latest/instanceGroups#resource">https://cloud.google.com/compute/docs/reference/latest/instanceGroups#resource</a></p>
+
+  </section>
+</div>
+<div class="detail" id="insert_network/2">
+  <div class="detail-header">
+    <a href="#insert_network/2" class="detail-link" title="Link to this function">
+      <i class="icon-link"></i>
+    </a>
+    <span class="signature">insert_network(network_resource, fields \\ &quot;&quot;)</span>
+      
+  </div>
+  
+    <div class="specs">
+      <h4 class="specs-title">Specs</h4>
+      <div class="specs-list">
+        
+          <pre><code class="elixir">insert_network(network_resource :: <a href="http://elixir-lang.org/docs/stable/elixir/Map.html#t:t/0">Map.t</a>, fields :: binary) ::
+  HTTPResponse.t |
+  no_return</code></pre>
+        
+      </div>
+    </div>
+  
+  <section class="docstring">
+    <p>Creates a network using the data specified in ‘network_resource’. To read
+about the structure and properties of the Network Resource check
+<a href="https://cloud.google.com/compute/docs/reference/latest/networks#resource">https://cloud.google.com/compute/docs/reference/latest/networks#resource</a>.</p>
+
+  </section>
+</div>
+<div class="detail" id="list_autoscalers/2">
+  <div class="detail-header">
+    <a href="#list_autoscalers/2" class="detail-link" title="Link to this function">
+      <i class="icon-link"></i>
+    </a>
+    <span class="signature">list_autoscalers(zone, query_params \\ %{})</span>
+      
+  </div>
+  
+    <div class="specs">
+      <h4 class="specs-title">Specs</h4>
+      <div class="specs-list">
+        
+          <pre><code class="elixir">list_autoscalers(zone :: binary, query_params :: map) :: HTTPResponse.t</code></pre>
+        
+      </div>
+    </div>
+  
+  <section class="docstring">
+    <p>Retrieves a list of autoscalers contained within the specified ‘zone’ and 
+according to the ‘query_params’ if provided.</p>
+
+  </section>
+</div>
+<div class="detail" id="list_disk_types/2">
+  <div class="detail-header">
+    <a href="#list_disk_types/2" class="detail-link" title="Link to this function">
+      <i class="icon-link"></i>
+    </a>
+    <span class="signature">list_disk_types(zone, query_params \\ %{})</span>
+      
+  </div>
+  
+    <div class="specs">
+      <h4 class="specs-title">Specs</h4>
+      <div class="specs-list">
+        
+          <pre><code class="elixir">list_disk_types(zone :: binary, query_params :: <a href="http://elixir-lang.org/docs/stable/elixir/Map.html#t:t/0">Map.t</a>) :: HTTPResponse.t</code></pre>
+        
+      </div>
+    </div>
+  
+  <section class="docstring">
+    <p>Retrieves a list of disk types available to the specified ‘zone’ according
+to the given ‘query_params’ if provided.</p>
+
+  </section>
+</div>
+<div class="detail" id="list_disks/2">
+  <div class="detail-header">
+    <a href="#list_disks/2" class="detail-link" title="Link to this function">
+      <i class="icon-link"></i>
+    </a>
+    <span class="signature">list_disks(zone, query_params \\ %{})</span>
+      
+  </div>
+  
+    <div class="specs">
+      <h4 class="specs-title">Specs</h4>
+      <div class="specs-list">
+        
+          <pre><code class="elixir">list_disks(zone :: binary, query_params :: <a href="http://elixir-lang.org/docs/stable/elixir/Map.html#t:t/0">Map.t</a>) :: HTTPResponse.t</code></pre>
+        
+      </div>
+    </div>
+  
+  <section class="docstring">
+    <p>Retrieves a list of persistent disks contained within the specified ‘zone’ and
+according to the given ‘query_params’ if provided.</p>
+
+  </section>
+</div>
+<div class="detail" id="list_firewalls/1">
+  <div class="detail-header">
+    <a href="#list_firewalls/1" class="detail-link" title="Link to this function">
+      <i class="icon-link"></i>
+    </a>
+    <span class="signature">list_firewalls(query_params \\ %{})</span>
+      
+  </div>
+  
+    <div class="specs">
+      <h4 class="specs-title">Specs</h4>
+      <div class="specs-list">
+        
+          <pre><code class="elixir">list_firewalls(query_params :: <a href="http://elixir-lang.org/docs/stable/elixir/Map.html#t:t/0">Map.t</a>) :: HTTPResponse.t</code></pre>
+        
+      </div>
+    </div>
+  
+  <section class="docstring">
+    <p>Retrieves the list of firewall rules according to the ‘query_params’ if 
+provided.</p>
+
+  </section>
+</div>
+<div class="detail" id="list_images/1">
+  <div class="detail-header">
+    <a href="#list_images/1" class="detail-link" title="Link to this function">
+      <i class="icon-link"></i>
+    </a>
+    <span class="signature">list_images(query_params \\ %{})</span>
+      
+  </div>
+  
+    <div class="specs">
+      <h4 class="specs-title">Specs</h4>
+      <div class="specs-list">
+        
+          <pre><code class="elixir">list_images(query_params :: <a href="http://elixir-lang.org/docs/stable/elixir/Map.html#t:t/0">Map.t</a>) :: HTTPResponse.t</code></pre>
+        
+      </div>
+    </div>
+  
+  <section class="docstring">
+    <p>Retrieves the list of private images available (project scoped only).</p>
+
+  </section>
+</div>
+<div class="detail" id="list_instance_groups/2">
+  <div class="detail-header">
+    <a href="#list_instance_groups/2" class="detail-link" title="Link to this function">
+      <i class="icon-link"></i>
+    </a>
+    <span class="signature">list_instance_groups(zone, query_params \\ %{})</span>
+      
+  </div>
+  
+    <div class="specs">
+      <h4 class="specs-title">Specs</h4>
+      <div class="specs-list">
+        
+          <pre><code class="elixir">list_instance_groups(zone :: binary, query_params :: <a href="http://elixir-lang.org/docs/stable/elixir/Map.html#t:t/0">Map.t</a>) :: HTTPResponse.t</code></pre>
+        
+      </div>
+    </div>
+  
+  <section class="docstring">
+    <p>Retrieves the list of instance groups that are located in the 
+specified ‘zone’.</p>
+
+  </section>
+</div>
+<div class="detail" id="list_instances/2">
+  <div class="detail-header">
+    <a href="#list_instances/2" class="detail-link" title="Link to this function">
+      <i class="icon-link"></i>
+    </a>
+    <span class="signature">list_instances(zone, query_params \\ %{})</span>
+      
+  </div>
+  
+    <div class="specs">
+      <h4 class="specs-title">Specs</h4>
+      <div class="specs-list">
+        
+          <pre><code class="elixir">list_instances(zone :: binary, query_params :: <a href="http://elixir-lang.org/docs/stable/elixir/Map.html#t:t/0">Map.t</a>) :: HTTPResponse.t</code></pre>
+        
+      </div>
+    </div>
+  
+  <section class="docstring">
+    <p>Lists all instances in the given ‘zone’ obeying the given ‘query_params’ if
+present.</p>
+
+  </section>
+</div>
+<div class="detail" id="list_instances_in_group/4">
+  <div class="detail-header">
+    <a href="#list_instances_in_group/4" class="detail-link" title="Link to this function">
+      <i class="icon-link"></i>
+    </a>
+    <span class="signature">list_instances_in_group(zone, instance_group, instance_state \\ &quot;&quot;, query_params \\ %{})</span>
+      
+  </div>
+  
+    <div class="specs">
+      <h4 class="specs-title">Specs</h4>
+      <div class="specs-list">
+        
+          <pre><code class="elixir">list_instances_in_group(zone :: binary, instance_group :: binary, instance_state :: binary, query_params :: <a href="http://elixir-lang.org/docs/stable/elixir/Map.html#t:t/0">Map.t</a>) :: HTTPResponse.t</code></pre>
+        
+      </div>
+    </div>
+  
+  <section class="docstring">
+    <p>Lists the instances in the specified ‘instance_group’ if it exists in the 
+given ‘zone’. A filter for the state of the instances can be passed
+through ‘instance_state’.</p>
+
+  </section>
+</div>
+<div class="detail" id="list_machine_types/2">
+  <div class="detail-header">
+    <a href="#list_machine_types/2" class="detail-link" title="Link to this function">
+      <i class="icon-link"></i>
+    </a>
+    <span class="signature">list_machine_types(zone, query_params \\ %{})</span>
+      
+  </div>
+  
+    <div class="specs">
+      <h4 class="specs-title">Specs</h4>
+      <div class="specs-list">
+        
+          <pre><code class="elixir">list_machine_types(zone :: binary, query_params :: <a href="http://elixir-lang.org/docs/stable/elixir/Map.html#t:t/0">Map.t</a>) :: HTTPResponse.t</code></pre>
+        
+      </div>
+    </div>
+  
+  <section class="docstring">
+    <p>Retrieves a list of machine types available in the specified ‘zone’ and 
+that fit in the given ‘query_params’ if present.</p>
+
+  </section>
+</div>
+<div class="detail" id="list_networks/1">
+  <div class="detail-header">
+    <a href="#list_networks/1" class="detail-link" title="Link to this function">
+      <i class="icon-link"></i>
+    </a>
+    <span class="signature">list_networks(query_params \\ %{})</span>
+      
+  </div>
+  
+    <div class="specs">
+      <h4 class="specs-title">Specs</h4>
+      <div class="specs-list">
+        
+          <pre><code class="elixir">list_networks(query_params :: <a href="http://elixir-lang.org/docs/stable/elixir/Map.html#t:t/0">Map.t</a>) :: HTTPResponse.t</code></pre>
+        
+      </div>
+    </div>
+  
+  <section class="docstring">
+    <p>Retrieves the list of networks available according to the given 
+‘query_params’ if provided.</p>
+
+  </section>
+</div>
+<div class="detail" id="list_regions/1">
+  <div class="detail-header">
+    <a href="#list_regions/1" class="detail-link" title="Link to this function">
+      <i class="icon-link"></i>
+    </a>
+    <span class="signature">list_regions(query_params \\ %{})</span>
+      
+  </div>
+  
+    <div class="specs">
+      <h4 class="specs-title">Specs</h4>
+      <div class="specs-list">
+        
+          <pre><code class="elixir">list_regions(query_params :: <a href="http://elixir-lang.org/docs/stable/elixir/Map.html#t:t/0">Map.t</a>) :: HTTPResponse.t</code></pre>
+        
+      </div>
+    </div>
+  
+  <section class="docstring">
+    <p>Retrieves a list of region resources according to the given ‘query_params’.</p>
+
+  </section>
+</div>
+<div class="detail" id="list_zones/1">
+  <div class="detail-header">
+    <a href="#list_zones/1" class="detail-link" title="Link to this function">
+      <i class="icon-link"></i>
+    </a>
+    <span class="signature">list_zones(query_params \\ %{})</span>
+      
+  </div>
+  
+    <div class="specs">
+      <h4 class="specs-title">Specs</h4>
+      <div class="specs-list">
+        
+          <pre><code class="elixir">list_zones(query_params :: <a href="http://elixir-lang.org/docs/stable/elixir/Map.html#t:t/0">Map.t</a>) :: HTTPResponse.t</code></pre>
+        
+      </div>
+    </div>
+  
+  <section class="docstring">
+    <p>Retrieves the list of Zone resources available according to the given
+‘query_params’.</p>
+
+  </section>
+</div>
+<div class="detail" id="patch_autoscaler/4">
+  <div class="detail-header">
+    <a href="#patch_autoscaler/4" class="detail-link" title="Link to this function">
+      <i class="icon-link"></i>
+    </a>
+    <span class="signature">patch_autoscaler(zone, autoscaler_name, autoscaler_resource, fields \\ &quot;&quot;)</span>
+      
+  </div>
+  
+    <div class="specs">
+      <h4 class="specs-title">Specs</h4>
+      <div class="specs-list">
+        
+          <pre><code class="elixir">patch_autoscaler(zone :: binary, autoscaler_name :: binary, autoscaler_resource :: <a href="http://elixir-lang.org/docs/stable/elixir/Map.html#t:t/0">Map.t</a>, fields :: binary) :: HTTPResponse.t</code></pre>
+        
+      </div>
+    </div>
+  
+  <section class="docstring">
+    <p>Updates ‘autoscaler_name’ in the specified ‘zone’ using the data included in
+the ‘autoscaler_resource’. This function supports patch semantics.</p>
+
+  </section>
+</div>
+<div class="detail" id="patch_firewall/3">
+  <div class="detail-header">
+    <a href="#patch_firewall/3" class="detail-link" title="Link to this function">
+      <i class="icon-link"></i>
+    </a>
+    <span class="signature">patch_firewall(firewall, firewall_resource, fields \\ &quot;&quot;)</span>
+      
+  </div>
+  
+    <div class="specs">
+      <h4 class="specs-title">Specs</h4>
+      <div class="specs-list">
+        
+          <pre><code class="elixir">patch_firewall(firewall :: binary, firewall_resource :: <a href="http://elixir-lang.org/docs/stable/elixir/Map.html#t:t/0">Map.t</a>, fields :: binary) :: HTTPResponse.t</code></pre>
+        
+      </div>
+    </div>
+  
+  <section class="docstring">
+    <p>Updates the specified ‘firewall’ rule with the data included in the 
+‘firewall_resource’. This function supports patch semantics.</p>
+
+  </section>
+</div>
+<div class="detail" id="remove_instances_from_group/4">
+  <div class="detail-header">
+    <a href="#remove_instances_from_group/4" class="detail-link" title="Link to this function">
+      <i class="icon-link"></i>
+    </a>
+    <span class="signature">remove_instances_from_group(zone, instance_group, instances, fields \\ &quot;&quot;)</span>
+      
+  </div>
+  
+    <div class="specs">
+      <h4 class="specs-title">Specs</h4>
+      <div class="specs-list">
+        
+          <pre><code class="elixir">remove_instances_from_group(zone :: binary, insance_group :: binary, instances :: [binary], fields :: binary) :: HTTPResponse.t</code></pre>
+        
+      </div>
+    </div>
+  
+  <section class="docstring">
+    <p>Removes the ‘instances’ from the provided ‘instance_group’ if it exists in
+the given ‘zone’.</p>
+
+  </section>
+</div>
+<div class="detail" id="request/5">
+  <div class="detail-header">
+    <a href="#request/5" class="detail-link" title="Link to this function">
+      <i class="icon-link"></i>
+    </a>
+    <span class="signature">request(verb, endpoint, headers \\ [], body \\ &quot;&quot;, parameters \\ &quot;&quot;)</span>
+      
+  </div>
+  
+    <div class="specs">
+      <h4 class="specs-title">Specs</h4>
+      <div class="specs-list">
+        
+          <pre><code class="elixir">request(verb :: atom, endpoint :: binary, headers :: [{binary, binary}], body :: binary, parameters :: binary) :: HTTPResponse.t</code></pre>
+        
+      </div>
+    </div>
+  
+  <section class="docstring">
+    
+  </section>
+</div>
+<div class="detail" id="reset_instance/3">
+  <div class="detail-header">
+    <a href="#reset_instance/3" class="detail-link" title="Link to this function">
+      <i class="icon-link"></i>
+    </a>
+    <span class="signature">reset_instance(zone, instance, fields \\ &quot;&quot;)</span>
+      
+  </div>
+  
+    <div class="specs">
+      <h4 class="specs-title">Specs</h4>
+      <div class="specs-list">
+        
+          <pre><code class="elixir">reset_instance(zone :: binary, instance :: binary, fields :: binary) :: HTTPResponse.t</code></pre>
+        
+      </div>
+    </div>
+  
+  <section class="docstring">
+    <p>Performs a hard reset on the ‘instance’ if it exists in the given ‘zone’.</p>
+
+  </section>
+</div>
+<div class="detail" id="resize_disk/4">
+  <div class="detail-header">
+    <a href="#resize_disk/4" class="detail-link" title="Link to this function">
+      <i class="icon-link"></i>
+    </a>
+    <span class="signature">resize_disk(zone, disk, size_gb, fields \\ &quot;&quot;)</span>
+      
+  </div>
+  
+    <div class="specs">
+      <h4 class="specs-title">Specs</h4>
+      <div class="specs-list">
+        
+          <pre><code class="elixir">resize_disk(zone :: binary, disk :: binary, size_gb :: pos_integer, fields :: binary) :: HTTPResponse.t</code></pre>
+        
+      </div>
+    </div>
+  
+  <section class="docstring">
+    <p>Resizes the specified persistent ‘disk’ if it exists in the given ‘zone’ to 
+the provided ‘size_gb’.</p>
+
+  </section>
+</div>
+<div class="detail" id="set_disk_auto_delete/5">
+  <div class="detail-header">
+    <a href="#set_disk_auto_delete/5" class="detail-link" title="Link to this function">
+      <i class="icon-link"></i>
+    </a>
+    <span class="signature">set_disk_auto_delete(zone, instance, auto_delete, device_name, fields \\ &quot;&quot;)</span>
+      
+  </div>
+  
+    <div class="specs">
+      <h4 class="specs-title">Specs</h4>
+      <div class="specs-list">
+        
+          <pre><code class="elixir">set_disk_auto_delete(zone :: binary, instance :: binary, auto_delete :: boolean, device_name :: binary, fields :: binary) :: HTTPResponse.t</code></pre>
+        
+      </div>
+    </div>
+  
+  <section class="docstring">
+    <p>Sets the ‘auto_delete’ flag for the disk with ‘device_name’ attached to 
+‘instance’ if it exists in the given ‘zone’.</p>
+
+  </section>
+</div>
+<div class="detail" id="set_machine_type/4">
+  <div class="detail-header">
+    <a href="#set_machine_type/4" class="detail-link" title="Link to this function">
+      <i class="icon-link"></i>
+    </a>
+    <span class="signature">set_machine_type(zone, instance, machine_type, fields \\ &quot;&quot;)</span>
+      
+  </div>
+  
+    <div class="specs">
+      <h4 class="specs-title">Specs</h4>
+      <div class="specs-list">
+        
+          <pre><code class="elixir">set_machine_type(zone :: binary, instance :: binary, machine_type :: binary, fields :: binary) :: HTTPResponse.t</code></pre>
+        
+      </div>
+    </div>
+  
+  <section class="docstring">
+    <p>Changes the Machine Type for a stopped ‘instance’ to the specified 
+‘machine_type’ if the ‘instance’ exists in the given ‘zone’.</p>
+
+  </section>
+</div>
+<div class="detail" id="set_metadata/5">
+  <div class="detail-header">
+    <a href="#set_metadata/5" class="detail-link" title="Link to this function">
+      <i class="icon-link"></i>
+    </a>
+    <span class="signature">set_metadata(zone, instance, fingerprint, items, fields \\ &quot;&quot;)</span>
+      
+  </div>
+  
+    <div class="specs">
+      <h4 class="specs-title">Specs</h4>
+      <div class="specs-list">
+        
+          <pre><code class="elixir">set_metadata(zone :: binary, instance :: binary, fingerprint :: binary, items :: [map], fields :: binary) :: HTTPResponse.t</code></pre>
+        
+      </div>
+    </div>
+  
+  <section class="docstring">
+    <p>Sets metadata for the specified ‘instance’ to the data specified in 
+‘fingerprint’ and ‘items’. The ‘instance’ must exist in the given ‘zone’.</p>
+<p>The ‘items’ should be passed as a list of maps:
+  [</p>
+<pre><code class="elixir">%{
+  &quot;key&quot;   =&gt; &quot;some key value&quot;,
+  &quot;value&quot; =&gt; &quot;some value&quot;
+},
+%{
+  &quot;key&quot;   =&gt; &quot;some other key value&quot;,
+  &quot;value&quot; =&gt; &quot;some other value&quot;
+}</code></pre>
+<p>  ]</p>
+
+  </section>
+</div>
+<div class="detail" id="set_named_ports_for_group/5">
+  <div class="detail-header">
+    <a href="#set_named_ports_for_group/5" class="detail-link" title="Link to this function">
+      <i class="icon-link"></i>
+    </a>
+    <span class="signature">set_named_ports_for_group(zone, instance_group, ports, fingerprint \\ &quot;&quot;, fields \\ &quot;&quot;)</span>
+      
+  </div>
+  
+    <div class="specs">
+      <h4 class="specs-title">Specs</h4>
+      <div class="specs-list">
+        
+          <pre><code class="elixir">set_named_ports_for_group(zone :: binary, instance_group :: binary, ports :: [{name :: binary, port :: binary}], fingerprint :: binary, fields :: binary) :: HTTPResponse.t</code></pre>
+        
+      </div>
+    </div>
+  
+  <section class="docstring">
+    <p>Sets the named ‘ports’ for the specified ‘instance_group’ if it exists in the
+given ‘zone’. The ‘ports’ must be passed as a list of tuples with the format
+{<name>, <port>}.</p>
+
+  </section>
+</div>
+<div class="detail" id="set_scheduling/4">
+  <div class="detail-header">
+    <a href="#set_scheduling/4" class="detail-link" title="Link to this function">
+      <i class="icon-link"></i>
+    </a>
+    <span class="signature">set_scheduling(zone, instance, arg, fields \\ &quot;&quot;)</span>
+      
+  </div>
+  
+    <div class="specs">
+      <h4 class="specs-title">Specs</h4>
+      <div class="specs-list">
+        
+          <pre><code class="elixir">set_scheduling(zone :: binary, instance :: binary, {on_host_maintenance :: binary, automatic_restart :: boolean, preemptible :: boolean}, fields :: binary) :: HTTPResponse.t</code></pre>
+        
+      </div>
+    </div>
+  
+  <section class="docstring">
+    <p>Sets an ‘instance’ scheduling options if it exists in the given ‘zone’. The
+‘preemptible’ option cannot be changed after instance creation.</p>
+
+  </section>
+</div>
+<div class="detail" id="set_tags/5">
+  <div class="detail-header">
+    <a href="#set_tags/5" class="detail-link" title="Link to this function">
+      <i class="icon-link"></i>
+    </a>
+    <span class="signature">set_tags(zone, instance, fingerprint, items, fields \\ &quot;&quot;)</span>
+      
+  </div>
+  
+    <div class="specs">
+      <h4 class="specs-title">Specs</h4>
+      <div class="specs-list">
+        
+          <pre><code class="elixir">set_tags(zone :: binary, instance :: binary, fingerprint :: binary, items :: [binary], fields :: binary) :: HTTPResponse.t</code></pre>
+        
+      </div>
+    </div>
+  
+  <section class="docstring">
+    <p>Sets tags for the specified ‘instance’ to the given ‘fingerprint’ and ‘items’.
+The ‘instance’ must exist in the given ‘zone’.</p>
+
+  </section>
+</div>
+<div class="detail" id="start_instance/3">
+  <div class="detail-header">
+    <a href="#start_instance/3" class="detail-link" title="Link to this function">
+      <i class="icon-link"></i>
+    </a>
+    <span class="signature">start_instance(zone, instance, fields \\ &quot;&quot;)</span>
+      
+  </div>
+  
+    <div class="specs">
+      <h4 class="specs-title">Specs</h4>
+      <div class="specs-list">
+        
+          <pre><code class="elixir">start_instance(zone :: binary, instance :: binary, fields :: binary) :: HTTPResponse.t</code></pre>
+        
+      </div>
+    </div>
+  
+  <section class="docstring">
+    <p>Starts a stopped ‘instance’ if it exists in the given ‘zone’.</p>
+
+  </section>
+</div>
+<div class="detail" id="stop_instance/3">
+  <div class="detail-header">
+    <a href="#stop_instance/3" class="detail-link" title="Link to this function">
+      <i class="icon-link"></i>
+    </a>
+    <span class="signature">stop_instance(zone, instance, fields \\ &quot;&quot;)</span>
+      
+  </div>
+  
+    <div class="specs">
+      <h4 class="specs-title">Specs</h4>
+      <div class="specs-list">
+        
+          <pre><code class="elixir">stop_instance(zone :: binary, instance :: binary, fields :: binary) :: HTTPResponse.t</code></pre>
+        
+      </div>
+    </div>
+  
+  <section class="docstring">
+    <p>Stops a running ‘instance’ if it exists in the given ‘zone’.</p>
+
+  </section>
+</div>
+<div class="detail" id="update_autoscaler/4">
+  <div class="detail-header">
+    <a href="#update_autoscaler/4" class="detail-link" title="Link to this function">
+      <i class="icon-link"></i>
+    </a>
+    <span class="signature">update_autoscaler(zone, autoscaler_name \\ &quot;&quot;, autoscaler_resource, fields \\ &quot;&quot;)</span>
+      
+  </div>
+  
+    <div class="specs">
+      <h4 class="specs-title">Specs</h4>
+      <div class="specs-list">
+        
+          <pre><code class="elixir">update_autoscaler(zone :: binary, autoscaler_name :: binary, autoscaler_resource :: <a href="http://elixir-lang.org/docs/stable/elixir/Map.html#t:t/0">Map.t</a>, fields :: binary) :: HTTPResponse.t</code></pre>
+        
+      </div>
+    </div>
+  
+  <section class="docstring">
+    <p>Updates an autoscaler in the specified ‘zone’ using the data included in 
+the ‘autoscaler_resource’. The ‘autoscaler_name’ may be provided but it’s
+optional.</p>
+
+  </section>
+</div>
+<div class="detail" id="update_firewall/3">
+  <div class="detail-header">
+    <a href="#update_firewall/3" class="detail-link" title="Link to this function">
+      <i class="icon-link"></i>
+    </a>
+    <span class="signature">update_firewall(firewall, firewall_resource, fields \\ &quot;&quot;)</span>
+      
+  </div>
+  
+    <div class="specs">
+      <h4 class="specs-title">Specs</h4>
+      <div class="specs-list">
+        
+          <pre><code class="elixir">update_firewall(firewall :: binary, firewall_resource :: map, fields :: binary) :: HTTPResponse.t</code></pre>
+        
+      </div>
+    </div>
+  
+  <section class="docstring">
+    <p>Updates the specified ‘firewall’ rule with the data included in the 
+‘firewall_resource’.</p>
+
+  </section>
+</div>
+
+        </section>
+      
+
+      
+
+      
+        <footer class="footer">
+      <p>
+        <span class="line">
+          Built using
+          <a href="https://github.com/elixir-lang/ex_doc" title="ExDoc" rel="help" target="_blank">ExDoc</a> (v0.11.5),
+        </span>
+        <span class="line">
+          designed by
+          <a href="https://twitter.com/dignifiedquire" target="_blank" title="@dignifiedquire">Friedel Ziegelmayer</a>.
+          </span>
+      </p>
+      <button class="night-mode-toggle" />
+    </footer>
+  </div>
+</section>
+</div>
+  <script src="dist/app-918614602f.js"></script>
+  </body>
+</html>
+

@@ -1,0 +1,1342 @@
+    <!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="ExDoc v0.11.5">
+    <title>GCloudex.CloudSQL.Client – gcloudex v0.4.3</title>
+    <link rel="stylesheet" href="dist/app-ddd9717ad9.css" />
+    
+      <link rel="canonical" href="https://hexdocs.pm/gcloudex/GCloudex.CloudSQL.Client.html" />
+    
+    <script src="dist/sidebar_items.js"></script>
+  </head>
+  <body data-type="modules">
+
+    <div class="main">
+<button class="sidebar-toggle">
+  <i class="icon-menu"></i>
+</button>
+<section class="sidebar">
+  <button class="sidebar-toggle">
+    <i class="icon-menu"></i>
+  </button>
+
+  
+  <a href="api-reference.html" class="sidebar-projectLink">
+    <div class="sidebar-projectDetails">
+      <h1 class="sidebar-projectName">
+        gcloudex
+      </h1>
+      <h2 class="sidebar-projectVersion">
+        v0.4.3
+      </h2>
+    </div>
+    
+  </a>
+
+  <div class="sidebar-search">
+    <i class="icon-search"></i>
+    <input type="text" class="sidebar-searchInput" placeholder="search" autocomplete="off" />
+  </div>
+
+  <ul class="sidebar-listNav">
+    <li><a id="extras-list" href="#full-list">Pages</a></li>
+
+    
+      <li><a id="modules-list" href="#full-list">Modules</a></li>
+    
+
+    
+
+    
+  </ul>
+
+  <ul id="full-list" class="sidebar-fullList"></ul>
+  <div class="sidebar-noResults"></div>
+</section>
+
+<section class="content">
+  <div id="content" class="content-inner">
+
+
+      <h1>
+        <small class="visible-xs">gcloudex v0.4.3</small>
+        GCloudex.CloudSQL.Client
+        
+        
+      </h1>
+
+      
+
+      
+        <section id="summary" class="details-list">
+          <h1 class="section-heading">
+            <a class="hover-link" href="#summary">
+              <i class="icon-link"></i>
+            </a>
+            Summary
+          </h1>
+          
+
+          
+  <div class="summary-functions summary">
+    <h2>
+      <a href="#functions">Functions</a>
+    </h2>
+    <div class="summary-row">
+  <div class="summary-signature">
+    <a href="#clone_instance/4">clone_instance(instance, dest_name, bin_log_file, bin_log_pos)</a>
+  </div>
+  
+    <div class="summary-synopsis"><p>Clones the given ‘instance’ and gives the new instance the chosen ‘dest_name’
+and the given ‘bin_log_file’ and ‘bin_log_pos’</p>
+</div>
+  
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#create_ephemeral_ssl_cert/2">create_ephemeral_ssl_cert(instance, public_key)</a>
+  </div>
+  
+    <div class="summary-synopsis"><p>Generates a short-lived X509 certificate containing the provided ‘public_key’ 
+and signed by a private key specific to the target ‘instance’. Users may use 
+the certificate to authenticate as themselves when connecting to the database</p>
+</div>
+  
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#delete_backup_run/2">delete_backup_run(instance, run_id)</a>
+  </div>
+  
+    <div class="summary-synopsis"><p>Deletes the backup taken by a backup run with ID ‘run_id’ and belonging to 
+the given ‘instance’</p>
+</div>
+  
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#delete_database/2">delete_database(instance, database)</a>
+  </div>
+  
+    <div class="summary-synopsis"><p>Deletes the ‘database’ from the Cloud SQL ‘instance’</p>
+</div>
+  
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#delete_instance/1">delete_instance(instance)</a>
+  </div>
+  
+    <div class="summary-synopsis"><p>Deletes the given ‘instance’ from the project</p>
+</div>
+  
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#delete_ssl_cert/2">delete_ssl_cert(instance, sha1_fingerprint)</a>
+  </div>
+  
+    <div class="summary-synopsis"><p>Deletes the SSL certificate with the given ‘sha1_fingerprint’ from the 
+specified ‘instance’</p>
+</div>
+  
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#delete_user/3">delete_user(instance, host, name)</a>
+  </div>
+  
+    <div class="summary-synopsis"><p>Deletes a user with the given ‘host’ and ‘name’ from the Cloud SQL ‘instance’</p>
+</div>
+  
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#failover_instance/2">failover_instance(instance, settings_version)</a>
+  </div>
+  
+    <div class="summary-synopsis"><p>Failover the ‘instance’ to its failover replica instance with the 
+specified ‘settings_version’</p>
+</div>
+  
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#get_backup_run/2">get_backup_run(instance, run_id)</a>
+  </div>
+  
+    <div class="summary-synopsis"><p>Retrieves a resource containing information about a backup run with the ID
+of ‘run_id’ and belonging to the given ‘instance’</p>
+</div>
+  
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#get_database/2">get_database(instance, database)</a>
+  </div>
+  
+    <div class="summary-synopsis"><p>Retrieves a resource containing information about the ‘database’ inside a
+Cloud SQL ‘instance’</p>
+</div>
+  
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#get_instance/1">get_instance(instance)</a>
+  </div>
+  
+    <div class="summary-synopsis"><p>Retrieves a resource containing information about the given 
+Cloud SQL ‘instance’</p>
+</div>
+  
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#get_operation/1">get_operation(operation_id)</a>
+  </div>
+  
+    <div class="summary-synopsis"><p>Retrieves the instance operation with ‘operation_id’ that has been 
+performed on an instance</p>
+</div>
+  
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#get_ssl_cert/2">get_ssl_cert(instance, sha1_fingerprint)</a>
+  </div>
+  
+    <div class="summary-synopsis"><p>Retrieves a particular SSL certificate belonging to the given ‘instance’ and 
+with the provided ‘sh1_fingerprint’. Does not include the private key 
+(required for usage). The private key must be saved from the response 
+to initial creation</p>
+</div>
+  
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#insert_database/2">insert_database(instance, name)</a>
+  </div>
+  
+    <div class="summary-synopsis"><p>Creates a new database inside the specified Cloud SQL ‘instance’ with the 
+given ‘name’</p>
+</div>
+  
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#insert_instance/4">insert_instance(name, optional_properties, settings, tier)</a>
+  </div>
+  
+    <div class="summary-synopsis"><p>Creates a new Cloud SQL instance with the specified ‘name’, ‘settings’,
+‘optional_properties’ and with the given ‘tier’ unless already passed through
+‘settings’</p>
+</div>
+  
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#insert_ssl_cert/2">insert_ssl_cert(instance, common_name)</a>
+  </div>
+  
+    <div class="summary-synopsis"><p>Creates an SSL certificate for the given ‘instance’ and gives it the name
+specified in ‘common_name’ and returns it along with the private key and 
+server certificate authority</p>
+</div>
+  
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#insert_user/4">insert_user(instance, name, password, host \\ &quot;%&quot;)</a>
+  </div>
+  
+    <div class="summary-synopsis"><p>Creates a new user in a Cloud SQL ‘instance’ with the given ‘name and
+‘password’. The authorized host to connect can be set through ‘host’
+(defaults to ‘% (any host)’)</p>
+</div>
+  
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#list_backup_runs/1">list_backup_runs(instance)</a>
+  </div>
+  
+    <div class="summary-synopsis"><p>Lists all backup runs associated with a given ‘instance’ and configuration 
+in the reverse chronological order of the backup initiation time</p>
+</div>
+  
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#list_databases/1">list_databases(instance)</a>
+  </div>
+  
+    <div class="summary-synopsis"><p>Lists databases in the specified Cloud SQL ‘instance’</p>
+</div>
+  
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#list_flags/0">list_flags()</a>
+  </div>
+  
+    <div class="summary-synopsis"><p>List all available database flags for Google the Cloud SQL ‘instance’</p>
+</div>
+  
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#list_instances/0">list_instances()</a>
+  </div>
+  
+    <div class="summary-synopsis"><p>List instances from the project</p>
+</div>
+  
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#list_operations/1">list_operations(instance)</a>
+  </div>
+  
+    <div class="summary-synopsis"><p>Lists all instance operations that have been performed on the given 
+Cloud SQL ‘instance’ in the reverse chronological order of the start time</p>
+</div>
+  
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#list_ssl_certs/1">list_ssl_certs(instance)</a>
+  </div>
+  
+    <div class="summary-synopsis"><p>Lists all of the current SSL certificates for the ‘instance’</p>
+</div>
+  
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#list_tiers/0">list_tiers()</a>
+  </div>
+  
+    <div class="summary-synopsis"><p>Lists all available service tiers for Google Cloud SQL, for example D1, D2</p>
+</div>
+  
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#list_users/1">list_users(instance)</a>
+  </div>
+  
+    <div class="summary-synopsis"><p>Lists users in the specified Cloud SQL ‘instance’</p>
+</div>
+  
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#patch_database/3">patch_database(instance, database, db_resource)</a>
+  </div>
+  
+    <div class="summary-synopsis"><p>Updates a resource containing information about a ‘database’ inside a 
+Cloud SQL ‘instance’ using patch semantics. The ‘db_resource’ must follow
+the description of Database Resources in:
+  <a href="https://cloud.google.com/sql/docs/admin-api/v1beta4/databases#resource">https://cloud.google.com/sql/docs/admin-api/v1beta4/databases#resource</a></p>
+</div>
+  
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#promote_replica/1">promote_replica(instance)</a>
+  </div>
+  
+    <div class="summary-synopsis"><p>Promotes the read replica ‘instance’ to be a stand-alone Cloud SQL instance</p>
+</div>
+  
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#request/4">request(verb, endpoint, headers \\ [], body \\ &quot;&quot;)</a>
+  </div>
+  
+    <div class="summary-synopsis"><p>Sends a HTTP request with the given ‘verb’, ‘headers’ and ‘body’ to the 
+specified ‘endpoint’. The authorization and google project headers are 
+added automatically</p>
+</div>
+  
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#request_query/5">request_query(verb, endpoint, headers \\ [], body \\ &quot;&quot;, parameters)</a>
+  </div>
+  
+    <div class="summary-synopsis"><p>Sends a HTTP request with the given ‘verb’, ‘headers’, ‘body’ and query
+‘parameters’ to the specified ‘endpoint’. The authorization and google 
+project headers are added automatically</p>
+</div>
+  
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#reset_ssl_config/1">reset_ssl_config(instance)</a>
+  </div>
+  
+    <div class="summary-synopsis"><p>Deletes all client certificates and generates a new server SSL certificate
+for the ‘instance’</p>
+</div>
+  
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#restart_instance/1">restart_instance(instance)</a>
+  </div>
+  
+    <div class="summary-synopsis"><p>Restarts the given ‘instance’</p>
+</div>
+  
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#start_replica/1">start_replica(instance)</a>
+  </div>
+  
+    <div class="summary-synopsis"><p>Starts the replication in the read replica ‘instance’</p>
+</div>
+  
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#stop_replica/1">stop_replica(instance)</a>
+  </div>
+  
+    <div class="summary-synopsis"><p>Stops the replication in the read replica ‘instance’</p>
+</div>
+  
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#update_database/3">update_database(instance, database, db_resource)</a>
+  </div>
+  
+    <div class="summary-synopsis"><p>Updates a resource containing information about a ‘database’ inside a 
+Cloud SQL ‘instance’. The ‘update_map’ must be a Map</p>
+</div>
+  
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#update_user/4">update_user(instance, host, name, password)</a>
+  </div>
+  
+    <div class="summary-synopsis"><p>Updates an existing user in a Cloud SQL ‘instance’ with the given ‘host’,
+‘name’ and ‘password’</p>
+</div>
+  
+</div>
+
+  </div>
+
+
+          
+
+          
+
+        </section>
+      
+
+      
+
+      
+        <section id="functions" class="details-list">
+          <h1 class="section-heading">
+            <a class="hover-link" href="#functions">
+              <i class="icon-link"></i>
+            </a>
+            Functions
+          </h1>
+          <div class="detail" id="clone_instance/4">
+  <div class="detail-header">
+    <a href="#clone_instance/4" class="detail-link" title="Link to this function">
+      <i class="icon-link"></i>
+    </a>
+    <span class="signature">clone_instance(instance, dest_name, bin_log_file, bin_log_pos)</span>
+      
+  </div>
+  
+    <div class="specs">
+      <h4 class="specs-title">Specs</h4>
+      <div class="specs-list">
+        
+          <pre><code class="elixir">clone_instance(instance :: binary, dest_name :: binary, bin_log_file :: binary, bin_log_pos :: binary) :: HTTPResponse.t</code></pre>
+        
+      </div>
+    </div>
+  
+  <section class="docstring">
+    <p>Clones the given ‘instance’ and gives the new instance the chosen ‘dest_name’
+and the given ‘bin_log_file’ and ‘bin_log_pos’.</p>
+
+  </section>
+</div>
+<div class="detail" id="create_ephemeral_ssl_cert/2">
+  <div class="detail-header">
+    <a href="#create_ephemeral_ssl_cert/2" class="detail-link" title="Link to this function">
+      <i class="icon-link"></i>
+    </a>
+    <span class="signature">create_ephemeral_ssl_cert(instance, public_key)</span>
+      
+  </div>
+  
+    <div class="specs">
+      <h4 class="specs-title">Specs</h4>
+      <div class="specs-list">
+        
+          <pre><code class="elixir">create_ephemeral_ssl_cert(instance :: binary, public_key :: binary) :: HTTPResponse.t</code></pre>
+        
+      </div>
+    </div>
+  
+  <section class="docstring">
+    <p>Generates a short-lived X509 certificate containing the provided ‘public_key’ 
+and signed by a private key specific to the target ‘instance’. Users may use 
+the certificate to authenticate as themselves when connecting to the database.</p>
+
+  </section>
+</div>
+<div class="detail" id="delete_backup_run/2">
+  <div class="detail-header">
+    <a href="#delete_backup_run/2" class="detail-link" title="Link to this function">
+      <i class="icon-link"></i>
+    </a>
+    <span class="signature">delete_backup_run(instance, run_id)</span>
+      
+  </div>
+  
+    <div class="specs">
+      <h4 class="specs-title">Specs</h4>
+      <div class="specs-list">
+        
+          <pre><code class="elixir">delete_backup_run(instance :: binary, run_id :: binary | number) :: HTTPResponse.t</code></pre>
+        
+      </div>
+    </div>
+  
+  <section class="docstring">
+    <p>Deletes the backup taken by a backup run with ID ‘run_id’ and belonging to 
+the given ‘instance’. </p>
+
+  </section>
+</div>
+<div class="detail" id="delete_database/2">
+  <div class="detail-header">
+    <a href="#delete_database/2" class="detail-link" title="Link to this function">
+      <i class="icon-link"></i>
+    </a>
+    <span class="signature">delete_database(instance, database)</span>
+      
+  </div>
+  
+    <div class="specs">
+      <h4 class="specs-title">Specs</h4>
+      <div class="specs-list">
+        
+          <pre><code class="elixir">delete_database(instance :: binary, database :: binary) :: HTTPResponse.t</code></pre>
+        
+      </div>
+    </div>
+  
+  <section class="docstring">
+    <p>Deletes the ‘database’ from the Cloud SQL ‘instance’.</p>
+
+  </section>
+</div>
+<div class="detail" id="delete_instance/1">
+  <div class="detail-header">
+    <a href="#delete_instance/1" class="detail-link" title="Link to this function">
+      <i class="icon-link"></i>
+    </a>
+    <span class="signature">delete_instance(instance)</span>
+      
+  </div>
+  
+    <div class="specs">
+      <h4 class="specs-title">Specs</h4>
+      <div class="specs-list">
+        
+          <pre><code class="elixir">delete_instance(instance :: binary) :: HTTPResponse.t</code></pre>
+        
+      </div>
+    </div>
+  
+  <section class="docstring">
+    <p>Deletes the given ‘instance’ from the project.</p>
+
+  </section>
+</div>
+<div class="detail" id="delete_ssl_cert/2">
+  <div class="detail-header">
+    <a href="#delete_ssl_cert/2" class="detail-link" title="Link to this function">
+      <i class="icon-link"></i>
+    </a>
+    <span class="signature">delete_ssl_cert(instance, sha1_fingerprint)</span>
+      
+  </div>
+  
+    <div class="specs">
+      <h4 class="specs-title">Specs</h4>
+      <div class="specs-list">
+        
+          <pre><code class="elixir">delete_ssl_cert(instance :: binary, sha1_fingerprint :: binary) :: HTTPResponse.t</code></pre>
+        
+      </div>
+    </div>
+  
+  <section class="docstring">
+    <p>Deletes the SSL certificate with the given ‘sha1_fingerprint’ from the 
+specified ‘instance’.</p>
+
+  </section>
+</div>
+<div class="detail" id="delete_user/3">
+  <div class="detail-header">
+    <a href="#delete_user/3" class="detail-link" title="Link to this function">
+      <i class="icon-link"></i>
+    </a>
+    <span class="signature">delete_user(instance, host, name)</span>
+      
+  </div>
+  
+    <div class="specs">
+      <h4 class="specs-title">Specs</h4>
+      <div class="specs-list">
+        
+          <pre><code class="elixir">delete_user(instance :: binary, host :: binary, name :: binary) :: HTTPResponse.t</code></pre>
+        
+      </div>
+    </div>
+  
+  <section class="docstring">
+    <p>Deletes a user with the given ‘host’ and ‘name’ from the Cloud SQL ‘instance’.</p>
+
+  </section>
+</div>
+<div class="detail" id="failover_instance/2">
+  <div class="detail-header">
+    <a href="#failover_instance/2" class="detail-link" title="Link to this function">
+      <i class="icon-link"></i>
+    </a>
+    <span class="signature">failover_instance(instance, settings_version)</span>
+      
+  </div>
+  
+    <div class="specs">
+      <h4 class="specs-title">Specs</h4>
+      <div class="specs-list">
+        
+          <pre><code class="elixir">failover_instance(instance :: binary, settings_version :: number) :: HTTPResponse.t</code></pre>
+        
+      </div>
+    </div>
+  
+  <section class="docstring">
+    <p>Failover the ‘instance’ to its failover replica instance with the 
+specified ‘settings_version’.</p>
+
+  </section>
+</div>
+<div class="detail" id="get_backup_run/2">
+  <div class="detail-header">
+    <a href="#get_backup_run/2" class="detail-link" title="Link to this function">
+      <i class="icon-link"></i>
+    </a>
+    <span class="signature">get_backup_run(instance, run_id)</span>
+      
+  </div>
+  
+    <div class="specs">
+      <h4 class="specs-title">Specs</h4>
+      <div class="specs-list">
+        
+          <pre><code class="elixir">get_backup_run(instance :: binary, run_id :: binary | number) :: HTTPResponse.t</code></pre>
+        
+      </div>
+    </div>
+  
+  <section class="docstring">
+    <p>Retrieves a resource containing information about a backup run with the ID
+of ‘run_id’ and belonging to the given ‘instance’.</p>
+
+  </section>
+</div>
+<div class="detail" id="get_database/2">
+  <div class="detail-header">
+    <a href="#get_database/2" class="detail-link" title="Link to this function">
+      <i class="icon-link"></i>
+    </a>
+    <span class="signature">get_database(instance, database)</span>
+      
+  </div>
+  
+    <div class="specs">
+      <h4 class="specs-title">Specs</h4>
+      <div class="specs-list">
+        
+          <pre><code class="elixir">get_database(instance :: binary, database :: binary) :: HTTPResponse.t</code></pre>
+        
+      </div>
+    </div>
+  
+  <section class="docstring">
+    <p>Retrieves a resource containing information about the ‘database’ inside a
+Cloud SQL ‘instance’.</p>
+
+  </section>
+</div>
+<div class="detail" id="get_instance/1">
+  <div class="detail-header">
+    <a href="#get_instance/1" class="detail-link" title="Link to this function">
+      <i class="icon-link"></i>
+    </a>
+    <span class="signature">get_instance(instance)</span>
+      
+  </div>
+  
+    <div class="specs">
+      <h4 class="specs-title">Specs</h4>
+      <div class="specs-list">
+        
+          <pre><code class="elixir">get_instance(instance :: binary) :: HTTPResponse.t</code></pre>
+        
+      </div>
+    </div>
+  
+  <section class="docstring">
+    <p>Retrieves a resource containing information about the given 
+Cloud SQL ‘instance’.</p>
+
+  </section>
+</div>
+<div class="detail" id="get_operation/1">
+  <div class="detail-header">
+    <a href="#get_operation/1" class="detail-link" title="Link to this function">
+      <i class="icon-link"></i>
+    </a>
+    <span class="signature">get_operation(operation_id)</span>
+      
+  </div>
+  
+    <div class="specs">
+      <h4 class="specs-title">Specs</h4>
+      <div class="specs-list">
+        
+          <pre><code class="elixir">get_operation(operation_id :: binary) :: HTTPResponse.t</code></pre>
+        
+      </div>
+    </div>
+  
+  <section class="docstring">
+    <p>Retrieves the instance operation with ‘operation_id’ that has been 
+performed on an instance.</p>
+
+  </section>
+</div>
+<div class="detail" id="get_ssl_cert/2">
+  <div class="detail-header">
+    <a href="#get_ssl_cert/2" class="detail-link" title="Link to this function">
+      <i class="icon-link"></i>
+    </a>
+    <span class="signature">get_ssl_cert(instance, sha1_fingerprint)</span>
+      
+  </div>
+  
+    <div class="specs">
+      <h4 class="specs-title">Specs</h4>
+      <div class="specs-list">
+        
+          <pre><code class="elixir">get_ssl_cert(instance :: binary, sh1_fingerprint :: binary) :: HTTPResponse.t</code></pre>
+        
+      </div>
+    </div>
+  
+  <section class="docstring">
+    <p>Retrieves a particular SSL certificate belonging to the given ‘instance’ and 
+with the provided ‘sh1_fingerprint’. Does not include the private key 
+(required for usage). The private key must be saved from the response 
+to initial creation.</p>
+
+  </section>
+</div>
+<div class="detail" id="insert_database/2">
+  <div class="detail-header">
+    <a href="#insert_database/2" class="detail-link" title="Link to this function">
+      <i class="icon-link"></i>
+    </a>
+    <span class="signature">insert_database(instance, name)</span>
+      
+  </div>
+  
+    <div class="specs">
+      <h4 class="specs-title">Specs</h4>
+      <div class="specs-list">
+        
+          <pre><code class="elixir">insert_database(instance :: binary, name :: binary) :: HTTPResponse.t</code></pre>
+        
+      </div>
+    </div>
+  
+  <section class="docstring">
+    <p>Creates a new database inside the specified Cloud SQL ‘instance’ with the 
+given ‘name’.</p>
+
+  </section>
+</div>
+<div class="detail" id="insert_instance/4">
+  <div class="detail-header">
+    <a href="#insert_instance/4" class="detail-link" title="Link to this function">
+      <i class="icon-link"></i>
+    </a>
+    <span class="signature">insert_instance(name, optional_properties, settings, tier)</span>
+      
+  </div>
+  
+    <div class="specs">
+      <h4 class="specs-title">Specs</h4>
+      <div class="specs-list">
+        
+          <pre><code class="elixir">insert_instance(name :: binary, optional_properties :: map, settings :: map, tier :: binary) :: HTTPResponse.t</code></pre>
+        
+      </div>
+    </div>
+  
+  <section class="docstring">
+    <p>Creates a new Cloud SQL instance with the specified ‘name’, ‘settings’,
+‘optional_properties’ and with the given ‘tier’ unless already passed through
+‘settings’.</p>
+<p>The ‘settings’ parameter is meant to have the settings JSON nested object
+while ‘optional_properties’ is meant to have other non-required request
+fields like the ‘replicaConfiguration’ JSON nested object field. The 
+‘settings’ map will be nested into ‘optional_properties’ to match the 
+API’s request structure like in the following example:</p>
+<p>  optional_properties = 
+  %{</p>
+<pre><code class="elixir">name: &#39;name&#39;,
+region: someRegion,
+settings: %{
+  tier: &#39;tier&#39;,
+  other_key_1: someValue,
+  other_key_2: someValue
+},
+optional_prop_1: someValue,
+optional_prop_2: someValue</code></pre>
+<p>  }</p>
+<p>TODO: Re-evaluate how the optional fields should be passed.</p>
+
+  </section>
+</div>
+<div class="detail" id="insert_ssl_cert/2">
+  <div class="detail-header">
+    <a href="#insert_ssl_cert/2" class="detail-link" title="Link to this function">
+      <i class="icon-link"></i>
+    </a>
+    <span class="signature">insert_ssl_cert(instance, common_name)</span>
+      
+  </div>
+  
+    <div class="specs">
+      <h4 class="specs-title">Specs</h4>
+      <div class="specs-list">
+        
+          <pre><code class="elixir">insert_ssl_cert(instance :: binary, common_name :: binary) :: HTTPResponse.t</code></pre>
+        
+      </div>
+    </div>
+  
+  <section class="docstring">
+    <p>Creates an SSL certificate for the given ‘instance’ and gives it the name
+specified in ‘common_name’ and returns it along with the private key and 
+server certificate authority. </p>
+<p>For First Generation instances, the new certificate does not take effect 
+until the instance is restarted.</p>
+
+  </section>
+</div>
+<div class="detail" id="insert_user/4">
+  <div class="detail-header">
+    <a href="#insert_user/4" class="detail-link" title="Link to this function">
+      <i class="icon-link"></i>
+    </a>
+    <span class="signature">insert_user(instance, name, password, host \\ &quot;%&quot;)</span>
+      
+  </div>
+  
+    <div class="specs">
+      <h4 class="specs-title">Specs</h4>
+      <div class="specs-list">
+        
+          <pre><code class="elixir">insert_user(instance :: binary, name :: binary, password :: binary, host :: binary) :: HTTPResponse.t</code></pre>
+        
+      </div>
+    </div>
+  
+  <section class="docstring">
+    <p>Creates a new user in a Cloud SQL ‘instance’ with the given ‘name and
+‘password’. The authorized host to connect can be set through ‘host’
+(defaults to ‘% (any host)’).</p>
+
+  </section>
+</div>
+<div class="detail" id="list_backup_runs/1">
+  <div class="detail-header">
+    <a href="#list_backup_runs/1" class="detail-link" title="Link to this function">
+      <i class="icon-link"></i>
+    </a>
+    <span class="signature">list_backup_runs(instance)</span>
+      
+  </div>
+  
+    <div class="specs">
+      <h4 class="specs-title">Specs</h4>
+      <div class="specs-list">
+        
+          <pre><code class="elixir">list_backup_runs(instance :: binary) :: HTTPResponse.t</code></pre>
+        
+      </div>
+    </div>
+  
+  <section class="docstring">
+    <p>Lists all backup runs associated with a given ‘instance’ and configuration 
+in the reverse chronological order of the backup initiation time.</p>
+
+  </section>
+</div>
+<div class="detail" id="list_databases/1">
+  <div class="detail-header">
+    <a href="#list_databases/1" class="detail-link" title="Link to this function">
+      <i class="icon-link"></i>
+    </a>
+    <span class="signature">list_databases(instance)</span>
+      
+  </div>
+  
+    <div class="specs">
+      <h4 class="specs-title">Specs</h4>
+      <div class="specs-list">
+        
+          <pre><code class="elixir">list_databases(instance :: binary) :: HTTPResponse.t</code></pre>
+        
+      </div>
+    </div>
+  
+  <section class="docstring">
+    <p>Lists databases in the specified Cloud SQL ‘instance’.</p>
+
+  </section>
+</div>
+<div class="detail" id="list_flags/0">
+  <div class="detail-header">
+    <a href="#list_flags/0" class="detail-link" title="Link to this function">
+      <i class="icon-link"></i>
+    </a>
+    <span class="signature">list_flags()</span>
+      
+  </div>
+  
+    <div class="specs">
+      <h4 class="specs-title">Specs</h4>
+      <div class="specs-list">
+        
+          <pre><code class="elixir">list_flags :: HTTPResponse.t</code></pre>
+        
+      </div>
+    </div>
+  
+  <section class="docstring">
+    <p>List all available database flags for Google the Cloud SQL ‘instance’.</p>
+
+  </section>
+</div>
+<div class="detail" id="list_instances/0">
+  <div class="detail-header">
+    <a href="#list_instances/0" class="detail-link" title="Link to this function">
+      <i class="icon-link"></i>
+    </a>
+    <span class="signature">list_instances()</span>
+      
+  </div>
+  
+    <div class="specs">
+      <h4 class="specs-title">Specs</h4>
+      <div class="specs-list">
+        
+          <pre><code class="elixir">list_instances :: HTTPResponse.t</code></pre>
+        
+      </div>
+    </div>
+  
+  <section class="docstring">
+    <p>List instances from the project.</p>
+
+  </section>
+</div>
+<div class="detail" id="list_operations/1">
+  <div class="detail-header">
+    <a href="#list_operations/1" class="detail-link" title="Link to this function">
+      <i class="icon-link"></i>
+    </a>
+    <span class="signature">list_operations(instance)</span>
+      
+  </div>
+  
+    <div class="specs">
+      <h4 class="specs-title">Specs</h4>
+      <div class="specs-list">
+        
+          <pre><code class="elixir">list_operations(instance :: binary) :: HTTPResponse.t</code></pre>
+        
+      </div>
+    </div>
+  
+  <section class="docstring">
+    <p>Lists all instance operations that have been performed on the given 
+Cloud SQL ‘instance’ in the reverse chronological order of the start time.</p>
+
+  </section>
+</div>
+<div class="detail" id="list_ssl_certs/1">
+  <div class="detail-header">
+    <a href="#list_ssl_certs/1" class="detail-link" title="Link to this function">
+      <i class="icon-link"></i>
+    </a>
+    <span class="signature">list_ssl_certs(instance)</span>
+      
+  </div>
+  
+    <div class="specs">
+      <h4 class="specs-title">Specs</h4>
+      <div class="specs-list">
+        
+          <pre><code class="elixir">list_ssl_certs(instance :: binary) :: HTTPResponse.t</code></pre>
+        
+      </div>
+    </div>
+  
+  <section class="docstring">
+    <p>Lists all of the current SSL certificates for the ‘instance’.</p>
+
+  </section>
+</div>
+<div class="detail" id="list_tiers/0">
+  <div class="detail-header">
+    <a href="#list_tiers/0" class="detail-link" title="Link to this function">
+      <i class="icon-link"></i>
+    </a>
+    <span class="signature">list_tiers()</span>
+      
+  </div>
+  
+    <div class="specs">
+      <h4 class="specs-title">Specs</h4>
+      <div class="specs-list">
+        
+          <pre><code class="elixir">list_tiers :: HTTPResponse.t</code></pre>
+        
+      </div>
+    </div>
+  
+  <section class="docstring">
+    <p>Lists all available service tiers for Google Cloud SQL, for example D1, D2. </p>
+
+  </section>
+</div>
+<div class="detail" id="list_users/1">
+  <div class="detail-header">
+    <a href="#list_users/1" class="detail-link" title="Link to this function">
+      <i class="icon-link"></i>
+    </a>
+    <span class="signature">list_users(instance)</span>
+      
+  </div>
+  
+    <div class="specs">
+      <h4 class="specs-title">Specs</h4>
+      <div class="specs-list">
+        
+          <pre><code class="elixir">list_users(instance :: binary) :: HTTPResponse.t</code></pre>
+        
+      </div>
+    </div>
+  
+  <section class="docstring">
+    <p>Lists users in the specified Cloud SQL ‘instance’.</p>
+
+  </section>
+</div>
+<div class="detail" id="patch_database/3">
+  <div class="detail-header">
+    <a href="#patch_database/3" class="detail-link" title="Link to this function">
+      <i class="icon-link"></i>
+    </a>
+    <span class="signature">patch_database(instance, database, db_resource)</span>
+      
+  </div>
+  
+    <div class="specs">
+      <h4 class="specs-title">Specs</h4>
+      <div class="specs-list">
+        
+          <pre><code class="elixir">patch_database(instance :: binary, database :: binary, db_resource :: <a href="http://elixir-lang.org/docs/stable/elixir/Map.html#t:t/0">Map.t</a>) :: HTTPResponse.t</code></pre>
+        
+      </div>
+    </div>
+  
+  <section class="docstring">
+    <p>Updates a resource containing information about a ‘database’ inside a 
+Cloud SQL ‘instance’ using patch semantics. The ‘db_resource’ must follow
+the description of Database Resources in:
+  <a href="https://cloud.google.com/sql/docs/admin-api/v1beta4/databases#resource">https://cloud.google.com/sql/docs/admin-api/v1beta4/databases#resource</a></p>
+
+  </section>
+</div>
+<div class="detail" id="promote_replica/1">
+  <div class="detail-header">
+    <a href="#promote_replica/1" class="detail-link" title="Link to this function">
+      <i class="icon-link"></i>
+    </a>
+    <span class="signature">promote_replica(instance)</span>
+      
+  </div>
+  
+    <div class="specs">
+      <h4 class="specs-title">Specs</h4>
+      <div class="specs-list">
+        
+          <pre><code class="elixir">promote_replica(instance :: binary) :: HTTPResponse.t</code></pre>
+        
+      </div>
+    </div>
+  
+  <section class="docstring">
+    <p>Promotes the read replica ‘instance’ to be a stand-alone Cloud SQL instance.</p>
+
+  </section>
+</div>
+<div class="detail" id="request/4">
+  <div class="detail-header">
+    <a href="#request/4" class="detail-link" title="Link to this function">
+      <i class="icon-link"></i>
+    </a>
+    <span class="signature">request(verb, endpoint, headers \\ [], body \\ &quot;&quot;)</span>
+      
+  </div>
+  
+    <div class="specs">
+      <h4 class="specs-title">Specs</h4>
+      <div class="specs-list">
+        
+          <pre><code class="elixir">request(verb :: atom, endpoint :: binary, headers :: [{key :: binary, value :: binary}], body :: binary) :: HTTPoison.HTTPResponse.t</code></pre>
+        
+      </div>
+    </div>
+  
+  <section class="docstring">
+    <p>Sends a HTTP request with the given ‘verb’, ‘headers’ and ‘body’ to the 
+specified ‘endpoint’. The authorization and google project headers are 
+added automatically.</p>
+
+  </section>
+</div>
+<div class="detail" id="request_query/5">
+  <div class="detail-header">
+    <a href="#request_query/5" class="detail-link" title="Link to this function">
+      <i class="icon-link"></i>
+    </a>
+    <span class="signature">request_query(verb, endpoint, headers \\ [], body \\ &quot;&quot;, parameters)</span>
+      
+  </div>
+  
+    <div class="specs">
+      <h4 class="specs-title">Specs</h4>
+      <div class="specs-list">
+        
+          <pre><code class="elixir">request_query(verb :: atom, endpoint :: binary, headers :: [{key :: binary, value :: binary}], body :: binary, parameters :: binary) :: HTTPoison.HTTPResponse.t</code></pre>
+        
+      </div>
+    </div>
+  
+  <section class="docstring">
+    <p>Sends a HTTP request with the given ‘verb’, ‘headers’, ‘body’ and query
+‘parameters’ to the specified ‘endpoint’. The authorization and google 
+project headers are added automatically.</p>
+
+  </section>
+</div>
+<div class="detail" id="reset_ssl_config/1">
+  <div class="detail-header">
+    <a href="#reset_ssl_config/1" class="detail-link" title="Link to this function">
+      <i class="icon-link"></i>
+    </a>
+    <span class="signature">reset_ssl_config(instance)</span>
+      
+  </div>
+  
+    <div class="specs">
+      <h4 class="specs-title">Specs</h4>
+      <div class="specs-list">
+        
+          <pre><code class="elixir">reset_ssl_config(instance :: binary) :: HTTPResponse.t</code></pre>
+        
+      </div>
+    </div>
+  
+  <section class="docstring">
+    <p>Deletes all client certificates and generates a new server SSL certificate
+for the ‘instance’.</p>
+<p>For First Generation instances, the changes do not take effect until the
+instance is restarted. For Second Generation instances, the changes are
+immediate; all existing connections to the instance are broken.</p>
+
+  </section>
+</div>
+<div class="detail" id="restart_instance/1">
+  <div class="detail-header">
+    <a href="#restart_instance/1" class="detail-link" title="Link to this function">
+      <i class="icon-link"></i>
+    </a>
+    <span class="signature">restart_instance(instance)</span>
+      
+  </div>
+  
+    <div class="specs">
+      <h4 class="specs-title">Specs</h4>
+      <div class="specs-list">
+        
+          <pre><code class="elixir">restart_instance(instance :: binary) :: HTTPResponse.t</code></pre>
+        
+      </div>
+    </div>
+  
+  <section class="docstring">
+    <p>Restarts the given ‘instance’.</p>
+
+  </section>
+</div>
+<div class="detail" id="start_replica/1">
+  <div class="detail-header">
+    <a href="#start_replica/1" class="detail-link" title="Link to this function">
+      <i class="icon-link"></i>
+    </a>
+    <span class="signature">start_replica(instance)</span>
+      
+  </div>
+  
+    <div class="specs">
+      <h4 class="specs-title">Specs</h4>
+      <div class="specs-list">
+        
+          <pre><code class="elixir">start_replica(instance :: binary) :: HTTPResponse.t</code></pre>
+        
+      </div>
+    </div>
+  
+  <section class="docstring">
+    <p>Starts the replication in the read replica ‘instance’.</p>
+
+  </section>
+</div>
+<div class="detail" id="stop_replica/1">
+  <div class="detail-header">
+    <a href="#stop_replica/1" class="detail-link" title="Link to this function">
+      <i class="icon-link"></i>
+    </a>
+    <span class="signature">stop_replica(instance)</span>
+      
+  </div>
+  
+    <div class="specs">
+      <h4 class="specs-title">Specs</h4>
+      <div class="specs-list">
+        
+          <pre><code class="elixir">stop_replica(instance :: binary) :: HTTPResponse.t</code></pre>
+        
+      </div>
+    </div>
+  
+  <section class="docstring">
+    <p>Stops the replication in the read replica ‘instance’.</p>
+
+  </section>
+</div>
+<div class="detail" id="update_database/3">
+  <div class="detail-header">
+    <a href="#update_database/3" class="detail-link" title="Link to this function">
+      <i class="icon-link"></i>
+    </a>
+    <span class="signature">update_database(instance, database, db_resource)</span>
+      
+  </div>
+  
+    <div class="specs">
+      <h4 class="specs-title">Specs</h4>
+      <div class="specs-list">
+        
+          <pre><code class="elixir">update_database(instance :: binary, database :: binary, db_resource :: <a href="http://elixir-lang.org/docs/stable/elixir/Map.html#t:t/0">Map.t</a>) :: HTTPResponse.t</code></pre>
+        
+      </div>
+    </div>
+  
+  <section class="docstring">
+    <p>Updates a resource containing information about a ‘database’ inside a 
+Cloud SQL ‘instance’. The ‘update_map’ must be a Map.</p>
+
+  </section>
+</div>
+<div class="detail" id="update_user/4">
+  <div class="detail-header">
+    <a href="#update_user/4" class="detail-link" title="Link to this function">
+      <i class="icon-link"></i>
+    </a>
+    <span class="signature">update_user(instance, host, name, password)</span>
+      
+  </div>
+  
+    <div class="specs">
+      <h4 class="specs-title">Specs</h4>
+      <div class="specs-list">
+        
+          <pre><code class="elixir">update_user(instance :: binary, host :: binary, name :: binary, password :: binary) :: HTTPResponse.t</code></pre>
+        
+      </div>
+    </div>
+  
+  <section class="docstring">
+    <p>Updates an existing user in a Cloud SQL ‘instance’ with the given ‘host’,
+‘name’ and ‘password’.</p>
+
+  </section>
+</div>
+
+        </section>
+      
+
+      
+
+      
+        <footer class="footer">
+      <p>
+        <span class="line">
+          Built using
+          <a href="https://github.com/elixir-lang/ex_doc" title="ExDoc" rel="help" target="_blank">ExDoc</a> (v0.11.5),
+        </span>
+        <span class="line">
+          designed by
+          <a href="https://twitter.com/dignifiedquire" target="_blank" title="@dignifiedquire">Friedel Ziegelmayer</a>.
+          </span>
+      </p>
+      <button class="night-mode-toggle" />
+    </footer>
+  </div>
+</section>
+</div>
+  <script src="dist/app-918614602f.js"></script>
+  </body>
+</html>
+
