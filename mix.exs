@@ -1,7 +1,7 @@
 defmodule GCloudex.Mixfile do
   use Mix.Project
 
-  @version "0.4.3"
+  @version "0.4.4"
 
   def project do
     [
@@ -37,7 +37,7 @@ defmodule GCloudex.Mixfile do
     [
       {:httpoison, "~> 0.8.3"},
       {:goth,      "~> 0.1.2"},
-      {:poison,    "~> 2.1.0"},
+      {:poison,    "~> 1.2 or ~> 2.1"},
       {:credo,     "~> 0.3.13", only: [:dev, :test]},
       {:ex_doc,    ">= 0.11.0", only: [:dev]},
       {:earmark,   ">= 0.0.0"}
