@@ -396,7 +396,7 @@ defmodule GCloudex.ComputeEngine.Impl do
       end
 
       @doc """
-      Returns the specified 'image'.
+      Returns the specified private 'image'. For public images use 'get_public_image/3'.
       """
       @spec get_image(image :: binary, fields :: binary) :: HTTPResponse.t
       def get_image(image, fields \\ "") do 
@@ -408,6 +408,23 @@ defmodule GCloudex.ComputeEngine.Impl do
           end  
 
         request(:get, @no_zone_ep <> "/global/images/#{image}", [], "", query)
+      end
+
+      @doc"""
+      Returns the specified public 'image'. For private images use 'get_image/2'.
+      """
+      @spec get_public_image(image :: binary, project :: binary, fields :: binary) :: HTTPResponse.t
+      def get_public_image(image, project, fields \\ "") do
+        query = 
+          if fields == "" do
+            fields
+          else
+            %{"fields" => fields} |> URI.encode_query
+          end
+
+        new_ep = @no_zone_ep |> String.replace(@project_id, project)
+
+        request(:get, new_ep <> "/global/images/#{image}", [], "", query)
       end
 
       @doc """
