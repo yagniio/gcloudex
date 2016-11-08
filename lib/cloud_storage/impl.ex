@@ -336,12 +336,12 @@ defmodule GCloudex.CloudStorage.Impl do
              will create the directories if they do not exist.
       """
       @spec put_object(bucket :: binary, filepath :: binary, bucket_path :: binary) :: HTTPResponse.t
-      def put_object(bucket, filepath, bucket_path \\ :empty) do
+      def put_object(bucket, filepath, bucket_path \\ :empty, headers \\ []) do
         body = {:file, filepath}
 
         case bucket_path do
-          :empty -> request_query :put, bucket, [], body, filepath
-          _      -> request_query :put, bucket, [], body, bucket_path
+          :empty -> request_query :put, bucket, headers, body, filepath
+          _      -> request_query :put, bucket, headers, body, bucket_path
         end
       end
 
