@@ -12,8 +12,8 @@ defmodule GCloudex.Mixfile do
                    <> "Google Cloud Platform API's.",
      build_embedded: Mix.env == :prod,
      start_permanent: Mix.env == :prod,
-     deps: deps,
-     package: package
+     deps: deps(),
+     package: package()
     ]
   end
 
