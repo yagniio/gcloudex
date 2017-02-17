@@ -37,7 +37,7 @@ defmodule GCloudex.Mixfile do
     [
       {:httpoison, "~> 0.9 or ~> 0.10"},
       {:goth,      "~> 0.2.1"},
-      {:poison,    "~> 1.2 or ~> 2.1"},
+      {:poison,    "~> 1.2 or ~> 2.1 or ~> 3.1"},
       {:credo,     "~> 0.3.13", only: [:dev, :test]},
       {:ex_doc,    ">= 0.11.0", only: [:dev]},
       {:earmark,   ">= 0.0.0"}
