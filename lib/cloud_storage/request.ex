@@ -10,6 +10,7 @@ defmodule GCloudex.CloudStorage.Request do
   defmacro __using__(_opts) do 
     quote do
 
+      @timeout 1_000 * 60 * 10 #10 min
       @endpoint "storage.googleapis.com"
       @project_id GCloudex.get_project_id
 
@@ -27,7 +28,7 @@ defmodule GCloudex.CloudStorage.Request do
             {"x-goog-project-id", @project_id},
             {"Authorization", "Bearer #{Auth.get_token_storage(:full_control)}"}
           ],
-          []
+          [timeout: @timeout, recv_timeout: @timeout]
         )
       end
 
@@ -42,7 +43,7 @@ defmodule GCloudex.CloudStorage.Request do
           body,
           headers ++ [{"Authorization",
                        "Bearer #{Auth.get_token_storage(:full_control)}"}],
-          []
+          [timeout: @timeout, recv_timeout: @timeout]
         )
       end
 
@@ -57,7 +58,7 @@ defmodule GCloudex.CloudStorage.Request do
           body,
           headers ++ [{"Authorization",
                        "Bearer #{Auth.get_token_storage(:full_control)}"}],
-          []
+          [timeout: @timeout, recv_timeout: @timeout]
         )
       end
 
